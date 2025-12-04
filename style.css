@@ -6,45 +6,31 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Cinzel', serif; /* Títulos elegantes */
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent; /* IMPORTANTE: Quita el cuadro azul por defecto en Android */
 }
 
-/* Fuente secundaria para textos largos (más legible) */
+/* Fuente secundaria para textos largos */
 p, label, input, select, .btn-instagram {
     font-family: 'Lato', sans-serif;
 }
 
-/* --- SCROLLBAR PERSONALIZADO (Chrome/Edge/Safari) --- */
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background: #050505; 
-}
-::-webkit-scrollbar-thumb {
-    background: #333; 
-    border-radius: 5px;
-    border: 1px solid #D4AF37;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #D4AF37; 
-}
+/* --- SCROLLBAR PERSONALIZADO --- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 1px solid #D4AF37; }
+::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
 /* Body */
 body { 
     background-color: #050505; 
     color: #e0e0e0; 
     padding-top: 60px;
-    /* Patrón de fondo sutil */
     background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
     background-size: 30px 30px;
     overflow-x: hidden;
 }
 
-body.modal-open {
-    overflow: hidden;
-    padding-right: 0px;
-}
+body.modal-open { overflow: hidden; padding-right: 0px; }
 
 /* Variables */
 :root {
@@ -57,7 +43,7 @@ body.modal-open {
 }
 
 /* =========================================
-   2. NAVEGACIÓN
+   2. NAVEGACIÓN (CON FIX PARA CELULAR)
    ========================================= */
 nav {
     position: fixed; top: 0; left: 0; width: 100%;
@@ -73,32 +59,63 @@ nav {
     max-width: 1200px; margin: 0 auto; 
 }
 
+/* --- BOTÓN INSTAGRAM --- */
 .btn-instagram {
     display: flex; align-items: center; gap: 8px;
     text-decoration: none; color: var(--gold-primary);
     font-weight: bold; font-size: 0.9rem;
     padding: 6px 14px; border-radius: 20px;
-    transition: var(--transicion-rapida);
+    transition: transform 0.1s, background 0.2s; /* Transición rápida para toque */
     border: 1px solid transparent;
 }
-.btn-instagram:hover {
-    color: var(--gold-light);
-    background: rgba(212, 175, 55, 0.1);
-    border-color: var(--gold-primary);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-}
-.btn-instagram svg { stroke: currentColor; transition: transform 0.2s; }
-.btn-instagram:hover svg { transform: scale(1.1) rotate(5deg); } /* Pequeña rotación divertida */
 
+.btn-instagram svg { stroke: currentColor; transition: transform 0.2s; }
+
+/* LÓGICA ANTI-PEGAJOSA:
+   El efecto "hover" (mantenerse iluminado) SOLO se activa si el dispositivo
+   tiene un cursor real (mouse). Si es táctil, se ignora. */
+@media (hover: hover) {
+    .btn-instagram:hover {
+        color: var(--gold-light);
+        background: rgba(212, 175, 55, 0.1);
+        border-color: var(--gold-primary);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        transform: translateY(-2px);
+    }
+    .btn-instagram:hover svg { transform: scale(1.1) rotate(5deg); }
+}
+
+/* EFECTO TÁCTIL (ACTIVE):
+   Esto es lo que pasa cuando pones el dedo. Al soltar, desaparece. */
+.btn-instagram:active {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--gold-light);
+    transform: scale(0.95); /* Pequeño efecto de presión */
+    border-color: var(--gold-dark);
+}
+
+/* --- BOTÓN INICIO --- */
 .btn-inicio { 
     background: transparent; border: 1px solid var(--gold-primary); 
     color: var(--gold-primary); padding: 6px 15px; border-radius: 20px; 
-    cursor: pointer; transition: var(--transicion-rapida); font-size: 0.8rem;
-    font-family: 'Lato', sans-serif; font-weight: bold;
+    cursor: pointer; transition: transform 0.1s, background 0.2s; 
+    font-size: 0.8rem; font-family: 'Lato', sans-serif; font-weight: bold;
 }
-.btn-inicio:hover { 
-    background: var(--gold-primary); color: black; 
-    box-shadow: 0 0 10px var(--gold-primary);
+
+/* Solo hover en PC */
+@media (hover: hover) {
+    .btn-inicio:hover { 
+        background: var(--gold-primary); color: black; 
+        box-shadow: 0 0 10px var(--gold-primary);
+        transform: translateY(-2px);
+    }
+}
+
+/* Efecto al tocar en celular */
+.btn-inicio:active {
+    background: var(--gold-dark); 
+    color: black;
+    transform: scale(0.95);
 }
 
 /* =========================================
@@ -157,10 +174,23 @@ header {
     background: #000;
 }
 
-.tarjeta-categoria:hover { 
-    transform: translateY(-8px); 
-    border-color: var(--gold-primary); 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+/* Hover solo en PC para las tarjetas también */
+@media (hover: hover) {
+    .tarjeta-categoria:hover { 
+        transform: translateY(-8px); 
+        border-color: var(--gold-primary); 
+        box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    }
+    .tarjeta-categoria:hover img { 
+        filter: brightness(0.5) grayscale(0%); 
+        transform: scale(1.1); 
+    }
+}
+
+/* Active en Celular */
+.tarjeta-categoria:active {
+    transform: scale(0.98);
+    border-color: var(--gold-dark);
 }
 
 .tarjeta-categoria img { 
@@ -169,10 +199,6 @@ header {
     filter: brightness(0.35) grayscale(20%);
     transition: filter 0.5s, transform 0.6s;
     z-index: 1;
-}
-.tarjeta-categoria:hover img { 
-    filter: brightness(0.5) grayscale(0%); 
-    transform: scale(1.1); 
 }
 
 .contenido-cat { position: relative; z-index: 2; width: 100%; padding: 15px; }
@@ -223,9 +249,13 @@ header {
     overflow: hidden; display: flex; flex-direction: column;
     transition: all 0.3s; position: relative;
 }
-.tarjeta-producto:hover { 
-    border-color: var(--gold-dark); transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+@media (hover: hover) {
+    .tarjeta-producto:hover { 
+        border-color: var(--gold-dark); transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .tarjeta-producto:hover .img-wrapper img { transform: scale(1.08); }
 }
 
 .img-wrapper { height: 230px; overflow: hidden; position: relative; }
@@ -233,7 +263,6 @@ header {
     width: 100%; height: 100%; object-fit: cover; 
     transition: transform 0.5s ease;
 }
-.tarjeta-producto:hover .img-wrapper img { transform: scale(1.08); }
 
 .etiqueta-oferta {
     position: absolute; top: 10px; left: 10px;
@@ -262,9 +291,15 @@ header {
     padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;
     font-family: 'Lato', sans-serif;
 }
-.btn-ver-detalles:hover { 
-    background: var(--gold-primary); color: black; 
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+.btn-ver-detalles:active {
+    background: var(--gold-primary); color: black;
+    transform: scale(0.98);
+}
+@media (hover: hover) {
+    .btn-ver-detalles:hover { 
+        background: var(--gold-primary); color: black; 
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
 }
 
 /* =========================================
@@ -275,7 +310,7 @@ header {
     width: 100%; height: 100%; 
     background: rgba(0,0,0,0.95); 
     justify-content: center; align-items: center;
-    backdrop-filter: blur(8px); /* Blur aumentado */
+    backdrop-filter: blur(8px);
     opacity: 0; animation: fadeInModal 0.3s forwards;
 }
 @keyframes fadeInModal { to { opacity: 1; } }
@@ -352,7 +387,10 @@ select:focus, input:focus { border-color: var(--gold-primary); outline: none; }
     transition: 0.3s; box-shadow: 0 5px 15px rgba(170, 119, 28, 0.3);
     font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px;
 }
-.boton-pedir:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.boton-pedir:active { transform: scale(0.95); filter: brightness(0.9); }
+@media (hover: hover) {
+    .boton-pedir:hover { transform: translateY(-2px); filter: brightness(1.1); }
+}
 
 /* =========================================
    7. FOOTER
