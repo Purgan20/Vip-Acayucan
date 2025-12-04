@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vip Acayucan - Gold Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav data-aos="fade-down">
+        <div class="nav-content">
+            <!-- Botón de Instagram (Reemplaza a VP GOLD) -->
+            <a href="https://www.instagram.com/acyn_vp/" target="_blank" class="btn-instagram">
+                <!-- Icono de Instagram (SVG para que se vea nítido) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                Instagram
+            </a>
+
+            <button class="btn-inicio" onclick="irAlInicio()">🏠 Inicio</button>
+        </div>
+    </nav>
+
+    <!-- =========================================
+         SECCIÓN 1: EL PASILLO (CATEGORÍAS)
+    ========================================== -->
+    <section id="seccion-categorias" class="pantalla-activa">
+        
+        <!-- HEADER INTEGRADO -->
+        <header data-aos="fade-in" data-aos-duration="1500">
+            <div class="header-overlay">
+                <h1 class="texto-oro-liquido">VP</h1>
+                <p class="slogan">VIP ACAYUCAN</p>
+            </div>
+        </header>
+
+        <div class="contenedor-categorias">
+            <div class="tarjeta-categoria" onclick="mostrarCatalogoVapes()" data-aos="zoom-in">
+                <img src="https://via.placeholder.com/400x300?text=Seccion+Vapes" alt="Vapes">
+                <div class="contenido-cat">
+                    <h2>Vapes & Pods</h2>
+                    <p>Colección Premium</p>
+                    <span class="btn-entrar">Ver Catálogo 👉</span>
+                </div>
+            </div>
+
+            <div class="tarjeta-categoria" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://via.placeholder.com/400x300?text=Seccion+Ropa" alt="Ropa">
+                <div class="contenido-cat">
+                    <h2>Ropa Exclusiva</h2>
+                    <p>Próximamente</p>
+                    <span class="btn-entrar">Cerrado 🔒</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         SECCIÓN 2: CATÁLOGO DE VAPES
+    ========================================== -->
+    <section id="seccion-vapes" class="pantalla-oculta">
+        <div class="header-seccion" data-aos="fade-down">
+            <h2 class="titulo-dorado">Colección Vapes</h2>
+            <button class="btn-volver" onclick="irAlInicio()">⬅ Volver a Categorías</button>
+        </div>
+
+        <div class="grid-productos" id="grid-vapes"></div>
+    </section>
+
+
+    <!-- =========================================
+         MODAL DE PEDIDO
+    ========================================== -->
+    <div id="modal-pedido" class="modal">
+        <div class="modal-content">
+            <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+            
+            <h3 id="modal-titulo-producto">Producto</h3>
+            
+            <div class="info-fila">
+                <span class="precio-modal" id="modal-precio">$0</span>
+                <div class="stock-container">
+                    <span class="punto-parpadeante"></span>
+                    <span class="stock-texto">En Stock</span>
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label>Sabor:</label>
+                <select id="sabor-seleccionado">
+                    <option value="" disabled selected>-- Elige sabor --</option>
+                    <option value="Menta Helada">🧊 Menta Helada</option>
+                    <option value="Sandía Ice">🍉 Sandía Ice</option>
+                    <option value="Blueberry">🫐 Blueberry</option>
+                    <option value="Uva">🍇 Uva</option>
+                    <option value="Mango">🥭 Mango Tropical</option>
+                    <option value="Fresa Kiwi">🍓🥝 Fresa Kiwi</option>
+                </select>
+            </div>
+
+            <div class="grupo-input">
+                <label>Cantidad:</label>
+                <input type="number" id="cantidad-seleccionada" value="1" min="1" max="10" onchange="actualizarTotal()">
+            </div>
+
+            <div class="grupo-input">
+                <label>Pago:</label>
+                <div class="opciones-pago">
+                    <label class="radio-container">
+                        <input type="radio" name="pago" value="Transferencia" checked>
+                        <span class="radio-checkmark"></span> Transf.
+                    </label>
+                    <label class="radio-container">
+                        <input type="radio" name="pago" value="Efectivo">
+                        <span class="radio-checkmark"></span> Efectivo
+                    </label>
+                </div>
+            </div>
+
+            <div class="total-display">
+                Total: <span id="total-precio">$0</span> MXN
+            </div>
+
+            <button class="boton-pedir" onclick="enviarWhatsapp()">
+                Confirmar y Enviar 📱
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 VP Gold Acayucan</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // --- TUS PRODUCTOS ---
+        const listaVapes = [
+            { id: 1, nombre: "Vape Gold Edition 5k", precio: 350, img: "https://via.placeholder.com/300x250?text=Gold+5k" },
+            { id: 2, nombre: "ElfBar BC5000", precio: 380, img: "https://via.placeholder.com/300x250?text=ElfBar" },
+            { id: 3, nombre: "Maskking High Pro", precio: 250, img: "https://via.placeholder.com/300x250?text=Maskking" },
+            { id: 4, nombre: "Waka Smash 6000", precio: 400, img: "https://via.placeholder.com/300x250?text=Waka" },
+            { id: 5, nombre: "Ignite V50", precio: 450, img: "https://via.placeholder.com/300x250?text=Ignite" },
+            { id: 6, nombre: "Lost Mary OS5000", precio: 390, img: "https://via.placeholder.com/300x250?text=Lost+Mary" },
+            { id: 7, nombre: "Vape Soul Smile", precio: 300, img: "https://via.placeholder.com/300x250?text=Vape+Soul" },
+            { id: 8, nombre: "Geek Bar Pulse", precio: 420, img: "https://via.placeholder.com/300x250?text=Geek+Bar" },
+            { id: 9, nombre: "Oxbar Magic Maze", precio: 410, img: "https://via.placeholder.com/300x250?text=Oxbar" },
+            { id: 10, nombre: "Pluto 7000 Puffs", precio: 480, img: "https://via.placeholder.com/300x250?text=Pluto" }
+        ];
+
+        let productoActual = null;
+
+        function irAlInicio() {
+            document.getElementById('seccion-categorias').style.display = 'block';
+            document.getElementById('seccion-vapes').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+
+        function mostrarCatalogoVapes() {
+            document.getElementById('seccion-categorias').style.display = 'none';
+            document.getElementById('seccion-vapes').style.display = 'block';
+            renderizarVapes();
+            window.scrollTo(0,0);
+        }
+
+        function renderizarVapes() {
+            const contenedor = document.getElementById('grid-vapes');
+            if(contenedor.innerHTML !== "") return; 
+
+            listaVapes.forEach(vape => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'tarjeta-producto';
+                tarjeta.setAttribute('data-aos', 'fade-up');
+                tarjeta.innerHTML = `
+                    <div class="img-wrapper">
+                        <img src="${vape.img}" alt="${vape.nombre}">
+                    </div>
+                    <div class="info-card">
+                        <h3>${vape.nombre}</h3>
+                        <p class="precio-card">$${vape.precio}</p>
+                        <button class="btn-ver-detalles" onclick="abrirModal(${vape.id})">
+                            Ver y Pedir
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // --- LÓGICA DEL MODAL SEGURA ---
+        function abrirModal(idProducto) {
+            productoActual = listaVapes.find(v => v.id === idProducto);
+            
+            document.getElementById('modal-titulo-producto').innerText = productoActual.nombre;
+            document.getElementById('modal-precio').innerText = `$${productoActual.precio}`;
+            document.getElementById('cantidad-seleccionada').value = 1;
+            document.getElementById('total-precio').innerText = `$${productoActual.precio}`;
+            
+            // MOSTRAR EL MODAL
+            document.getElementById('modal-pedido').style.display = 'flex';
+            // CONGELAR EL FONDO (SCROLL)
+            document.body.classList.add('modal-open');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-pedido').style.display = 'none';
+            // DESCONGELAR EL FONDO
+            document.body.classList.remove('modal-open');
+        }
+
+        function actualizarTotal() {
+            let cant = document.getElementById('cantidad-seleccionada').value;
+            if(cant < 1) { cant = 1; document.getElementById('cantidad-seleccionada').value = 1; }
+            let total = cant * productoActual.precio;
+            document.getElementById('total-precio').innerText = `$${total}`;
+        }
+
+        function enviarWhatsapp() {
+            const telefono = "529241781748";
+            let sabor = document.getElementById('sabor-seleccionado').value;
+            let cantidad = document.getElementById('cantidad-seleccionada').value;
+            
+            let metodos = document.getElementsByName('pago');
+            let pagoSeleccionado = "No especificado";
+            for(let i = 0; i < metodos.length; i++){
+                if(metodos[i].checked) pagoSeleccionado = metodos[i].value;
+            }
+
+            if (sabor === "") { alert("⚠️ Elige un sabor."); return; }
+            if (cantidad < 1) { alert("⚠️ Cantidad mínima 1."); return; }
+
+            let total = cantidad * productoActual.precio;
+            // Generar un ID simple de pedido (Folio) para darle seriedad
+            let folio = "VP-" + Math.floor(Math.random() * 10000);
+
+            let mensaje = 
+                `Hola VP, nuevo pedido *${folio}*%0A` +
+                `--------------------------------%0A` +
+                `📦 *${productoActual.nombre}*%0A` +
+                `🍇 Sabor: ${sabor}%0A` +
+                `🔢 Cant: ${cantidad}%0A` +
+                `💰 *Total: $${total} MXN*%0A` +
+                `💳 Pago: ${pagoSeleccionado}%0A` +
+                `--------------------------------`;
+
+            let url = `https://wa.me/${telefono}?text=${mensaje}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
