@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VP Gold - Perfumería Exclusiva</title>
+    <!-- Vinculamos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Librería de animaciones -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Fuente Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav data-aos="fade-down">
+        <div class="nav-content">
+            <!-- Botón Instagram -->
+            <a href="https://www.instagram.com/acyn_vp/" target="_blank" class="btn-instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                Instagram
+            </a>
+            <button class="btn-inicio" onclick="irAlInicio()">🏠 Inicio</button>
+        </div>
+    </nav>
+
+    <!-- =========================================
+         SECCIÓN 1: EL PASILLO (CATEGORÍAS)
+    ========================================== -->
+    <section id="seccion-categorias" class="pantalla-activa">
+        
+        <header data-aos="zoom-in" data-aos-duration="1200">
+            <div class="header-overlay">
+                <h1 class="texto-oro-liquido">VP</h1>
+                <p class="slogan">PERFUMERÍA & ESTILO</p>
+            </div>
+        </header>
+
+        <div class="contenedor-categorias">
+            
+            <!-- TARJETA 1: PERFUMES -->
+            <div class="tarjeta-categoria" onclick="cargarCatalogo('todo')" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://via.placeholder.com/400x300?text=Perfumes+Exclusivos" alt="Perfumes">
+                <div class="contenido-cat">
+                    <h2>Perfumes</h2>
+                    <p>Fragancias Importadas</p>
+                    <span class="btn-entrar">Ver Colección</span>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: PROMOCIONES -->
+            <div class="tarjeta-categoria" onclick="cargarCatalogo('ofertas')" data-aos="fade-up" data-aos-delay="200">
+                <div class="badge-cat-promo">OFERTAS</div> 
+                <img src="https://via.placeholder.com/400x300?text=Ofertas+Especiales" alt="Promociones">
+                <div class="contenido-cat">
+                    <h2>Promociones</h2>
+                    <p>Oportunidades Únicas</p>
+                    <span class="btn-entrar btn-rojo">Ver Descuentos 🔥</span>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: ROPA -->
+            <div class="tarjeta-categoria" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://via.placeholder.com/400x300?text=Ropa+Moda" alt="Ropa">
+                <div class="contenido-cat">
+                    <h2>Ropa Exclusiva</h2>
+                    <p>Próximamente</p>
+                    <span class="btn-entrar btn-bloqueado">Cerrado 🔒</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         SECCIÓN 2: CATÁLOGO DINÁMICO
+    ========================================== -->
+    <section id="seccion-grid" class="pantalla-oculta">
+        <div class="header-seccion" data-aos="fade-down">
+            <h2 class="titulo-dorado" id="titulo-catalogo">Colección</h2>
+            <button class="btn-volver" onclick="irAlInicio()">⬅ Regresar al Inicio</button>
+        </div>
+
+        <div class="grid-productos" id="grid-productos"></div>
+    </section>
+
+
+    <!-- =========================================
+         MODAL DE PEDIDO
+    ========================================== -->
+    <div id="modal-pedido" class="modal">
+        <div class="modal-content">
+            <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+            
+            <h3 id="modal-titulo-producto">Producto</h3>
+            
+            <div class="info-fila">
+                <div id="contenedor-precio-modal"></div>
+                <div class="stock-container">
+                    <span class="punto-parpadeante"></span>
+                    <span class="stock-texto">Disponible</span>
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label>Variante / Nota:</label>
+                <select id="variante-seleccionada">
+                    <option value="" disabled selected>-- Selecciona opción --</option>
+                    <option value="Estándar (Caja Sellada)">Estándar (Caja Sellada)</option>
+                    <option value="Tester (Caja Blanca)">Tester (Si aplica)</option>
+                </select>
+            </div>
+
+            <div class="grupo-input">
+                <label>Cantidad:</label>
+                <input type="number" id="cantidad-seleccionada" value="1" min="1" max="10" onchange="actualizarTotal()">
+            </div>
+
+            <div class="grupo-input">
+                <label>Método de Pago:</label>
+                <div class="opciones-pago">
+                    <label class="radio-container">
+                        <input type="radio" name="pago" value="Transferencia" checked>
+                        <span class="radio-checkmark"></span> Transferencia
+                    </label>
+                    <label class="radio-container">
+                        <input type="radio" name="pago" value="Efectivo">
+                        <span class="radio-checkmark"></span> Efectivo
+                    </label>
+                </div>
+            </div>
+
+            <div class="total-display">
+                Total: <span id="total-precio">$0</span> MXN
+            </div>
+
+            <button class="boton-pedir" onclick="enviarWhatsapp()">
+                Confirmar Pedido 📱
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 VP Gold Acayucan - Estilo & Exclusividad</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // La animación solo ocurre una vez al bajar
+            offset: 100 // Empieza un poco antes de llegar
+        });
+
+        // --- BASE DE DATOS DE PRODUCTOS ---
+        const listaProductos = [
+            { id: 1, nombre: "Versace Eros 100ml", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Versace+Eros" },
+            { id: 2, nombre: "Sauvage Dior", precio: 2500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Sauvage+Dior" },
+            { id: 3, nombre: "One Million Paco Rabanne", precio: 1950, precioOriginal: 2100, enPromocion: true, img: "https://via.placeholder.com/300x250?text=One+Million" },
+            { id: 4, nombre: "Carolina Herrera Bad Boy", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Bad+Boy" },
+            { id: 5, nombre: "Nautica Voyage", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Nautica" },
+            { id: 6, nombre: "Club de Nuit Intense", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Club+de+Nuit" },
+            { id: 7, nombre: "Jean Paul Gaultier Le Male", precio: 2300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=JPG+Le+Male" },
+            { id: 8, nombre: "Bleu de Chanel", precio: 3100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Bleu+Chanel" },
+            { id: 9, nombre: "Azzaro Wanted", precio: 1600, precioOriginal: 1900, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Azzaro" },
+            { id: 10, nombre: "Montblanc Explorer", precio: 1400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Montblanc" }
+        ];
+
+        let productoActual = null;
+
+        // --- FUNCIONES DE NAVEGACIÓN ---
+        function irAlInicio() {
+            document.getElementById('seccion-categorias').style.display = 'block';
+            document.getElementById('seccion-grid').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+
+        function cargarCatalogo(filtro) {
+            document.getElementById('seccion-categorias').style.display = 'none';
+            document.getElementById('seccion-grid').style.display = 'block';
+            
+            const titulo = document.getElementById('titulo-catalogo');
+            const contenedor = document.getElementById('grid-productos');
+            contenedor.innerHTML = ""; 
+
+            let productosAMostrar = [];
+
+            if (filtro === 'ofertas') {
+                titulo.innerText = "Ofertas Especiales 🔥";
+                productosAMostrar = listaProductos.filter(p => p.enPromocion === true);
+            } else {
+                titulo.innerText = "Colección Perfumes";
+                productosAMostrar = listaProductos;
+            }
+
+            productosAMostrar.forEach((prod, index) => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'tarjeta-producto';
+                // Añadimos delay escalonado para que aparezcan uno tras otro (efecto cascada)
+                tarjeta.setAttribute('data-aos', 'fade-up');
+                tarjeta.setAttribute('data-aos-delay', (index * 50)); 
+
+                let etiquetaHtml = '';
+                let precioHtml = `<p class="precio-card">$${prod.precio}</p>`;
+
+                if (prod.enPromocion) {
+                    etiquetaHtml = `<div class="etiqueta-oferta">OFERTA</div>`;
+                    precioHtml = `
+                        <div class="bloque-precios">
+                            <span class="precio-tachado">$${prod.precioOriginal}</span>
+                            <span class="precio-card precio-rojo">$${prod.precio}</span>
+                        </div>
+                    `;
+                }
+
+                tarjeta.innerHTML = `
+                    <div class="img-wrapper">
+                        ${etiquetaHtml}
+                        <img src="${prod.img}" alt="${prod.nombre}">
+                    </div>
+                    <div class="info-card">
+                        <h3>${prod.nombre}</h3>
+                        ${precioHtml}
+                        <button class="btn-ver-detalles" onclick="abrirModal(${prod.id})">
+                            Ver Detalles
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(tarjeta);
+            });
+            window.scrollTo(0,0);
+        }
+
+        // --- FUNCIONES DEL MODAL ---
+        function abrirModal(idProducto) {
+            productoActual = listaProductos.find(p => p.id === idProducto);
+            
+            document.getElementById('modal-titulo-producto').innerText = productoActual.nombre;
+            
+            const contenedorPrecio = document.getElementById('contenedor-precio-modal');
+            if (productoActual.enPromocion) {
+                contenedorPrecio.innerHTML = `
+                    <span class="precio-tachado-modal">$${productoActual.precioOriginal}</span>
+                    <span class="precio-modal precio-rojo">$${productoActual.precio}</span>
+                `;
+            } else {
+                contenedorPrecio.innerHTML = `<span class="precio-modal">$${productoActual.precio}</span>`;
+            }
+
+            document.getElementById('cantidad-seleccionada').value = 1;
+            document.getElementById('total-precio').innerText = `$${productoActual.precio}`;
+            
+            document.getElementById('modal-pedido').style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-pedido').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function actualizarTotal() {
+            let cant = document.getElementById('cantidad-seleccionada').value;
+            if(cant < 1) { cant = 1; document.getElementById('cantidad-seleccionada').value = 1; }
+            let total = cant * productoActual.precio;
+            document.getElementById('total-precio').innerText = `$${total}`;
+        }
+
+        // --- WHATSAPP ESTILO RECIBO ---
+        function enviarWhatsapp() {
+            const telefono = "529241781748";
+            let variante = document.getElementById('variante-seleccionada').value;
+            let cantidad = document.getElementById('cantidad-seleccionada').value;
+            
+            let metodos = document.getElementsByName('pago');
+            let pagoSeleccionado = "No especificado";
+            for(let i = 0; i < metodos.length; i++){
+                if(metodos[i].checked) pagoSeleccionado = metodos[i].value;
+            }
+
+            if (variante === "") { alert("⚠️ Elige una variante."); return; }
+            if (cantidad < 1) { alert("⚠️ Cantidad mínima 1."); return; }
+
+            let total = cantidad * productoActual.precio;
+            let folio = Math.floor(1000 + Math.random() * 9000); // Folio de 4 dígitos
+            
+            let textoOferta = productoActual.enPromocion ? " 🔥" : "";
+
+            // MENSAJE ESTRUCTURADO (TICKET)
+            // Se usa %0A para saltos de línea y símbolos para darle orden.
+            let mensaje = 
+                `Hola VP, nuevo pedido *VP-${folio}*` +
+                `%0A--------------------------------%0A` +
+                `📦 *${productoActual.nombre}*${textoOferta}%0A` +
+                `🔖 *Variante:* ${variante}%0A` +
+                `🔢 *Cant:* ${cantidad}%0A` +
+                `💰 *Total:* $${total} MXN%0A` +
+                `💳 *Pago:* ${pagoSeleccionado}` +
+                `%0A--------------------------------`;
+
+            let url = `https://wa.me/${telefono}?text=${mensaje}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
