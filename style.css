@@ -379,6 +379,21 @@ select:focus, input:focus { border-color: var(--gold-primary); outline: none; }
 }
 #total-precio { color: var(--gold-primary); font-weight: bold; font-family: 'Lato', sans-serif; }
 
+/* ADVERTENCIA DE SEGURIDAD */
+.advertencia-pago {
+    background-color: rgba(192, 57, 43, 0.15); /* Fondo rojo suave */
+    color: #e74c3c; /* Texto rojo brillante */
+    border: 1px solid #c0392b;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    line-height: 1.4;
+}
+
 .boton-pedir {
     width: 100%; padding: 14px;
     background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
