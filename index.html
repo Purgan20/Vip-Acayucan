@@ -138,6 +138,11 @@
                 Total: <span id="total-precio">$0</span> MXN
             </div>
 
+            <!-- ADVERTENCIA DE SEGURIDAD -->
+            <div class="advertencia-pago">
+                ⚠️ <strong>ADVERTENCIA:</strong> Si edita el precio del mensaje, <strong>no nos hacemos cargo de garantías</strong> y el cobro será corregido al precio original.
+            </div>
+
             <button class="boton-pedir" onclick="enviarWhatsapp()">
                 Confirmar Pedido 📱
             </button>
@@ -158,7 +163,7 @@
 
         // --- BASE DE DATOS DE PRODUCTOS ---
         const listaProductos = [
-            { id: 1, nombre: "Versace Eros 100ml", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Versace+Eros" },
+            { id: 1, nombre: "Versace Eros 100ml", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "Imagenes/JEAN_PAUL.jpg" },
             { id: 2, nombre: "Sauvage Dior", precio: 2500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Sauvage+Dior" },
             { id: 3, nombre: "One Million Paco Rabanne", precio: 1950, precioOriginal: 2100, enPromocion: true, img: "https://via.placeholder.com/300x250?text=One+Million" },
             { id: 4, nombre: "Carolina Herrera Bad Boy", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Bad+Boy" },
