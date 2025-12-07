@@ -3,214 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP Gold - Perfumería Exclusiva</title>
-    <!-- Vinculamos CSS -->
+    <title>VP Gold - Catálogo</title>
+    
+    <!-- Estilos y Librerías -->
     <link rel="stylesheet" href="style.css">
-    <!-- Librería de animaciones -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <!-- Fuente Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- MENÚ DE NAVEGACIÓN -->
-    <nav data-aos="fade-down">
+    <!-- =================================================================
+         1. BARRA DE NAVEGACIÓN
+         ================================================================= -->
+    <nav data-aos="fade-down" data-aos-duration="800">
         <div class="nav-content">
-            <!-- Botón Instagram -->
             <a href="https://www.instagram.com/acyn_vp/" target="_blank" class="btn-instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 Instagram
             </a>
             <button class="btn-inicio" onclick="irAlInicio()">🏠 Inicio</button>
         </div>
     </nav>
 
-    <!-- =========================================
-         SECCIÓN 1: EL PASILLO (CATEGORÍAS)
-    ========================================== -->
+    <!-- =================================================================
+         2. PANTALLA PRINCIPAL (SECCIONES)
+         ================================================================= -->
     <section id="seccion-categorias" class="pantalla-activa">
-        
         <header data-aos="zoom-in" data-aos-duration="1200">
             <div class="header-overlay">
                 <h1 class="texto-oro-liquido">VP</h1>
-                <p class="slogan">PERFUMERÍA & ESTILO</p>
+                <h2 class="subtitulo-vip">VIP ACAYUCAN</h2>
+                <div class="separador-dorado"></div>
+                <p class="slogan">CALIDAD & EXCLUSIVIDAD</p>
             </div>
         </header>
 
-        <div class="contenedor-categorias">
-            
-            <!-- TARJETA 1: PERFUMES -->
-            <div class="tarjeta-categoria" onclick="cargarCatalogo('todo')" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://via.placeholder.com/400x300?text=Perfumes+Exclusivos" alt="Perfumes">
-                <div class="contenido-cat">
-                    <h2>Perfumes</h2>
-                    <p>Fragancias Importadas</p>
-                    <span class="btn-entrar">Ver Colección</span>
-                </div>
-            </div>
-
-            <!-- TARJETA 2: PROMOCIONES -->
-            <div class="tarjeta-categoria" onclick="cargarCatalogo('ofertas')" data-aos="fade-up" data-aos-delay="200">
-                <div class="badge-cat-promo">OFERTAS</div> 
-                <img src="https://via.placeholder.com/400x300?text=Ofertas+Especiales" alt="Promociones">
-                <div class="contenido-cat">
-                    <h2>Promociones</h2>
-                    <p>Oportunidades Únicas</p>
-                    <span class="btn-entrar btn-rojo">Ver Descuentos 🔥</span>
-                </div>
-            </div>
-
-            <!-- TARJETA 3: ROPA -->
-            <div class="tarjeta-categoria" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://via.placeholder.com/400x300?text=Ropa+Moda" alt="Ropa">
-                <div class="contenido-cat">
-                    <h2>Ropa Exclusiva</h2>
-                    <p>Próximamente</p>
-                    <span class="btn-entrar btn-bloqueado">Cerrado 🔒</span>
-                </div>
-            </div>
-        </div>
+        <!-- AQUÍ SE GENERAN LAS TARJETAS -->
+        <div class="contenedor-categorias" id="contenedor-categorias-dinamico"></div>
     </section>
 
-    <!-- =========================================
-         SECCIÓN 2: CATÁLOGO DINÁMICO
-    ========================================== -->
+    <!-- =================================================================
+         3. PANTALLA DE PRODUCTOS (GRID)
+         ================================================================= -->
     <section id="seccion-grid" class="pantalla-oculta">
-        <div class="header-seccion" data-aos="fade-down">
-            <h2 class="titulo-dorado" id="titulo-catalogo">Colección</h2>
-            <button class="btn-volver" onclick="irAlInicio()">⬅ Regresar al Inicio</button>
-        </div>
-
-        <div class="grid-productos" id="grid-productos"></div>
+        <!-- Grid de productos -->
+        <div class="grid-productos" id="grid-productos" style="padding-top: 80px;"></div>
+        <div class="espacio-final"></div>
     </section>
 
-
-    <!-- =========================================
-         MODAL DE PEDIDO
-    ========================================== -->
+    <!-- =================================================================
+         4. MODAL DE PEDIDO
+         ================================================================= -->
     <div id="modal-pedido" class="modal">
         <div class="modal-content">
             <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
-            
-            <h3 id="modal-titulo-producto">Producto</h3>
-            
-            <div class="info-fila">
-                <div id="contenedor-precio-modal"></div>
-                <div class="stock-container">
-                    <span class="punto-parpadeante"></span>
-                    <span class="stock-texto">Disponible</span>
+            <div class="modal-body">
+                <h3 id="modal-titulo-producto">Producto</h3>
+                
+                <div class="info-fila">
+                    <div id="contenedor-precio-modal"></div>
+                    <div class="stock-container">
+                        <span class="punto-parpadeante"></span>
+                        <span class="stock-texto">Disponible</span>
+                    </div>
+                </div>
+
+                <div class="formulario-pedido">
+                    <div class="grupo-input">
+                        <label for="modelo-input">Modelo / Especificación:</label>
+                        <input type="text" id="modelo-input" readonly>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Cantidad:</label>
+                        <div class="control-cantidad">
+                            <button class="btn-cant" onclick="cambiarCantidad(-1)">-</button>
+                            <input type="number" id="cantidad-seleccionada" value="1" min="1" max="10" readonly>
+                            <button class="btn-cant" onclick="cambiarCantidad(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Pago:</label>
+                        <div class="opciones-pago">
+                            <label class="radio-container">
+                                <input type="radio" name="pago" value="Transferencia" checked>
+                                <span class="radio-checkmark"></span> Transferencia
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="pago" value="Efectivo">
+                                <span class="radio-checkmark"></span> Efectivo
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="total-display">Total: <span id="total-precio">$0</span> MXN</div>
+
+                    <div class="advertencia-pago">
+                        ⚠️ <strong>AVISO IMPORTANTE:</strong><br>
+                        Si el precio del mensaje es editado manualmente, <strong>no aplicará ninguna garantía</strong> y el cobro será corregido al precio original.
+                    </div>
+
+                    <button class="boton-pedir" onclick="enviarWhatsapp()">Confirmar Pedido 📱</button>
                 </div>
             </div>
-
-            <div class="grupo-input">
-                <label>Variante / Nota:</label>
-                <select id="variante-seleccionada">
-                    <option value="" disabled selected>-- Selecciona opción --</option>
-                    <option value="Estándar (Caja Sellada)">Estándar (Caja Sellada)</option>
-                    <option value="Tester (Caja Blanca)">Tester (Si aplica)</option>
-                </select>
-            </div>
-
-            <div class="grupo-input">
-                <label>Cantidad:</label>
-                <input type="number" id="cantidad-seleccionada" value="1" min="1" max="10" onchange="actualizarTotal()">
-            </div>
-
-            <div class="grupo-input">
-                <label>Método de Pago:</label>
-                <div class="opciones-pago">
-                    <label class="radio-container">
-                        <input type="radio" name="pago" value="Transferencia" checked>
-                        <span class="radio-checkmark"></span> Transferencia
-                    </label>
-                    <label class="radio-container">
-                        <input type="radio" name="pago" value="Efectivo">
-                        <span class="radio-checkmark"></span> Efectivo
-                    </label>
-                </div>
-            </div>
-
-            <div class="total-display">
-                Total: <span id="total-precio">$0</span> MXN
-            </div>
-
-            <!-- ADVERTENCIA DE SEGURIDAD -->
-            <div class="advertencia-pago">
-                ⚠️ <strong>ADVERTENCIA:</strong> Si edita el precio del mensaje, <strong>no nos hacemos cargo de garantías</strong> y el cobro será corregido al precio original.
-            </div>
-
-            <button class="boton-pedir" onclick="enviarWhatsapp()">
-                Confirmar Pedido 📱
-            </button>
         </div>
     </div>
 
     <footer>
-        <p>© 2025 VP Gold Acayucan - Estilo & Exclusividad</p>
+        <p class="footer-logo">VP</p>
+        <p>© 2025 Vip Acayucan - Todos los derechos reservados</p>
     </footer>
 
-    <!-- Scripts -->
+    <!-- =================================================================
+         5. CEREBRO JAVASCRIPT
+         ================================================================= -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({
-            once: true, // La animación solo ocurre una vez al bajar
-            offset: 100 // Empieza un poco antes de llegar
-        });
+        AOS.init({ once: true, offset: 50, duration: 800 });
 
-        // --- BASE DE DATOS DE PRODUCTOS ---
+        // ==============================================================
+        //  CONFIGURACIÓN DE SECCIONES (MENU PRINCIPAL)
+        // ==============================================================
+        const CONFIG_SECCIONES = [
+            { 
+                id: 'perfumes', 
+                titulo: 'Perfumes', 
+                subtitulo: 'Fragancias Importadas', 
+                img: 'https://via.placeholder.com/400x500?text=Perfumes', 
+                disponible: true, 
+                visible: true
+            },
+            { 
+                id: 'ofertas', 
+                titulo: 'Promociones', 
+                subtitulo: 'Oportunidades Únicas', 
+                img: 'https://via.placeholder.com/400x500?text=Promociones', 
+                disponible: true,
+                esOferta: true,
+                visible: true
+            },
+            { 
+                id: 'ropa', 
+                titulo: 'Ropa Exclusiva', 
+                subtitulo: 'Moda Urbana', 
+                img: 'https://via.placeholder.com/400x500?text=Ropa', 
+                disponible: true,
+                visible: true
+            },
+            // --- NUEVA SECCIÓN: GORRAS (Antes Vapes) ---
+            { 
+                id: 'gorras', 
+                titulo: 'Gorras Exclusivas', 
+                subtitulo: 'Snapback & Dad Hats', 
+                img: 'https://via.placeholder.com/400x500?text=Gorras', 
+                disponible: true, 
+                visible: true
+            },
+            // --- NUEVA SECCIÓN: RELOJES (Antes Waxx) ---
+            { 
+                id: 'relojes', 
+                titulo: 'Relojes Premium', 
+                subtitulo: 'Elegancia y Estilo', 
+                img: 'https://via.placeholder.com/400x500?text=Relojes', 
+                disponible: true, 
+                visible: true
+            },
+            { 
+                id: 'otros', 
+                titulo: 'Otros / Accesorios', 
+                subtitulo: 'Novedades Varias', 
+                img: 'https://via.placeholder.com/400x500?text=Otros', 
+                disponible: true, 
+                visible: true
+            },
+            
+            // --- SECCIÓN PUBLICIDAD ---
+            { 
+                id: 'publicidad', 
+                titulo: '', 
+                subtitulo: '', 
+                img: 'https://via.placeholder.com/400x500?text=Instagram+VP', 
+                disponible: true,
+                esPublicidad: true, 
+                link: 'https://www.instagram.com/acyn_vp/',
+                visible: true
+            }
+        ];
+
+        // ==============================================================
+        //  BASE DE DATOS DE PRODUCTOS
+        // ==============================================================
         const listaProductos = [
-            { id: 1, nombre: "Versace Eros 100ml", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "Imagenes/JEAN_PAUL.jpg" },
-            { id: 2, nombre: "Sauvage Dior", precio: 2500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Sauvage+Dior" },
-            { id: 3, nombre: "One Million Paco Rabanne", precio: 1950, precioOriginal: 2100, enPromocion: true, img: "https://via.placeholder.com/300x250?text=One+Million" },
-            { id: 4, nombre: "Carolina Herrera Bad Boy", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Bad+Boy" },
-            { id: 5, nombre: "Nautica Voyage", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Nautica" },
-            { id: 6, nombre: "Club de Nuit Intense", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Club+de+Nuit" },
-            { id: 7, nombre: "Jean Paul Gaultier Le Male", precio: 2300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=JPG+Le+Male" },
-            { id: 8, nombre: "Bleu de Chanel", precio: 3100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Bleu+Chanel" },
-            { id: 9, nombre: "Azzaro Wanted", precio: 1600, precioOriginal: 1900, enPromocion: true, img: "https://via.placeholder.com/300x250?text=Azzaro" },
-            { id: 10, nombre: "Montblanc Explorer", precio: 1400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x250?text=Montblanc" }
+            // --- PERFUMES ---
+            { id: 1, categoria: 'perfumes', activo: true, orden: 1, nombre: "Versace Eros", modelo: "EDT 100ml - Original", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Eros" },
+            { id: 2, categoria: 'perfumes', activo: true, orden: 2, nombre: "Sauvage Dior", modelo: "EDT 100ml", precio: 2500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Sauvage" },
+            { id: 3, categoria: 'perfumes', activo: true, orden: 3, nombre: "One Million", modelo: "Parfum 100ml", precio: 1950, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=1Million" },
+            { id: 4, categoria: 'perfumes', activo: true, orden: 5, nombre: "Bad Boy", modelo: "Carolina Herrera 100ml - EDT", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Bad+Boy" },
+            { id: 5, categoria: 'perfumes', activo: true, orden: 6, nombre: "Nautica Voyage", modelo: "Eau de Toilette 100ml - Clásico", precio: 600, precioOriginal: 800, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Nautica" },
+            { id: 6, categoria: 'perfumes', activo: true, orden: 7, nombre: "Club de Nuit Intense", modelo: "Armaf 105ml - EDP", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Club+de+Nuit" },
+            { id: 7, categoria: 'perfumes', activo: true, orden: 1, nombre: "Le Male", modelo: "Jean Paul Gaultier 125ml", precio: 2300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=JPG+Le+Male" },
+            { id: 8, categoria: 'perfumes', activo: true, orden: 8, nombre: "Bleu de Chanel", modelo: "Chanel Paris 100ml - EDP", precio: 3100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Bleu+Chanel" },
+            { id: 9, categoria: 'perfumes', activo: true, orden: 9, nombre: "Wanted", modelo: "Azzaro 100ml - Original", precio: 1600, precioOriginal: 1900, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Azzaro" },
+            { id: 10, categoria: 'perfumes', activo: true, orden: 10, nombre: "Explorer", modelo: "Montblanc 100ml - EDP", precio: 1400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Montblanc" },
+            { id: 11, categoria: 'perfumes', activo: true, orden: 11, nombre: "Acqua di Gio", modelo: "Giorgio Armani 100ml", precio: 2400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Acqua+di+Gio" },
+            { id: 12, categoria: 'perfumes', activo: true, orden: 12, nombre: "Invictus", modelo: "Paco Rabanne 100ml - Platinum", precio: 2000, precioOriginal: 2300, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Invictus" },
+            { id: 13, categoria: 'perfumes', activo: true, orden: 13, nombre: "Halloween Man X", modelo: "Jesus Del Pozo 125ml", precio: 1100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Halloween+Man" },
+            { id: 14, categoria: 'perfumes', activo: true, orden: 14, nombre: "Toy Boy", modelo: "Moschino 100ml - EDP", precio: 1750, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Toy+Boy" },
+            { id: 15, categoria: 'perfumes', activo: true, orden: 15, nombre: "Light Blue", modelo: "Dolce & Gabbana 125ml - Intense", precio: 1900, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Light+Blue" },
+            { id: 16, categoria: 'perfumes', activo: true, orden: 16, nombre: "Armani Code", modelo: "Parfum 100ml", precio: 2600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Armani+Code" },
+            { id: 17, categoria: 'perfumes', activo: true, orden: 17, nombre: "Dior Homme Intense", modelo: "EDP 100ml", precio: 2800, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Dior+Homme" },
+            { id: 18, categoria: 'perfumes', activo: true, orden: 18, nombre: "Versace Pour Homme", modelo: "EDT 100ml", precio: 1500, precioOriginal: 1800, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Versace+PH" },
+            { id: 19, categoria: 'perfumes', activo: true, orden: 19, nombre: "CH Men Prive", modelo: "Carolina Herrera 100ml", precio: 2200, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=CH+Prive" },
+            { id: 20, categoria: 'perfumes', activo: true, orden: 20, nombre: "Ultra Male", modelo: "Jean Paul Gaultier 125ml", precio: 2400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Ultra+Male" },
+            { id: 21, categoria: 'perfumes', activo: true, orden: 21, nombre: "Spicebomb Extreme", modelo: "Viktor&Rolf 90ml", precio: 2700, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Spicebomb" },
+            { id: 22, categoria: 'perfumes', activo: true, orden: 22, nombre: "Y Eau de Parfum", modelo: "Yves Saint Laurent 100ml", precio: 2900, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=YSL+Y" },
+            { id: 23, categoria: 'perfumes', activo: true, orden: 23, nombre: "Phantom", modelo: "Paco Rabanne 100ml", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Phantom" },
+            { id: 24, categoria: 'perfumes', activo: true, orden: 24, nombre: "212 VIP Black", modelo: "Carolina Herrera 100ml", precio: 2000, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=212+Black" },
+            { id: 25, categoria: 'perfumes', activo: true, orden: 25, nombre: "Eros Flame", modelo: "Versace 100ml - EDP", precio: 1900, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Eros+Flame" },
+            { id: 26, categoria: 'perfumes', activo: true, orden: 26, nombre: "Polo Blue", modelo: "Ralph Lauren 125ml", precio: 2300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Polo+Blue" },
+            { id: 27, categoria: 'perfumes', activo: true, orden: 27, nombre: "Boss Bottled", modelo: "Hugo Boss 100ml", precio: 1700, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Boss+Bottled" },
+
+            // --- ROPA ---
+            { id: 101, categoria: 'ropa', activo: true, orden: 1, nombre: "Playera VP Black", modelo: "Talla M - Algodón", precio: 350, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Tshirt" },
+            { id: 102, categoria: 'ropa', activo: true, orden: 2, nombre: "Gorra Snapback", modelo: "Edición Oro", precio: 400, precioOriginal: 500, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Cap" },
+            { id: 103, categoria: 'ropa', activo: true, orden: 3, nombre: "Hoodie VP", modelo: "Sudadera Negra - L", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Hoodie" },
+            { id: 104, categoria: 'ropa', activo: true, orden: 4, nombre: "Joggers Cargo", modelo: "Negro Táctico - 32", precio: 550, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Joggers" },
+            { id: 105, categoria: 'ropa', activo: true, orden: 5, nombre: "Dad Hat", modelo: "Gorra Clásica Beige", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=DadHat" },
+            { id: 106, categoria: 'ropa', activo: true, orden: 6, nombre: "Sudadera Oversize", modelo: "Gris - Unitalla", precio: 650, precioOriginal: 800, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Oversize" },
+            { id: 107, categoria: 'ropa', activo: true, orden: 7, nombre: "Short Deportivo", modelo: "Secado Rápido - M", precio: 280, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Short" },
+            { id: 108, categoria: 'ropa', activo: true, orden: 8, nombre: "Jersey Baseball", modelo: "VP Team - L", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Jersey" },
+            { id: 109, categoria: 'ropa', activo: true, orden: 9, nombre: "Playera Manga Larga", modelo: "Algodón Premium - S", precio: 400, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=LongSleeve" },
+            { id: 110, categoria: 'ropa', activo: true, orden: 10, nombre: "Bandolera VP", modelo: "Crossbody Bag", precio: 350, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Bag" },
+            { id: 111, categoria: 'ropa', activo: true, orden: 11, nombre: "Bucket Hat", modelo: "Pescador Reversible", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Bucket" },
+            { id: 112, categoria: 'ropa', activo: true, orden: 12, nombre: "Windbreaker", modelo: "Rompevientos - XL", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Jacket" },
+
+            // --- GORRAS (ID 500+) ---
+            { id: 501, categoria: 'gorras', activo: true, orden: 1, nombre: "New Era NY", modelo: "Negra Básica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Gorra+NY" },
+            { id: 502, categoria: 'gorras', activo: true, orden: 2, nombre: "LA Dodgers", modelo: "Azul Real", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Gorra+LA" },
+            { id: 503, categoria: 'gorras', activo: true, orden: 3, nombre: "Red Sox", modelo: "Azul Marino", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Gorra+RedSox" },
+            { id: 504, categoria: 'gorras', activo: true, orden: 4, nombre: "Yankees Camo", modelo: "Edición Camuflaje", precio: 700, precioOriginal: 800, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Gorra+Camo" },
+            { id: 505, categoria: 'gorras', activo: true, orden: 5, nombre: "White Sox", modelo: "Negra Clásica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Gorra+WhiteSox" },
+            { id: 506, categoria: 'gorras', activo: true, orden: 6, nombre: "Trucker Goorin", modelo: "Animal Farm - León", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Goorin+Lion" },
+            { id: 507, categoria: 'gorras', activo: true, orden: 7, nombre: "Trucker Goorin", modelo: "Animal Farm - Gallo", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Goorin+Rooster" },
+            { id: 508, categoria: 'gorras', activo: true, orden: 8, nombre: "VP Snapback", modelo: "Logo Dorado", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=VP+Snap" },
+            { id: 509, categoria: 'gorras', activo: true, orden: 9, nombre: "Bucket Hat VP", modelo: "Negro Liso", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Bucket+VP" },
+            { id: 510, categoria: 'gorras', activo: true, orden: 10, nombre: "New Era Bulls", modelo: "Roja y Negra", precio: 650, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Gorra+Bulls" },
+            { id: 511, categoria: 'gorras', activo: true, orden: 11, nombre: "Fox Racing", modelo: "Flexfit Negra", precio: 500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Fox+Cap" },
+            { id: 512, categoria: 'gorras', activo: true, orden: 12, nombre: "Jordan Jumpman", modelo: "Roja Clásica", precio: 700, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Jordan+Cap" },
+
+            // --- RELOJES (ID 600+) ---
+            { id: 601, categoria: 'relojes', activo: true, orden: 1, nombre: "Casio Vintage", modelo: "Dorado Digital", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Casio+Gold" },
+            { id: 602, categoria: 'relojes', activo: true, orden: 2, nombre: "G-Shock", modelo: "GA-2100 Negro", precio: 2500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=GShock" },
+            { id: 603, categoria: 'relojes', activo: true, orden: 3, nombre: "Casio Silver", modelo: "A168 Plateado", precio: 900, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Casio+Silver" },
+            { id: 604, categoria: 'relojes', activo: true, orden: 4, nombre: "Invicta Pro Diver", modelo: "Automático Dorado", precio: 3000, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Invicta" },
+            { id: 605, categoria: 'relojes', activo: true, orden: 5, nombre: "Smartwatch VP", modelo: "Serie 8 Clon", precio: 800, precioOriginal: 1000, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Smartwatch" },
+            { id: 606, categoria: 'relojes', activo: true, orden: 6, nombre: "Fossil Chrono", modelo: "Correa Piel Café", precio: 2800, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Fossil" },
+            { id: 607, categoria: 'relojes', activo: true, orden: 7, nombre: "Michael Kors", modelo: "Dorado Slim", precio: 3500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=MK+Watch" },
+            { id: 608, categoria: 'relojes', activo: true, orden: 8, nombre: "Casio Calculadora", modelo: "Clásico Negro", precio: 700, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Casio+Calc" },
+            { id: 609, categoria: 'relojes', activo: true, orden: 9, nombre: "Diesel Big Daddy", modelo: "Réplica AAA", precio: 1500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Diesel" },
+            { id: 610, categoria: 'relojes', activo: true, orden: 10, nombre: "Rolex Submariner", modelo: "Clon Espejo", precio: 4500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Rolex+Clon" },
+            { id: 611, categoria: 'relojes', activo: true, orden: 11, nombre: "Apple Watch Ultra", modelo: "Clon 1:1", precio: 1200, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Ultra+Clon" },
+            { id: 612, categoria: 'relojes', activo: true, orden: 12, nombre: "Citizen Eco-Drive", modelo: "Acero Inoxidable", precio: 3200, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Citizen" },
+
+            // OTROS
+            { id: 401, categoria: 'otros', activo: true, orden: 1, nombre: "Cangurera VP", modelo: "Negra Logo", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro1" },
+            { id: 402, categoria: 'otros', activo: true, orden: 2, nombre: "Lanyard", modelo: "Porta Gafete", precio: 100, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro2" },
+            { id: 403, categoria: 'otros', activo: true, orden: 3, nombre: "Stickers Pack", modelo: "Vinil Premium", precio: 50, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro3" },
+            { id: 404, categoria: 'otros', activo: true, orden: 4, nombre: "Calcetines", modelo: "Talla Única", precio: 120, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro4" },
+            { id: 405, categoria: 'otros', activo: true, orden: 5, nombre: "Gorra Trucker", modelo: "Malla Negra", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro5" },
+            { id: 406, categoria: 'otros', activo: true, orden: 6, nombre: "Termo VP", modelo: "Acero 1L", precio: 350, precioOriginal: 450, enPromocion: true, img: "https://via.placeholder.com/300x400?text=Otro6" },
+            { id: 407, categoria: 'otros', activo: true, orden: 7, nombre: "Lentes Sol", modelo: "Estilo Wayfarer", precio: 200, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro7" },
+            { id: 408, categoria: 'otros', activo: true, orden: 8, nombre: "Cartera", modelo: "Piel Sintética", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro8" },
+            { id: 409, categoria: 'otros', activo: true, orden: 9, nombre: "Mochila Ligera", modelo: "Gym Bag", precio: 180, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro9" },
+            { id: 410, categoria: 'otros', activo: true, orden: 10, nombre: "Funda iPhone", modelo: "13/14/15 Pro", precio: 150, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro10" },
+            { id: 411, categoria: 'otros', activo: true, orden: 11, nombre: "Llavero VP", modelo: "Metal Dorado", precio: 80, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro11" },
+            { id: 412, categoria: 'otros', activo: true, orden: 12, nombre: "Gift Card", modelo: "Digital $500", precio: 500, precioOriginal: 0, enPromocion: false, img: "https://via.placeholder.com/300x400?text=Otro12" }
         ];
 
         let productoActual = null;
 
-        // --- FUNCIONES DE NAVEGACIÓN ---
+        // ==============================================================
+        //  FUNCIONES
+        // ==============================================================
+
+        function renderizarMenuInicio() {
+            const contenedor = document.getElementById('contenedor-categorias-dinamico');
+            contenedor.innerHTML = ''; 
+
+            CONFIG_SECCIONES.forEach((seccion, index) => {
+                // NUEVO: Si visible es false, saltamos esta tarjeta (no se dibuja)
+                if (seccion.visible === false) return;
+
+                const div = document.createElement('div');
+                div.className = 'tarjeta-categoria';
+                if (!seccion.disponible) div.classList.add('tarjeta-bloqueada');
+                
+                div.setAttribute('data-aos', 'fade-up');
+                div.setAttribute('data-aos-delay', (index * 100));
+
+                if (seccion.esPublicidad) {
+                    div.onclick = function() { window.open(seccion.link, '_blank'); };
+                } else {
+                    div.onclick = function() { checkCategoria(seccion.id); };
+                }
+
+                // CONTENIDO DE LA TARJETA
+                let badge = seccion.esOferta ? `<div class="badge-cat-promo">OFERTAS</div>` : '';
+                let textoBtn = seccion.disponible ? 'Ver Catálogo' : 'Cerrado 🔒';
+                
+                // Si es publicidad, NO mostramos botón ni textos
+                if (seccion.esPublicidad) textoBtn = ''; 
+                
+                let claseBtn = seccion.esOferta ? 'btn-rojo' : (seccion.disponible ? '' : 'btn-bloqueado');
+
+                let contenidoHTML = '';
+                if (!seccion.esPublicidad) {
+                    if (seccion.titulo) contenidoHTML += `<h2>${seccion.titulo}</h2>`;
+                    if (seccion.subtitulo) contenidoHTML += `<p>${seccion.subtitulo}</p>`;
+                }
+                
+                let botonHTML = (!seccion.esPublicidad && textoBtn) ? `<span class="btn-entrar ${claseBtn}">${textoBtn}</span>` : '';
+
+                div.innerHTML = `
+                    <div class="brillo-hover"></div>
+                    ${badge}
+                    <img src="${seccion.img}" alt="${seccion.titulo || 'Publicidad'}">
+                    <div class="contenido-cat">
+                        ${contenidoHTML}
+                        ${botonHTML}
+                    </div>
+                `;
+                contenedor.appendChild(div);
+            });
+        }
+
+        function checkCategoria(idCategoria) {
+            const config = CONFIG_SECCIONES.find(c => c.id === idCategoria);
+            if (config && config.disponible) {
+                cargarCatalogo(idCategoria);
+            } else {
+                alert(`⚠️ La sección de ${config.titulo} estará disponible próximamente.`);
+            }
+        }
+
         function irAlInicio() {
             document.getElementById('seccion-categorias').style.display = 'block';
             document.getElementById('seccion-grid').style.display = 'none';
+            setTimeout(() => AOS.refresh(), 100);
             window.scrollTo(0,0);
         }
 
         function cargarCatalogo(filtro) {
             document.getElementById('seccion-categorias').style.display = 'none';
             document.getElementById('seccion-grid').style.display = 'block';
-            
-            const titulo = document.getElementById('titulo-catalogo');
+            setTimeout(() => AOS.refresh(), 100);
+
             const contenedor = document.getElementById('grid-productos');
-            contenedor.innerHTML = ""; 
+            contenedor.innerHTML = "";
 
             let productosAMostrar = [];
-
             if (filtro === 'ofertas') {
-                titulo.innerText = "Ofertas Especiales 🔥";
-                productosAMostrar = listaProductos.filter(p => p.enPromocion === true);
+                productosAMostrar = listaProductos.filter(p => p.activo === true && p.enPromocion === true);
             } else {
-                titulo.innerText = "Colección Perfumes";
-                productosAMostrar = listaProductos;
+                productosAMostrar = listaProductos.filter(p => p.activo === true && p.categoria === filtro);
+            }
+
+            productosAMostrar.sort((a, b) => a.orden - b.orden);
+
+            if (productosAMostrar.length === 0) {
+                contenedor.innerHTML = `<p style="text-align:center; width:100%; color:#888; margin-top:50px;">No hay productos disponibles en esta sección por el momento.</p>`;
+                return;
             }
 
             productosAMostrar.forEach((prod, index) => {
                 const tarjeta = document.createElement('div');
                 tarjeta.className = 'tarjeta-producto';
-                // Añadimos delay escalonado para que aparezcan uno tras otro (efecto cascada)
                 tarjeta.setAttribute('data-aos', 'fade-up');
                 tarjeta.setAttribute('data-aos-delay', (index * 50)); 
+                tarjeta.onclick = function() { abrirModal(prod.id); };
 
                 let etiquetaHtml = '';
-                let precioHtml = `<p class="precio-card">$${prod.precio}</p>`;
+                let precioHtml = '';
 
                 if (prod.enPromocion) {
                     etiquetaHtml = `<div class="etiqueta-oferta">OFERTA</div>`;
@@ -220,19 +394,19 @@
                             <span class="precio-card precio-rojo">$${prod.precio}</span>
                         </div>
                     `;
+                } else {
+                    precioHtml = `<div class="bloque-precios"><span class="precio-card">$${prod.precio}</span></div>`;
                 }
 
                 tarjeta.innerHTML = `
                     <div class="img-wrapper">
                         ${etiquetaHtml}
-                        <img src="${prod.img}" alt="${prod.nombre}">
+                        <img src="${prod.img}" alt="${prod.nombre}" loading="lazy">
                     </div>
                     <div class="info-card">
                         <h3>${prod.nombre}</h3>
                         ${precioHtml}
-                        <button class="btn-ver-detalles" onclick="abrirModal(${prod.id})">
-                            Ver Detalles
-                        </button>
+                        <span class="texto-ver-detalles">Toca para comprar</span>
                     </div>
                 `;
                 contenedor.appendChild(tarjeta);
@@ -240,25 +414,21 @@
             window.scrollTo(0,0);
         }
 
-        // --- FUNCIONES DEL MODAL ---
         function abrirModal(idProducto) {
             productoActual = listaProductos.find(p => p.id === idProducto);
-            
             document.getElementById('modal-titulo-producto').innerText = productoActual.nombre;
             
             const contenedorPrecio = document.getElementById('contenedor-precio-modal');
             if (productoActual.enPromocion) {
-                contenedorPrecio.innerHTML = `
-                    <span class="precio-tachado-modal">$${productoActual.precioOriginal}</span>
-                    <span class="precio-modal precio-rojo">$${productoActual.precio}</span>
-                `;
+                contenedorPrecio.innerHTML = `<span class="precio-tachado-modal">$${productoActual.precioOriginal}</span><span class="precio-modal precio-rojo">$${productoActual.precio}</span>`;
             } else {
                 contenedorPrecio.innerHTML = `<span class="precio-modal">$${productoActual.precio}</span>`;
             }
 
             document.getElementById('cantidad-seleccionada').value = 1;
             document.getElementById('total-precio').innerText = `$${productoActual.precio}`;
-            
+            document.getElementById('modelo-input').value = productoActual.modelo || "Edición Estándar";
+
             document.getElementById('modal-pedido').style.display = 'flex';
             document.body.classList.add('modal-open');
         }
@@ -268,48 +438,44 @@
             document.body.classList.remove('modal-open');
         }
 
+        function cambiarCantidad(cambio) {
+            let input = document.getElementById('cantidad-seleccionada');
+            let valorActual = parseInt(input.value);
+            let nuevoValor = valorActual + cambio;
+            if (nuevoValor >= 1 && nuevoValor <= 10) {
+                input.value = nuevoValor;
+                actualizarTotal();
+            }
+        }
+
         function actualizarTotal() {
             let cant = document.getElementById('cantidad-seleccionada').value;
-            if(cant < 1) { cant = 1; document.getElementById('cantidad-seleccionada').value = 1; }
             let total = cant * productoActual.precio;
             document.getElementById('total-precio').innerText = `$${total}`;
         }
 
-        // --- WHATSAPP ESTILO RECIBO ---
         function enviarWhatsapp() {
             const telefono = "529241781748";
-            let variante = document.getElementById('variante-seleccionada').value;
+            let modelo = document.getElementById('modelo-input').value;
             let cantidad = document.getElementById('cantidad-seleccionada').value;
             
             let metodos = document.getElementsByName('pago');
             let pagoSeleccionado = "No especificado";
-            for(let i = 0; i < metodos.length; i++){
-                if(metodos[i].checked) pagoSeleccionado = metodos[i].value;
-            }
-
-            if (variante === "") { alert("⚠️ Elige una variante."); return; }
-            if (cantidad < 1) { alert("⚠️ Cantidad mínima 1."); return; }
-
-            let total = cantidad * productoActual.precio;
-            let folio = Math.floor(1000 + Math.random() * 9000); // Folio de 4 dígitos
+            for(let i = 0; i < metodos.length; i++){ if(metodos[i].checked) pagoSeleccionado = metodos[i].value; }
             
+            let total = cantidad * productoActual.precio;
+            let folio = Math.floor(1000 + Math.random() * 9000); 
             let textoOferta = productoActual.enPromocion ? " 🔥" : "";
 
-            // MENSAJE ESTRUCTURADO (TICKET)
-            // Se usa %0A para saltos de línea y símbolos para darle orden.
-            let mensaje = 
-                `Hola VP, nuevo pedido *VP-${folio}*` +
-                `%0A--------------------------------%0A` +
-                `📦 *${productoActual.nombre}*${textoOferta}%0A` +
-                `🔖 *Variante:* ${variante}%0A` +
-                `🔢 *Cant:* ${cantidad}%0A` +
-                `💰 *Total:* $${total} MXN%0A` +
-                `💳 *Pago:* ${pagoSeleccionado}` +
-                `%0A--------------------------------`;
-
+            let mensaje = `Hola VP, nuevo pedido *VP-${folio}*%0A--------------------------------%0A📦 *${productoActual.nombre}*${textoOferta}%0A🔖 *Modelo:* ${modelo}%0A🔢 *Cant:* ${cantidad}%0A💰 *Total:* $${total} MXN%0A💳 *Pago:* ${pagoSeleccionado}%0A--------------------------------`;
             let url = `https://wa.me/${telefono}?text=${mensaje}`;
             window.open(url, '_blank');
         }
+
+        // INICIALIZACIÓN
+        window.onload = function() {
+            renderizarMenuInicio(); 
+        };
     </script>
 </body>
 </html>
