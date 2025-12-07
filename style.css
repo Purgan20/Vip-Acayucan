@@ -1,56 +1,60 @@
 /* =========================================
-   1. RESET Y CONFIGURACIÓN BÁSICA
+   1. CONFIGURACIÓN MAESTRA Y RESET
    ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Cinzel', serif; /* Títulos elegantes */
-    -webkit-tap-highlight-color: transparent; /* IMPORTANTE: Quita el cuadro azul por defecto en Android */
+    font-family: 'Cinzel', serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Fuente secundaria para textos largos */
-p, label, input, select, .btn-instagram {
+p, label, input, select, .btn-instagram, .footer-small {
     font-family: 'Lato', sans-serif;
 }
 
-/* --- SCROLLBAR PERSONALIZADO --- */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 1px solid #D4AF37; }
-::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+/* Scrollbar Personalizado (Dorado) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { 
+    background: linear-gradient(to bottom, #AA771C, #D4AF37); 
+    border-radius: 4px; 
+}
+::-webkit-scrollbar-thumb:hover { background: #F9E79F; }
 
-/* Body */
+:root {
+    --gold-primary: #D4AF37;
+    --gold-light: #F9E79F;
+    --gold-dark: #AA771C;
+    --black-bg: #050505;
+    --card-bg: #111; 
+    --rojo-oferta: #c0392b;
+    --transicion: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 body { 
-    background-color: #050505; 
+    background-color: var(--black-bg); 
     color: #e0e0e0; 
     padding-top: 60px;
-    background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(#1a1a1a 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px;
+    background-attachment: fixed;
     overflow-x: hidden;
 }
 
 body.modal-open { overflow: hidden; padding-right: 0px; }
 
-/* Variables */
-:root {
-    --transicion-rapida: 0.2s ease;
-    --transicion-suave: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --gold-primary: #D4AF37;
-    --gold-light: #F9E79F;
-    --gold-dark: #AA771C;
-    --rojo-oferta: #c0392b;
-}
-
 /* =========================================
-   2. NAVEGACIÓN (CON FIX PARA CELULAR)
+   2. BARRA DE NAVEGACIÓN
    ========================================= */
 nav {
     position: fixed; top: 0; left: 0; width: 100%;
     background: rgba(5, 5, 5, 0.95);
     border-bottom: 1px solid var(--gold-dark);
     z-index: 1000; padding: 10px 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.9);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
 }
 
@@ -59,313 +63,285 @@ nav {
     max-width: 1200px; margin: 0 auto; 
 }
 
-/* --- BOTÓN INSTAGRAM --- */
 .btn-instagram {
     display: flex; align-items: center; gap: 8px;
     text-decoration: none; color: var(--gold-primary);
-    font-weight: bold; font-size: 0.9rem;
-    padding: 6px 14px; border-radius: 20px;
-    transition: transform 0.1s, background 0.2s; /* Transición rápida para toque */
-    border: 1px solid transparent;
+    font-weight: bold; font-size: 0.85rem; letter-spacing: 1px;
+    padding: 6px 14px; border-radius: 50px;
+    border: 1px solid transparent; transition: var(--transicion);
 }
 
-.btn-instagram svg { stroke: currentColor; transition: transform 0.2s; }
-
-/* LÓGICA ANTI-PEGAJOSA:
-   El efecto "hover" (mantenerse iluminado) SOLO se activa si el dispositivo
-   tiene un cursor real (mouse). Si es táctil, se ignora. */
 @media (hover: hover) {
     .btn-instagram:hover {
-        color: var(--gold-light);
-        background: rgba(212, 175, 55, 0.1);
-        border-color: var(--gold-primary);
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        transform: translateY(-2px);
+        background: rgba(212, 175, 55, 0.1); border-color: var(--gold-primary);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); transform: translateY(-2px);
     }
-    .btn-instagram:hover svg { transform: scale(1.1) rotate(5deg); }
 }
+.btn-instagram:active { transform: scale(0.95); background: rgba(212, 175, 55, 0.2); }
 
-/* EFECTO TÁCTIL (ACTIVE):
-   Esto es lo que pasa cuando pones el dedo. Al soltar, desaparece. */
-.btn-instagram:active {
-    background: rgba(212, 175, 55, 0.2);
-    color: var(--gold-light);
-    transform: scale(0.95); /* Pequeño efecto de presión */
-    border-color: var(--gold-dark);
-}
-
-/* --- BOTÓN INICIO --- */
 .btn-inicio { 
     background: transparent; border: 1px solid var(--gold-primary); 
-    color: var(--gold-primary); padding: 6px 15px; border-radius: 20px; 
-    cursor: pointer; transition: transform 0.1s, background 0.2s; 
-    font-size: 0.8rem; font-family: 'Lato', sans-serif; font-weight: bold;
+    color: var(--gold-primary); padding: 6px 15px; border-radius: 50px; 
+    cursor: pointer; transition: var(--transicion); font-size: 0.8rem;
+    font-family: 'Lato', sans-serif; font-weight: bold;
 }
-
-/* Solo hover en PC */
 @media (hover: hover) {
-    .btn-inicio:hover { 
-        background: var(--gold-primary); color: black; 
-        box-shadow: 0 0 10px var(--gold-primary);
-        transform: translateY(-2px);
-    }
+    .btn-inicio:hover { background: var(--gold-primary); color: black; box-shadow: 0 0 10px var(--gold-primary); }
 }
-
-/* Efecto al tocar en celular */
-.btn-inicio:active {
-    background: var(--gold-dark); 
-    color: black;
-    transform: scale(0.95);
-}
+.btn-inicio:active { transform: scale(0.95); background: var(--gold-dark); color: black; }
 
 /* =========================================
-   3. HEADER
+   3. HEADER (BANNER)
    ========================================= */
 header {
-    position: relative;
-    min-height: 350px; 
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    overflow: hidden;
-    background: linear-gradient(to bottom, #000, #111);
+    position: relative; min-height: 400px; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: linear-gradient(to bottom, #000 0%, #151515 100%);
     border-bottom: 2px solid var(--gold-primary);
     text-align: center; padding: 20px;
 }
 
-.header-overlay {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; width: 100%;
-}
-
 .texto-oro-liquido {
-    font-size: clamp(3rem, 10vw, 6rem); 
-    font-weight: bold; color: transparent;
+    font-size: clamp(3.5rem, 12vw, 7rem); font-weight: bold; color: transparent;
     background: linear-gradient(110deg, #AA771C 20%, #F9E79F 40%, #F9E79F 60%, #AA771C 80%);
-    background-size: 200% auto;
-    -webkit-background-clip: text; background-clip: text;
+    background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
     text-shadow: 0px 5px 0px rgba(92, 64, 8, 0.5);
-    margin: 0; line-height: 1.1;
-    animation: brilloOro 6s linear infinite;
+    margin: 0; line-height: 1; animation: brilloOro 6s linear infinite;
 }
 @keyframes brilloOro { to { background-position: 200% center; } }
 
+.subtitulo-vip {
+    color: var(--gold-light);
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    letter-spacing: 4px;
+    margin-top: 5px;
+    font-weight: 400;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.separador-dorado {
+    width: 80px; height: 3px; background: var(--gold-primary);
+    margin: 15px auto 15px auto; border-radius: 2px;
+}
+
 .slogan {
-    color: var(--gold-dark); letter-spacing: 6px; margin-top: 10px;
-    font-size: clamp(0.8rem, 4vw, 1.2rem); text-transform: uppercase;
-    animation: fadeInUp 1.5s ease-out;
+    color: #888; letter-spacing: 6px; 
+    font-size: clamp(0.7rem, 3vw, 1rem); text-transform: uppercase;
 }
 
 /* =========================================
    4. TARJETAS DE CATEGORÍA
    ========================================= */
 .contenedor-categorias {
-    display: flex; justify-content: center; 
-    gap: 30px; padding: 50px 20px;
+    display: flex; justify-content: center; gap: 30px; padding: 60px 20px;
     flex-wrap: wrap; 
 }
 
 .tarjeta-categoria {
-    position: relative; 
-    width: 100%; max-width: 360px; height: 260px;
+    position: relative; width: 100%; max-width: 380px; height: 280px;
     border-radius: 20px; overflow: hidden; border: 1px solid #333;
-    cursor: pointer;
-    display: flex; justify-content: center; align-items: center; text-align: center;
-    transition: transform var(--transicion-suave), border-color 0.3s, box-shadow 0.3s;
-    background: #000;
+    cursor: pointer; display: flex; justify-content: center; align-items: center; text-align: center;
+    transition: var(--transicion); background: #000;
 }
 
-/* Hover solo en PC para las tarjetas también */
 @media (hover: hover) {
     .tarjeta-categoria:hover { 
-        transform: translateY(-8px); 
-        border-color: var(--gold-primary); 
-        box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        transform: translateY(-10px); border-color: var(--gold-primary); 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     }
-    .tarjeta-categoria:hover img { 
-        filter: brightness(0.5) grayscale(0%); 
-        transform: scale(1.1); 
-    }
+    .tarjeta-categoria:hover img { filter: brightness(0.5); transform: scale(1.1); }
 }
-
-/* Active en Celular */
-.tarjeta-categoria:active {
-    transform: scale(0.98);
-    border-color: var(--gold-dark);
-}
+.tarjeta-categoria:active { transform: scale(0.98); border-color: var(--gold-dark); }
 
 .tarjeta-categoria img { 
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; object-fit: cover; 
-    filter: brightness(0.35) grayscale(20%);
-    transition: filter 0.5s, transform 0.6s;
-    z-index: 1;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
+    filter: brightness(0.35) grayscale(20%); transition: 0.6s ease; z-index: 1;
 }
 
-.contenido-cat { position: relative; z-index: 2; width: 100%; padding: 15px; }
+.contenido-cat { position: relative; z-index: 2; width: 100%; padding: 20px; }
 .contenido-cat h2 { 
-    color: var(--gold-light); font-size: clamp(1.4rem, 5vw, 1.8rem); 
-    margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.9);
+    color: var(--gold-light); font-size: clamp(1.5rem, 5vw, 2rem); 
+    margin-bottom: 10px; text-shadow: 0 4px 15px rgba(0,0,0,0.9);
 }
-.contenido-cat p { font-size: 0.9rem; margin-bottom: 15px; color: #ccc; }
+.contenido-cat p { font-size: 0.95rem; margin-bottom: 20px; color: #ccc; letter-spacing: 1px; }
 
 .btn-entrar { 
     display: inline-block; background: var(--gold-primary); color: black; 
-    padding: 8px 22px; border-radius: 30px; font-weight: bold; font-size: 0.85rem;
+    padding: 10px 25px; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.2s; font-family: 'Lato', sans-serif;
 }
 .btn-rojo { background: var(--rojo-oferta); color: white; }
-.btn-bloqueado { background: #444; color: #888; cursor: not-allowed; }
+.btn-bloqueado { background: #333; color: #777; cursor: not-allowed; border: 1px solid #444; }
 
-/* Badge Oferta */
 .badge-cat-promo {
-    position: absolute; top: 25px; right: -35px;
+    position: absolute; top: 30px; right: -40px;
     background: var(--rojo-oferta); color: white;
-    padding: 5px 40px; font-size: 0.75rem; font-weight: bold;
+    padding: 7px 40px; font-size: 0.8rem; font-weight: bold;
     transform: rotate(45deg); z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5); letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5); letter-spacing: 2px;
+}
+
+/* Estado Bloqueado Visualmente */
+.tarjeta-bloqueada {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 /* =========================================
    5. GRID DE PRODUCTOS
    ========================================= */
-.header-seccion { text-align: center; margin: 40px 0; }
-.titulo-dorado { 
-    color: var(--gold-primary); font-size: 2.2rem; 
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-}
-.btn-volver { 
-    background: transparent; border: none; color: #888; 
-    cursor: pointer; margin-top: 10px; text-decoration: underline; font-family: 'Lato', sans-serif;
-}
-.btn-volver:hover { color: var(--gold-primary); }
-
+/* Ajuste de margen para cuando no hay header de sección */
 .grid-productos {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 25px; padding: 20px; max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; padding: 20px 40px; max-width: 1400px; margin: 0 auto;
 }
 
 .tarjeta-producto {
-    background: #111; border: 1px solid #333; border-radius: 15px; 
+    /* FONDO TRANSPARENTE 85% */
+    background: rgba(17, 17, 17, 0.85); 
+    backdrop-filter: blur(5px);
+    
+    border: 1px solid #222; border-radius: 15px; 
     overflow: hidden; display: flex; flex-direction: column;
     transition: all 0.3s; position: relative;
+    cursor: pointer;
 }
-
 @media (hover: hover) {
     .tarjeta-producto:hover { 
-        border-color: var(--gold-dark); transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        border-color: var(--gold-dark); transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     }
-    .tarjeta-producto:hover .img-wrapper img { transform: scale(1.08); }
+}
+.tarjeta-producto:active { transform: scale(0.98); }
+
+.img-wrapper { 
+    height: 350px; 
+    overflow: hidden; position: relative; border-bottom: 1px solid #222; 
+}
+.img-wrapper img { 
+    width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease;
+}
+@media (max-width: 768px) {
+    .img-wrapper img { object-position: center top; }
 }
 
-.img-wrapper { height: 230px; overflow: hidden; position: relative; }
-.img-wrapper img { 
-    width: 100%; height: 100%; object-fit: cover; 
-    transition: transform 0.5s ease;
-}
+.tarjeta-producto:hover .img-wrapper img { transform: scale(1.05); }
 
 .etiqueta-oferta {
-    position: absolute; top: 10px; left: 10px;
+    position: absolute; top: 15px; left: 15px;
     background: linear-gradient(45deg, #c0392b, #e74c3c);
-    color: white; padding: 4px 12px; border-radius: 4px;
+    color: white; padding: 5px 15px; border-radius: 5px;
     font-size: 0.75rem; font-weight: bold; z-index: 5;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    animation: palpito 2s infinite; font-family: 'Lato', sans-serif;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Lato', sans-serif;
 }
-@keyframes palpito { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-.info-card { padding: 18px; text-align: center; display: flex; flex-direction: column; height: 100%; }
-.info-card h3 { color: #eee; font-size: 1.1rem; margin-bottom: 8px; }
+.info-card { 
+    padding: 20px; text-align: center; 
+    display: flex; flex-direction: column; 
+    height: 100%; justify-content: center; 
+}
+.info-card h3 { color: #eee; font-size: 1.2rem; margin-bottom: 15px; line-height: 1.4; }
 
-.bloque-precios {
-    display: flex; justify-content: center; align-items: center; 
-    gap: 10px; margin-bottom: 12px;
+.bloque-precios { 
+    display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; 
+    gap: 2px; margin-bottom: 15px; 
 }
-.precio-tachado { text-decoration: line-through; color: #666; font-size: 0.9rem; font-family: 'Lato', sans-serif; }
-.precio-rojo { color: #e74c3c !important; text-shadow: 0 0 10px rgba(231, 76, 60, 0.3); }
-.precio-card { color: var(--gold-primary); font-size: 1.3rem; font-weight: bold; font-family: 'Lato', sans-serif; }
+.precio-tachado { 
+    text-decoration: line-through; color: #666; 
+    font-size: 0.9rem; font-family: 'Lato', sans-serif; line-height: 1;
+}
+.precio-rojo { color: #e74c3c !important; }
+.precio-card { 
+    color: var(--gold-primary); font-size: 1.6rem; 
+    font-weight: bold; font-family: 'Lato', sans-serif; 
+}
 
-.btn-ver-detalles {
-    width: 100%; background: transparent; margin-top: auto;
-    border: 1px solid var(--gold-primary); color: var(--gold-primary);
-    padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;
-    font-family: 'Lato', sans-serif;
-}
-.btn-ver-detalles:active {
-    background: var(--gold-primary); color: black;
-    transform: scale(0.98);
-}
-@media (hover: hover) {
-    .btn-ver-detalles:hover { 
-        background: var(--gold-primary); color: black; 
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-    }
+.texto-ver-detalles {
+    color: var(--gold-dark); font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;
 }
 
 /* =========================================
-   6. MODAL
+   6. MODAL (ESTRUCTURA CORREGIDA PARA SCROLL)
    ========================================= */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
     width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.95); 
+    background: rgba(0,0,0,0.96); 
     justify-content: center; align-items: center;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     opacity: 0; animation: fadeInModal 0.3s forwards;
 }
 @keyframes fadeInModal { to { opacity: 1; } }
 
 .modal-content {
-    background: #151515; padding: 25px; border-radius: 20px;
-    width: 90%; max-width: 400px; position: relative;
+    background: #111; padding: 0; border-radius: 20px;
+    width: 90%; max-width: 420px; position: relative;
     border: 1px solid var(--gold-primary); 
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.15);
     transform: translateY(30px);
     animation: slideUpModal 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; 
 }
 @keyframes slideUpModal { to { transform: translateY(0); opacity: 1; } }
 
+.modal-body { overflow-y: auto; padding: 25px; width: 100%; }
+
 .cerrar-modal {
-    position: absolute; top: 15px; right: 20px; font-size: 28px; 
-    color: #666; cursor: pointer; transition: 0.3s;
+    position: absolute; top: 10px; right: 20px; font-size: 30px; 
+    color: #555; cursor: pointer; transition: 0.3s; z-index: 10;
 }
 .cerrar-modal:hover { color: white; transform: rotate(90deg); }
 
 #modal-titulo-producto { 
     text-align: center; color: var(--gold-light); 
-    font-size: 1.4rem; margin-bottom: 20px; 
-    border-bottom: 1px solid #333; padding-bottom: 15px;
+    font-size: 1.3rem; margin-bottom: 15px; margin-top: 10px;
+    border-bottom: 1px solid #333; padding-bottom: 10px; 
 }
 
 .info-fila { 
     display: flex; justify-content: space-between; align-items: center;
-    background: #222; padding: 10px 15px; border-radius: 10px; margin-bottom: 20px; 
+    background: #1a1a1a; padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; 
 }
-.precio-tachado-modal { text-decoration: line-through; color: #888; font-size: 1rem; margin-right: 8px; font-family: 'Lato', sans-serif;}
-.precio-modal { color: var(--gold-primary); font-size: 1.4rem; font-weight: bold; font-family: 'Lato', sans-serif;}
+.precio-tachado-modal { text-decoration: line-through; color: #666; font-size: 1rem; margin-right: 10px; font-family: 'Lato', sans-serif;}
+.precio-modal { color: var(--gold-primary); font-size: 1.4rem; font-weight: bold; font-family: 'Lato', sans-serif;} 
 
-.stock-container { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #aaa; }
+.stock-container { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #888; }
 .punto-parpadeante { 
     width: 8px; height: 8px; background: #00ff88; border-radius: 50%; 
     box-shadow: 0 0 8px #00ff88; animation: blinkSuave 2s infinite; 
 }
 @keyframes blinkSuave { 50% { opacity: 0.4; } }
 
-.grupo-input { margin-bottom: 15px; text-align: left; }
-.grupo-input label { display: block; color: #888; margin-bottom: 6px; font-size: 0.85rem; }
+.grupo-input { margin-bottom: 15px; text-align: left; } 
+.grupo-input label { display: block; color: #aaa; margin-bottom: 8px; font-size: 0.9rem; }
 
-select, input[type="number"] { 
-    width: 100%; padding: 10px; background: #0a0a0a; 
-    border: 1px solid #444; color: white; border-radius: 8px; 
-    font-family: 'Lato', sans-serif;
+input[type="text"], input[type="number"] { 
+    width: 100%; padding: 10px; background: #050505; color: white; 
+    border: 1px solid #333; border-radius: 8px; font-family: 'Lato', sans-serif; font-size: 1rem; appearance: none; 
 }
-select:focus, input:focus { border-color: var(--gold-primary); outline: none; }
+input:focus { border-color: var(--gold-primary); outline: none; box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); }
+
+input[readonly] {
+    background-color: #151515; color: var(--gold-primary); 
+    border: 1px solid #333; cursor: default; font-weight: bold; letter-spacing: 0.5px;
+}
+
+.control-cantidad { display: flex; align-items: center; gap: 5px; }
+.btn-cant {
+    background: #222; border: 1px solid #333; color: white; width: 40px; height: 40px;
+    border-radius: 8px; cursor: pointer; font-size: 1.2rem;
+}
+.btn-cant:active { background: var(--gold-primary); color: black; }
+.control-cantidad input { text-align: center; }
 
 .opciones-pago { display: flex; gap: 10px; }
 .radio-container {
-    flex: 1; background: #222; padding: 10px; border-radius: 10px; 
-    text-align: center; cursor: pointer; font-size: 0.85rem; 
-    display: flex; align-items: center; justify-content: center; gap: 6px;
+    flex: 1; background: #1a1a1a; padding: 10px; border-radius: 10px; 
+    text-align: center; cursor: pointer; font-size: 0.9rem; 
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     border: 1px solid transparent; transition: 0.2s;
 }
 .radio-container:has(input:checked) { 
@@ -374,32 +350,24 @@ select:focus, input:focus { border-color: var(--gold-primary); outline: none; }
 }
 
 .total-display { 
-    text-align: center; font-size: 1.2rem; margin: 20px 0; color: #eee;
-    background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 10px;
+    text-align: center; font-size: 1.2rem; margin: 20px 0; color: #eee; 
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); padding: 12px; border-radius: 10px; 
 }
 #total-precio { color: var(--gold-primary); font-weight: bold; font-family: 'Lato', sans-serif; }
 
-/* ADVERTENCIA DE SEGURIDAD */
 .advertencia-pago {
-    background-color: rgba(192, 57, 43, 0.15); /* Fondo rojo suave */
-    color: #e74c3c; /* Texto rojo brillante */
-    border: 1px solid #c0392b;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    text-align: center;
-    font-family: 'Lato', sans-serif;
-    line-height: 1.4;
+    background-color: rgba(192, 57, 43, 0.1);
+    color: #ff6b6b; border: 1px solid #8e2b2b;
+    padding: 10px; border-radius: 8px; font-size: 0.85rem; 
+    margin-bottom: 15px; text-align: center; line-height: 1.5; 
 }
 
 .boton-pedir {
-    width: 100%; padding: 14px;
+    width: 100%; padding: 14px; 
     background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-    color: black; border: none; border-radius: 10px; 
+    color: black; border: none; border-radius: 12px; 
     font-weight: bold; font-size: 1rem; cursor: pointer; 
-    transition: 0.3s; box-shadow: 0 5px 15px rgba(170, 119, 28, 0.3);
+    transition: 0.3s; box-shadow: 0 5px 20px rgba(170, 119, 28, 0.3);
     font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px;
 }
 .boton-pedir:active { transform: scale(0.95); filter: brightness(0.9); }
@@ -407,11 +375,10 @@ select:focus, input:focus { border-color: var(--gold-primary); outline: none; }
     .boton-pedir:hover { transform: translateY(-2px); filter: brightness(1.1); }
 }
 
-/* =========================================
-   7. FOOTER
-   ========================================= */
 footer { 
-    margin-top: 60px; padding: 40px; color: #666; 
-    font-size: 0.8rem; border-top: 1px solid #222; 
+    margin-top: 80px; padding: 50px 20px; color: #666; 
+    font-size: 0.9rem; border-top: 1px solid #222; 
     background: #080808; text-align: center;
 }
+.footer-logo { color: var(--gold-dark); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
+.footer-small { font-size: 0.75rem; color: #444; margin-top: 10px; }
