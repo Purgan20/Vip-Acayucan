@@ -20,7 +20,7 @@
          ========================================= -->
     
     <!-- Botón Volver Arriba -->
-    <button id="btn-back-to-top" class="btn-floating-top" onclick="irArriba()" title="Subir">
+    <button id="btn-back-to-top" class="btn-floating-top" onclick="irArriba()" title="Subir" aria-label="Volver arriba">
         <i class="ph ph-arrow-up"></i>
     </button>
 
@@ -79,7 +79,7 @@
 
             <div class="nav-buttons">
                 <button class="btn-icon-nav" id="btn-carrito" onclick="abrirCarrito()">
-                    <i class="ph ph-shopping-bag"></i>
+                    <i class="ph ph-shopping-cart"></i>
                     <span id="carrito-count" class="badge-count">0</span>
                 </button>
                 <a href="https://www.instagram.com/acyn_vp/" target="_blank" class="btn-instagram">
@@ -126,10 +126,6 @@
                 <div class="producto-header">
                     <div class="producto-imagen-grande">
                         <img id="modal-img" src="" alt="Producto">
-                        <!-- CORREGIDO: Botón corazón posicionado a la izquierda -->
-                        <button class="btn-favorito-modal" id="btn-heart-action" onclick="toggleFavorito()" style="position: absolute; top: 15px; left: 15px; right: auto;">
-                            <i id="icono-corazon-modal" class="ph ph-shopping-cart-simple"></i>
-                        </button>
                     </div>
                     <div class="producto-info-base">
                         <h2 id="modal-titulo-producto">Nombre</h2>
@@ -151,9 +147,9 @@
                         <div class="control-cantidad-wrapper">
                             <label>Cantidad</label>
                             <div class="control-cantidad">
-                                <button class="btn-cant" onclick="cambiarCantidad(-1)"><i class="ph ph-minus"></i></button>
+                                <button class="btn-cant" type="button" onclick="cambiarCantidad(-1)"><i class="ph ph-minus"></i></button>
                                 <input type="number" id="cantidad-seleccionada" value="1" min="1" max="10" readonly>
-                                <button class="btn-cant" onclick="cambiarCantidad(1)"><i class="ph ph-plus"></i></button>
+                                <button class="btn-cant" type="button" onclick="cambiarCantidad(1)"><i class="ph ph-plus"></i></button>
                             </div>
                         </div>
                         <div class="metodo-pago-wrapper">
@@ -166,25 +162,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grupo-input">
-                        <label>Orden (posición)</label>
-                        <input type="number" id="input-orden-modal" value="" min="1" step="1" style="width:80px">
-                    </div>
+                    <!-- Orden de posición (editable sólo en código) -->
                     <div class="footer-compra-sticky">
                         <div class="total-final">
                             <span>Total Estimado:</span>
                             <span id="total-precio">$0</span>
                         </div>
                         <div style="display:flex; gap:8px; flex-direction:column;">
-                            <button class="boton-pedir" onclick="guardarEnCarrito(); mostrarToast('✓ Agregado al carrito');">
-                                <span>Agregar al Carrito</span>
+                            <button id="btn-agregar-carrito-modal" class="boton-pedir" onclick="handleCarritoToggle();" title="Agregar al carrito">
+                                <i class="ph ph-shopping-cart"></i> Agregar al carrito
                             </button>
-                            <button class="boton-whatsapp-modal" onclick="enviarWhatsapp();">
-                                <i class="ph ph-whatsapp-logo" style="margin-right:8px;"></i><span>Hacer Pedido</span>
+                            <button id="btn-whatsapp-modal" class="boton-whatsapp-modal" onclick="enviarWhatsapp();">
+                                <i class="ph ph-whatsapp-logo" style="margin-right:8px;"></i><span>Comprar ya</span>
                             </button>
                         </div>
                     </div>
-                    <div class="advertencia-pago">Todo precio sera verificado por producto</div>
+                    <div id="advertencia-sobre-pedido-modal" class="advertencia-pago" style="display:none; background: rgba(255, 193, 7, 0.15); border: 1px solid rgba(255, 193, 7, 0.4); color: #ffc107; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                        <i class="ph ph-warning" style="margin-right: 6px;"></i>
+                        <strong>⚠️ Sobre Pedido:</strong> Requiere anticipo del 50%. El pedido estará listo en aproximadamente 7 días.
+                    </div>
+                    <div class="advertencia-pago">Todo precio será verificado por producto</div>
                 </div>
                 <div class="seccion-recomendados">
                     <div class="header-recomendados">
@@ -203,30 +200,44 @@
     </div>
 
     <!-- Floating WhatsApp Button -->
-    <button id="whatsapp-floating" class="btn-whatsapp" onclick="openFloatingCart()" aria-label="Abrir carrito">
+    <button id="whatsapp-floating" class="btn-whatsapp" onclick="toggleFloatingCart()" aria-label="Abrir carrito">
         <i class="ph ph-whatsapp-logo"></i>
         <span id="whatsapp-badge" class="whatsapp-badge">0</span>
     </button>
 
     <!-- Floating cart panel -->
     <div id="floating-cart-panel" class="floating-cart-panel" style="display:none;" aria-hidden="true">
+        <button class="cerrar-flotante cerrar-flotante-fab" onclick="closeFloatingCart()" aria-label="Cerrar carrito">
+            <i class="ph ph-x"></i>
+        </button>
         <div class="floating-cart-header">
             <strong>Tu Pedido</strong>
             <button class="cerrar-flotante" onclick="closeFloatingCart()"><i class="ph ph-x"></i></button>
         </div>
         <!-- compact floating cart header area (no inputs) -->
-        <div style="padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03);">
-            <div style="font-size:0.9rem; color:#ddd">Revisa tu pedido y confirma</div>
+        <div class="floating-cart-subtitle">
+            <div>Revisa tu pedido y confirma</div>
         </div>
         <div id="floating-cart-list" class="floating-cart-list"></div>
+        <div id="sobre-pedido-advertencia" class="advertencia-sobre-pedido" style="display:none;">
+            <i class="ph ph-warning"></i>
+            <div>
+                <strong>⚠️ Importante:</strong> Los productos sobre pedido requieren un anticipo del 50% para procesar tu orden. El pedido estará listo aproximadamente 7 días después del pago.
+            </div>
+        </div>
         <div class="floating-cart-footer">
             <div class="floating-total">Total: <span id="floating-total">$0</span></div>
             <div class="floating-actions">
-                <button class="btn-secondary" onclick="irAlInicio(); closeFloatingCart();">Seguir comprando</button>
-                <button class="btn-primary" onclick="sendWholeOrderWhatsApp()">Hacer Pedido</button>
+                <button id="btn-hacer-pedido" class="btn-primary" onclick="sendWholeOrderWhatsApp()">
+                    <i class="ph ph-whatsapp-logo" style="margin-right:6px; font-size:1.1rem;"></i>
+                    Pedir Ahora
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Botón flotante para hacer pedido desde el carrito -->
+    <button id="btn-order-now-floating" class="btn-order-now" onclick="sendWholeOrderWhatsApp()" style="display:none;">Comprar ya</button>
 
     <footer>
         <p class="footer-logo">VP</p>
@@ -245,37 +256,31 @@
             console.log("Error iniciando animaciones, modo seguro activado");
         }
 
-        function toggleVideoSound(vidId, btn) {
-            try {
-                const v = document.getElementById(vidId);
-                if (!v) return;
-                if (v.muted) {
-                    v.muted = false;
-                    v.volume = 1;
-                    // try to play with sound (may be blocked by browser until user interacts)
-                    const p = v.play();
-                    if (p && p.catch) p.catch(()=>{});
-                    btn.textContent = '🔊';
-                    localStorage.setItem('vp_unmute_videos', '1');
-                } else {
-                    v.muted = true;
-                    btn.textContent = '🔇';
-                    localStorage.setItem('vp_unmute_videos', '0');
-                }
-            } catch (e) { console.warn('toggleVideoSound', e); }
-        }
-
         const formatearDinero = (cantidad) => {
             return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(cantidad);
         };
 
         // TICKER: mensajes y tiempo de rotación (necesarios para iniciarTicker)
         const MENSAJES_TICKER = [
-            'Envíos en Acayucan',
-            'Pedidos por WhatsApp: 9241781748',
-            'Promociones semanales'
+            'Ya inauguramos 🎉',
+            'Promociones por inauguración 🎊',
+            '⚡ Aprovecha ya compra ahora ⚡',
+            'Pedidos al 924 127 7313 📞',
+            ' Vip Acayucan 👑'
         ];
         const TIEMPO_ROTACION = 4000; // ms
+
+        // ============================================================
+        // AJUSTES RÁPIDOS (EDITA AQUÍ PARA ACTIVAR/DESACTIVAR)
+        // - mostrarCTAPublicidad: botón "Click aquí" en la tarjeta de publicidad
+        // - pausarVideosFueraDeVista: usa IntersectionObserver para pausar el video si no se ve
+        // - mostrarBackToTop: muestra el botón flotante para volver arriba
+        // ============================================================
+        const AJUSTES_RAPIDOS = {
+            mostrarCTAPublicidad: true,
+            pausarVideosFueraDeVista: true,
+            mostrarBackToTop: true
+        };
 
         // =================================================================
         // === ZONAS SEGUROS PARA EDITAR ===
@@ -288,9 +293,9 @@
         const CONFIG_SECCIONES = [
             {
                 id: 'ofertas',
-                titulo: 'Ofertas',
-                subtitulo: 'Promociones y descuentos',
-                img: 'Imagenes/oferta.png',
+                titulo: '',
+                subtitulo: '',
+                img: 'image/oferta.png',
                 disponible: true,
                 visible: true,
                 esOferta: true,
@@ -300,25 +305,25 @@
                 id: 'perfumes',
                 titulo: 'Perfumes',
                 subtitulo: 'Fragancias',
-                img: 'Imagenes/portada_perfumes.jpg',
+                img: 'image/portada_perfumes.png',
                 disponible: true,
                 visible: true,
-                orden: 2
+                orden: 5
             },
             {
                 id: 'ropa',
                 titulo: 'Ropa',
                 subtitulo: 'Moda y Flow',
                 img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800&auto=format&fit=crop',
-                disponible: true,
+                disponible: false,
                 visible: true,
-                orden: 3
+                orden: 6
             },
             {
-                id: 'gorras',
-                titulo: 'Gorras',
-                subtitulo: 'Hats de Calidad',
-                img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800&auto=format&fit=crop',
+                id: 'sobrepedido',
+                titulo: 'Sobre pedido',
+                subtitulo: 'Piezas exclusivas por encargo',
+                img: 'image/sobre_pedido.png',
                 disponible: true,
                 visible: true,
                 orden: 4
@@ -328,27 +333,27 @@
                 titulo: 'Relojes',
                 subtitulo: 'Premium & Clásicos',
                 img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=800&auto=format&fit=crop',
-                disponible: true,
+                disponible: false,
                 visible: true,
-                orden: 5
+                orden: 7
             },
             {
                 id: 'vapes',
                 titulo: 'Vapes',
-                subtitulo: 'Humo Premium',
+                subtitulo: 'De las mejores marcas',
                 img: 'https://images.unsplash.com/photo-1563821010-859a53855a84?q=80&w=800&auto=format&fit=crop',
                 disponible: true,
-                visible: false,
-                orden: 6
+                visible: true,
+                orden: 3
             },
             {
                 id: 'waxx',
                 titulo: 'Waxx',
-                subtitulo: 'Concentrados Premium',
-                img: 'Imagenes/portada_wax.jpg',
+                subtitulo: 'Humo de calidad ',
+                img: 'image/portada_wax.jpg',
                 disponible: true,
                 visible: false,
-                orden: 7
+                orden: 2
             },
             {
                 id: 'otros',
@@ -363,7 +368,7 @@
                 id: 'publicidad',
                 titulo: '',
                 subtitulo: '',
-                img: 'Imagenes/Anuncio1.mp4',
+                img: 'image/Anuncio1.mp4',
                 disponible: true,
                 esPublicidad: true,
                 esVideo: true,
@@ -382,14 +387,14 @@
         const listaProductos = [
             // --- PERFUMES (12 Items) ---
             { id: 1, categoria: 'perfumes', activo: true, orden: 1, nombre: "Versace Eros", modelo: "EDT 100ml", precio: 1800, precioOriginal: 2200, enPromocion: true, img: "https://images.unsplash.com/photo-1585218356057-dc0e8d3558bb?q=80&w=800" },
-            { id: 2, categoria: 'perfumes', activo: true, orden: 2, nombre: "Sauvage Dior", modelo: "EDT 100ml", precio: 2500, precioOriginal: 2800, enPromocion: false, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?q=80&w=800" },
+            { id: 2, categoria: 'perfumes', activo: true, orden: 2, nombre: "Sauvage Dior", modelo: "EDT 100ml", precio: 2500, precioOriginal: 2800, enPromocion: true, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?q=80&w=800" },
             { id: 3, categoria: 'perfumes', activo: true, orden: 3, nombre: "One Million", modelo: "Parfum 100ml", precio: 1950, precioOriginal: 2100, enPromocion: true, img: "https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=800" },
-            { id: 4, categoria: 'perfumes', activo: true, orden: 4, nombre: "Bad Boy", modelo: "Carolina Herrera 100ml", precio: 2100, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=800" },
+            { id: 4, categoria: 'perfumes', activo: true, orden: 4, nombre: "Bad Boy", modelo: "Carolina Herrera 100ml", precio: 2100, precioOriginal: 2700, enPromocion: true, img: "https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=800" },
             { id: 5, categoria: 'perfumes', activo: true, orden: 5, nombre: "Nautica Voyage", modelo: "Eau de Toilette 100ml", precio: 600, precioOriginal: 800, enPromocion: true, img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=800" },
             { id: 6, categoria: 'perfumes', activo: true, orden: 6, nombre: "Club de Nuit", modelo: "Intense Man 105ml", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=800" },
-            { id: 7, categoria: 'perfumes', activo: true, orden: 7, nombre: "Le Male", modelo: "Jean Paul Gaultier", precio: 2300, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800" },
-            { id: 8, categoria: 'perfumes', activo: true, orden: 8, nombre: "Bleu de Chanel", modelo: "Chanel Paris 100ml", precio: 3100, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=800" },
-            { id: 9, categoria: 'perfumes', activo: true, orden: 9, nombre: "Acqua di Gio", modelo: "Giorgio Armani 100ml", precio: 2400, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1590736704728-f4730bb30770?q=80&w=800" },
+            { id: 7, categoria: 'perfumes', activo: true, orden: 7, nombre: "Le Male", modelo: "Jean Paul Gaultier", precio: 2300, precioOriginal: 2600, enPromocion: true, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800" },
+            { id: 8, categoria: 'perfumes', activo: true, orden: 8, nombre: "Bleu de Chanel", modelo: "Chanel Paris 100ml", precio: 3100, precioOriginal: 3500, enPromocion: true, img: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=800" },
+            { id: 9, categoria: 'perfumes', activo: true, orden: 9, nombre: "Acqua di Gio", modelo: "Giorgio Armani 100ml", precio: 2200, precioOriginal: 2400, enPromocion: true, img: "https://images.unsplash.com/photo-1590736704728-f4730bb30770?q=80&w=800" },
             { id: 10, categoria: 'perfumes', activo: true, orden: 10, nombre: "Invictus", modelo: "Paco Rabanne 100ml", precio: 2000, precioOriginal: 2300, enPromocion: true, img: "https://images.unsplash.com/photo-1582211584512-d8b73004008e?q=80&w=800" },
             { id: 11, categoria: 'perfumes', activo: true, orden: 11, nombre: "Montblanc Explorer", modelo: "EDP 100ml", precio: 1400, precioOriginal: 1600, enPromocion: false, img: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=800" },
             { id: 12, categoria: 'perfumes', activo: true, orden: 12, nombre: "212 VIP Black", modelo: "Carolina Herrera", precio: 2200, precioOriginal: 2500, enPromocion: true, img: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?q=80&w=800" },
@@ -422,19 +427,19 @@
             { id: 211, categoria: 'vapes', activo: true, orden: 11, nombre: "Juul 2", modelo: "Kit", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1563821010-859a53855a84?q=80&w=800", sabores: SABORES_VAPES },
             { id: 212, categoria: 'vapes', activo: true, orden: 12, nombre: "Stlth", modelo: "Device", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1563821010-859a53855a84?q=80&w=800", sabores: SABORES_VAPES },
 
-            // --- GORRAS (12 Items) ---
-            { id: 501, categoria: 'gorras', activo: true, orden: 1, nombre: "NY Yankees", modelo: "Negra Básica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800" },
-            { id: 502, categoria: 'gorras', activo: true, orden: 2, nombre: "LA Dodgers", modelo: "Azul Real", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?q=80&w=800" },
-            { id: 503, categoria: 'gorras', activo: true, orden: 3, nombre: "Red Sox", modelo: "Azul Marino", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800" },
-            { id: 504, categoria: 'gorras', activo: true, orden: 4, nombre: "White Sox", modelo: "Negra/Blanca", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582748153413-0975193992b8?q=80&w=800" },
-            { id: 505, categoria: 'gorras', activo: true, orden: 5, nombre: "Bulls NBA", modelo: "Roja Snapback", precio: 550, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1589831377283-33cb1cc6bd5d?q=80&w=800" },
-            { id: 506, categoria: 'gorras', activo: true, orden: 6, nombre: "Raiders NFL", modelo: "Negra Clásica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?q=80&w=800" },
-            { id: 507, categoria: 'gorras', activo: true, orden: 7, nombre: "Dad Hat Nike", modelo: "Swoosh Beige", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1533055640609-24b498dfd74c?q=80&w=800" },
-            { id: 508, categoria: 'gorras', activo: true, orden: 8, nombre: "Adidas Trefoil", modelo: "Trucker Azul", precio: 400, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582239474776-3f6285266846?q=80&w=800" },
-            { id: 509, categoria: 'gorras', activo: true, orden: 9, nombre: "Goorin Bros", modelo: "Lion", precio: 800, precioOriginal: 950, enPromocion: true, img: "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?q=80&w=800" },
-            { id: 510, categoria: 'gorras', activo: true, orden: 10, nombre: "Goorin Bros", modelo: "Black Sheep", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1521369909029-2afed882baee?q=80&w=800" },
-            { id: 511, categoria: 'gorras', activo: true, orden: 11, nombre: "47 Brand", modelo: "Clean Up NY", precio: 550, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582748153413-0975193992b8?q=80&w=800" },
-            { id: 512, categoria: 'gorras', activo: true, orden: 12, nombre: "Bucket Hat", modelo: "Pescador Reversible", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1565333552077-949d03e2e13e?q=80&w=800" },
+            // --- SOBRE PEDIDO (12 Items) ---
+            { id: 501, categoria: 'sobrepedido', activo: true, orden: 1, nombre: "NY Yankees", modelo: "Negra Básica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800" },
+            { id: 502, categoria: 'sobrepedido', activo: true, orden: 2, nombre: "LA Dodgers", modelo: "Azul Real", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?q=80&w=800" },
+            { id: 503, categoria: 'sobrepedido', activo: true, orden: 3, nombre: "Red Sox", modelo: "Azul Marino", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800" },
+            { id: 504, categoria: 'sobrepedido', activo: true, orden: 4, nombre: "White Sox", modelo: "Negra/Blanca", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582748153413-0975193992b8?q=80&w=800" },
+            { id: 505, categoria: 'sobrepedido', activo: true, orden: 5, nombre: "Bulls NBA", modelo: "Roja Snapback", precio: 550, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1589831377283-33cb1cc6bd5d?q=80&w=800" },
+            { id: 506, categoria: 'sobrepedido', activo: true, orden: 6, nombre: "Raiders NFL", modelo: "Negra Clásica", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?q=80&w=800" },
+            { id: 507, categoria: 'sobrepedido', activo: true, orden: 7, nombre: "Dad Hat Nike", modelo: "Swoosh Beige", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1533055640609-24b498dfd74c?q=80&w=800" },
+            { id: 508, categoria: 'sobrepedido', activo: true, orden: 8, nombre: "Adidas Trefoil", modelo: "Trucker Azul", precio: 400, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582239474776-3f6285266846?q=80&w=800" },
+            { id: 509, categoria: 'sobrepedido', activo: true, orden: 9, nombre: "Goorin Bros", modelo: "Lion", precio: 800, precioOriginal: 950, enPromocion: true, img: "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?q=80&w=800" },
+            { id: 510, categoria: 'sobrepedido', activo: true, orden: 10, nombre: "Goorin Bros", modelo: "Black Sheep", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1521369909029-2afed882baee?q=80&w=800" },
+            { id: 511, categoria: 'sobrepedido', activo: true, orden: 11, nombre: "47 Brand", modelo: "Clean Up NY", precio: 550, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1582748153413-0975193992b8?q=80&w=800" },
+            { id: 512, categoria: 'sobrepedido', activo: true, orden: 12, nombre: "Bucket Hat", modelo: "Pescador Reversible", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1565333552077-949d03e2e13e?q=80&w=800" },
 
             // --- RELOJES (12 Items) ---
             { id: 601, categoria: 'relojes', activo: true, orden: 1, nombre: "Casio Vintage", modelo: "Dorado Digital", precio: 1200, precioOriginal: 1500, enPromocion: true, img: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=800" },
@@ -503,7 +508,11 @@
             try {
                 const gridEl = document.getElementById('seccion-grid');
                 if (gridEl && gridEl.style.display === 'block') {
-                    abrirCarrito();
+                    // Solo actualizar si ya estamos en la vista del carrito
+                    const contenedor = document.getElementById('grid-productos');
+                    if (contenedor && contenedor.querySelector('.carrito-header')) {
+                        abrirCarrito();
+                    }
                 }
             } catch (e) {
                 console.warn('syncCarritoViewIfOpen error', e);
@@ -585,6 +594,10 @@
         
         window.onscroll = function() {
             const btn = document.getElementById('btn-back-to-top');
+            if (!AJUSTES_RAPIDOS.mostrarBackToTop) {
+                if (btn) btn.style.display = 'none';
+                return;
+            }
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 btn.style.display = "flex";
             } else {
@@ -621,7 +634,7 @@
 
             // Buscar por producto + variante para permitir múltiples variantes como items separados
             const existeIndex = carrito.findIndex(item => item.id === productoActual.id && item.variante === variante);
-            const icono = document.getElementById('icono-corazon-modal');
+            const botonAgregar = document.getElementById('btn-agregar-carrito-modal');
 
             if (existeIndex === -1) {
                 carrito.push({
@@ -633,10 +646,9 @@
                     img: productoActual.img
                 });
 
-                // Mostrar icono de carrito marcado
-                icono.classList.remove('ph-shopping-cart-simple');
-                icono.classList.add('ph-shopping-cart');
-                icono.style.color = 'var(--gold-primary)';
+                // Actualizar botón a "Quitar"
+                botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
+                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
 
                 if (mostrarConfirmacion) {
                     mostrarToast('¡Agregado al carrito!');
@@ -646,11 +658,11 @@
 
             } else {
                 if (!mostrarConfirmacion) {
-                    // Al quitar favorito desde el modal, eliminamos todos los items del mismo producto
+                    // Al quitar desde el modal, eliminamos todos los items del mismo producto
                     carrito = carrito.filter(item => item.id !== productoActual.id);
-                    icono.classList.remove('ph-shopping-cart');
-                    icono.classList.add('ph-shopping-cart-simple');
-                    icono.style.color = 'white';
+                    // Actualizar botón a "Agregar"
+                    botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
+                    botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
                     mostrarToast('Eliminado del carrito');
                 } else {
                     carrito[existeIndex].cantidad = cantidad || carrito[existeIndex].cantidad;
@@ -665,18 +677,74 @@
             syncCarritoViewIfOpen();
         }
 
-        function abrirCarrito(skipScroll = false) {
+        function handleCarritoToggle() {
+            if (!productoActual) return;
+            
+            // Verificar si el producto ya está en el carrito
+            const enCarrito = carrito.some(item => item.id === productoActual.id);
+            
+            if (enCarrito) {
+                // Eliminar del carrito
+                carrito = carrito.filter(item => item.id !== productoActual.id);
+                localStorage.setItem('vp_carrito', JSON.stringify(carrito));
+                actualizarBadgeCarrito();
+                renderFloatingCart();
+                syncCarritoViewIfOpen();
+                
+                mostrarToast('Eliminado del carrito');
+                
+                // Cerrar modal automáticamente
+                cerrarModal();
+                
+                // Si el carrito quedó vacío, recargar la página
+                if (carrito.length === 0) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                    return;
+                }
+            } else {
+                // Agregar al carrito (no cerrar modal para seguir viendo productos)
+                guardarEnCarrito();
+                mostrarToast('✓ Agregado al carrito');
+            }
+        }
+
+        // Función para actualizar el botón del modal basado en el estado del carrito
+        function actualizarBotonModal() {
+            if (!productoActual) return;
+            const botonAgregar = document.getElementById('btn-agregar-carrito-modal');
+            if (!botonAgregar) return;
+            
+            const enCarrito = carrito.some(item => item.id === productoActual.id);
+            
+            if (enCarrito) {
+                botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
+                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+            } else {
+                botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
+                botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
+            }
+        }
+
+        function abrirCarrito() {
             if(carrito.length === 0) {
                 mostrarAlertaModal("Tu carrito está vacío. ¡Agrega productos!");
                 return;
             }
             document.getElementById('seccion-categorias').style.display = 'none';
             document.getElementById('seccion-grid').style.display = 'block';
+            
+            // Mostrar botón flotante de hacer pedido
+            const btnOrderNow = document.getElementById('btn-order-now-floating');
+            if (btnOrderNow) {
+                btnOrderNow.style.display = 'block';
+            }
+            
             const contenedor = document.getElementById('grid-productos');
             // CORRECCIÓN: grid-column: 1 / -1para que el título ocupe todo el ancho
             contenedor.innerHTML = `<div class="carrito-header" style="grid-column: 1 / -1;">
                 <h2 class=\"titulo-seccion-grid\">Carrito (${carrito.length})</h2>
-                <button class=\"btn-order-now\" onclick=\"sendWholeOrderWhatsApp()\">Hacer pedido ya</button>
             </div>`;
             
             carrito.forEach(item => {
@@ -690,9 +758,9 @@
                         <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
                             <div style="color:#bbb; font-size:0.9rem;">Precio unitario: ${formatearDinero(item.precio)}</div>
                             <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-                                <button class="btn-cant" onclick="event.stopPropagation(); updateItemCantidad(${item.id}, '${encodeURIComponent(item.variante)}', -1)"><i class="ph ph-minus"></i></button>
+                                <button class="btn-cant" type="button" onclick="event.stopPropagation(); updateItemCantidad(${item.id}, '${encodeURIComponent(item.variante)}', -1)"><i class="ph ph-minus"></i></button>
                                 <div style="min-width:28px; text-align:center; color:#fff; font-weight:700;">${item.cantidad}</div>
-                                <button class="btn-cant" onclick="event.stopPropagation(); updateItemCantidad(${item.id}, '${encodeURIComponent(item.variante)}', 1)"><i class="ph ph-plus"></i></button>
+                                <button class="btn-cant" type="button" onclick="event.stopPropagation(); updateItemCantidad(${item.id}, '${encodeURIComponent(item.variante)}', 1)"><i class="ph ph-plus"></i></button>
                             </div>
                         </div>
                         <p class="precio-card" style="margin-top:8px;">Subtotal: ${formatearDinero(item.precio * item.cantidad)}</p>
@@ -701,7 +769,6 @@
                 tarjeta.onclick = function() { abrirModal(item.id); };
                 contenedor.appendChild(tarjeta);
             });
-            if (!skipScroll) window.scrollTo(0,0);
         }
 
         function filtrarBusqueda() {
@@ -788,44 +855,37 @@
                     () => { if(seccion.disponible) cargarCatalogo(seccion.id); else mostrarAlertaModal("Próximamente disponible"); };
                 
                 let badge = seccion.esOferta ? `<div class="badge-cat-promo">OFERTAS</div>` : '';
-                let orderLabel = `<div class="order-label">#${seccion.orden ?? (index+1)}</div>`;
+                // order label intentionally hidden (order is configured in code only)
+                let orderLabel = '';
                 let media = '';
                 let soundBtn = '';
                 if (String(seccion.img || '').endsWith('.mp4')) {
                     const vidId = `vid-seccion-${seccion.id}`;
-                    const unmutedPref = localStorage.getItem('vp_unmute_videos') === '1';
-                    const mutedAttr = unmutedPref ? '' : 'muted';
-                    const icon = unmutedPref ? '🔊' : '🔇';
-                    media = `<video id="${vidId}" src="${seccion.img}" autoplay loop ${mutedAttr} playsinline class="media-fondo" style="width:100%; height:100%; object-fit:cover; display:block;"></video>`;
-                    soundBtn = `<button aria-label="Activar sonido" onclick="event.stopPropagation(); toggleVideoSound('${vidId}', this)" style="position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,0.6);color:#fff;border:none;padding:8px 10px;border-radius:8px;font-size:16px;cursor:pointer;z-index:10;">${icon}</button>`;
+                    media = `<video id="${vidId}" src="${seccion.img}" muted playsinline preload="metadata" class="media-fondo media-video" style="width:100%; height:100%; object-fit:cover; display:block;"></video>`;
                 } else {
                     media = `<img src="${seccion.img}" class="media-fondo" onerror="this.onerror=null;this.src='https://via.placeholder.com/800x320?text=Imagen'" style="width:100%; height:100%; object-fit:cover; display:block;">`;
                 }
-                let contenido = seccion.esPublicidad ? '' : `<h2>${seccion.titulo}</h2><p>${seccion.subtitulo}</p><span class="btn-entrar">${seccion.disponible ? 'Ver Catálogo' : 'Cerrado'}</span>`;
+                const cta = (seccion.esPublicidad && AJUSTES_RAPIDOS.mostrarCTAPublicidad) ? `<button type="button" class="cta-publicidad" onclick="event.stopPropagation(); window.open('${seccion.link}','_blank');">Click aquí</button>` : '';
+                let contenido = seccion.esPublicidad ? '' : `<h2>${seccion.titulo}</h2><p>${seccion.subtitulo}</p><span class="btn-entrar">${seccion.disponible ? 'Ver Catálogo' : 'Proximamente...'}</span>`;
                 // Añadir etiqueta de orden y un botón pequeño para editar el orden de la sección
-                div.innerHTML = `<div class="brillo-hover"></div>${badge}${orderLabel}<div style="position:relative; overflow:hidden;">${media}${soundBtn}</div><div class="contenido-cat">${contenido}</div>`;
+                // CTA publicidad: quita la línea del botón si no lo quieres visible
+                div.innerHTML = `<div class="brillo-hover"></div>${badge}${orderLabel}<div class="media-container">${media}${cta}</div><div class="contenido-cat">${contenido}</div>`;
                 // Removed visual edit button (editing order is done directly in code)
                 cont.appendChild(div);
             });
             
             // FIX CRÍTICO: Refrescar AOS después de crear los elementos para que se vean
-            setTimeout(() => { AOS.refresh(); }, 200);
+            setTimeout(() => AOS.refresh(), 200);
         }
 
-        function editarOrdenSeccion(id) {
-            const valor = prompt('Introduce el número de orden para esta sección (1 = primero):');
-            if (valor === null) return;
-            const n = parseInt(valor, 10);
-            if (isNaN(n)) { mostrarToast('Número inválido'); return; }
-            const idx = CONFIG_SECCIONES.findIndex(s => s.id === id);
-            if (idx === -1) return;
-            CONFIG_SECCIONES[idx].orden = n;
-            renderizarMenuInicio();
-        }
-
-        function cargarCatalogo(filtro, skipScroll = false) {
+        function cargarCatalogo(filtro) {
             document.getElementById('seccion-categorias').style.display = 'none';
             document.getElementById('seccion-grid').style.display = 'block';
+            
+            // Ocultar botón flotante de hacer pedido
+            const btnOrderNow = document.getElementById('btn-order-now-floating');
+            if (btnOrderNow) btnOrderNow.style.display = 'none';
+            
             setTimeout(() => AOS.refresh(), 100);
             const contenedor = document.getElementById('grid-productos');
             // CORRECCIÓN: Asegurar que el título de categoría ocupe todo el ancho
@@ -839,7 +899,7 @@
             prods.sort((a,b) => a.orden - b.orden);
             
             renderizarGrid(prods, contenedor, false); // false para no borrar el título
-            if (!skipScroll) window.scrollTo(0,0);
+            window.scrollTo(0,0);
         }
 
         function renderizarGrid(lista, contenedor, limpiar = true) {
@@ -857,15 +917,15 @@
                 let controlesRapidos = '';
                 const varianteDef = (prod.modelo && prod.modelo.length>0) ? prod.modelo : 'Estándar';
                 const enCarritoItem = carrito.find(it => it.id === prod.id && it.variante === varianteDef);
-                if (!prod.sabores || prod.sabores.length === 0) {
+                    if (!prod.sabores || prod.sabores.length === 0) {
                     if (enCarritoItem) {
-                        controlesRapidos = `<div class="qty-card" onclick="event.stopPropagation();"><button class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', -1)\"><i class=\"ph ph-minus\"></i></button><div class=\"qty-number\">${enCarritoItem.cantidad}</div><button class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', 1)\"><i class=\"ph ph-plus\"></i></button></div>`;
+                        controlesRapidos = `<div class="qty-card" onclick="event.stopPropagation();"><button type=\"button\" class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', -1)\"><i class=\"ph ph-minus\"></i></button><div class=\"qty-number\">${enCarritoItem.cantidad}</div><button type=\"button\" class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', 1)\"><i class=\"ph ph-plus\"></i></button></div>`;
                     } else {
-                        controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); agregarAlCarritoRapido(${prod.id})\" title=\"Agregar\">Agregar</button>`;
+                        controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); agregarAlCarritoRapido(${prod.id})\" title=\"Agregar\"><i class=\"ph ph-shopping-cart\"></i></button>`;
                     }
                 } else {
-                    // si tiene sabores, conservar botón que abre modal para seleccionar
-                    controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); abrirModal(${prod.id})\" title=\"Seleccionar variante\">Seleccionar</button>`;
+                    // si tiene sabores, también mostrar el carrito rápido (agrega la primera variante disponible)
+                    controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); agregarAlCarritoRapido(${prod.id})\" title=\"Agregar\"><i class=\"ph ph-shopping-cart\"></i></button>`;
                 }
 
                 tarjeta.innerHTML = `<div class="img-wrapper">${etiq}<img src="${prod.img}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=Imagen'"></div><div class="info-card"><h3>${prod.nombre}</h3>${prec}<div style="display:flex; gap:8px; justify-content:center; align-items:center; margin-top:10px;">${controlesRapidos}<span class="texto-ver-detalles">Ver Detalles</span></div></div>`;
@@ -900,13 +960,12 @@
         function agregarAlCarritoRapido(idProducto) {
             const producto = listaProductos.find(p => p.id === idProducto);
             if (!producto) return;
-            // Si el producto tiene variantes/sabores, abrir modal para seleccionar
-            if (producto.sabores && producto.sabores.length > 0) {
-                abrirModal(idProducto);
-                return;
-            }
-            // Si no tiene variantes, agregar directo
+            // Si el producto tiene variantes/sabores, tomar la primera variante disponible por defecto
             let variante = producto.modelo || 'Estándar';
+            if (producto.sabores && producto.sabores.length > 0) {
+                const primera = producto.sabores.find(s => s.disponible !== false) || producto.sabores[0];
+                if (primera && primera.nombre) variante = primera.nombre;
+            }
             const idx = carrito.findIndex(it => it.id === producto.id && it.variante === variante);
             if (idx === -1) {
                 carrito.push({ id: producto.id, cantidad: 1, variante, nombre: producto.nombre, precio: producto.precio, img: producto.img });
@@ -933,6 +992,11 @@
             document.getElementById('seccion-categorias').style.display = 'block';
             document.getElementById('seccion-grid').style.display = 'none';
             document.getElementById('input-busqueda').value = '';
+            
+            // Ocultar botón flotante de hacer pedido
+            const btnOrderNow = document.getElementById('btn-order-now-floating');
+            if (btnOrderNow) btnOrderNow.style.display = 'none';
+            
             window.scrollTo(0,0);
         }
 
@@ -1000,19 +1064,31 @@
                 contVariantes.innerHTML = `<input type="text" id="input-variante-manual" value="${val}" readonly class="input-modal-texto">`;
             }
 
-            // Estado Favorito (Corazón Rojo)
+            // Actualizar botón de agregar/quitar según estado en carrito
             const enCarrito = carrito.some(item => item.id === productoActual.id);
-            const icono = document.getElementById('icono-corazon-modal');
+            const botonAgregar = document.getElementById('btn-agregar-carrito-modal');
             
-            // RESET CLASES: usamos icono de carrito para indicar "en carrito"
-            icono.className = 'ph'; // Base
-
             if (enCarrito) {
-                icono.classList.add('ph-shopping-cart'); // Icono marcado
-                icono.style.color = 'var(--gold-primary)';
+                botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
+                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
             } else {
-                icono.classList.add('ph-shopping-cart-simple'); // Icono vacío
-                icono.style.color = 'white';
+                botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
+                botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
+            }
+
+            // Detectar si el producto es de "sobrepedido" y actualizar botón de WhatsApp
+            const esSobrePedido = productoActual.categoria === 'sobrepedido';
+            const btnWhatsApp = document.getElementById('btn-whatsapp-modal');
+            const advertenciaSobrePedido = document.getElementById('advertencia-sobre-pedido-modal');
+            
+            if (esSobrePedido) {
+                btnWhatsApp.innerHTML = '<i class="ph ph-whatsapp-logo" style="margin-right:8px;"></i><span>Hacer Sobre Pedido</span>';
+                btnWhatsApp.style.background = 'linear-gradient(135deg, #9ca3af, #6b7280)';
+                advertenciaSobrePedido.style.display = 'block';
+            } else {
+                btnWhatsApp.innerHTML = '<i class="ph ph-whatsapp-logo" style="margin-right:8px;"></i><span>Comprar ya</span>';
+                btnWhatsApp.style.background = 'linear-gradient(180deg, #2ac05f 0%, #25d366 60%)';
+                advertenciaSobrePedido.style.display = 'none';
             }
 
             // Recomendados
@@ -1150,7 +1226,26 @@
 
             guardarEnCarrito(true); // Guardar con notificación
 
-            const mensaje = `Hola VP, pedido #${folio}\n--------------------------------\n📦 ${productoActual.nombre}\n🎨 Opción: ${variante}\n🔢 Cant: ${cantidad}\n💰 Total: ${formatearDinero(total)}\n💳 Pago: ${pago}`;
+            // Detectar si es sobre pedido
+            const esSobrePedido = productoActual.categoria === 'sobrepedido';
+            
+            let mensaje = `*PEDIDO #${folio}*\n\n`;
+            
+            if (esSobrePedido) {
+                mensaje += `⚠️ *SOBRE PEDIDO:*\n`;
+            }
+            
+            mensaje += `${productoActual.nombre} (${variante}) x${cantidad} - ${formatearDinero(total)}\n`;
+            
+            if (esSobrePedido) {
+                const anticipo = total * 0.5;
+                mensaje += `Anticipo 50%: ${formatearDinero(anticipo)}\n`;
+                mensaje += `Entrega: 7 días aprox.\n`;
+            }
+            
+            mensaje += `\n💳 Pago: ${pago}\n`;
+            mensaje += `\n*Total: ${formatearDinero(total)}*`;
+            
             const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
@@ -1187,33 +1282,53 @@
                 if (carrito.length === 0) {
                     list.innerHTML = '<p style="padding:12px; color:#bbb">No hay productos en el carrito.</p>';
                     document.getElementById('floating-total').innerText = formatearDinero(0);
+                    const advertencia = document.getElementById('sobre-pedido-advertencia');
+                    if (advertencia) advertencia.style.display = 'none';
                     return;
                 }
                 let total = 0;
                 carrito.forEach(it => {
                     total += (parseInt(it.cantidad,10) || 0) * it.precio;
-                        const row = document.createElement('div');
-                        row.className = 'floating-cart-item';
-                        row.innerHTML = `
-                        <div class="fci-img"><img src="${it.img}" onerror="this.onerror=null;this.src='https://via.placeholder.com/80?text=Imagen'"></div>
-                    <div class="fci-info">
-                        <div class="fci-name">${it.nombre}</div>
-                        <div class="fci-variant">${it.variante}</div>
-                        <div style="margin-top:8px; display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
-                            <div style="color:#bbb; font-size:0.85rem;">Precio unitario: ${formatearDinero(it.precio)}</div>
-                            <div style="display:flex; gap:8px; align-items:center;">
-                            <button class="btn-cant" onclick="event.stopPropagation(); updateItemCantidad(${it.id}, '${encodeURIComponent(it.variante)}', -1)"><i class="ph ph-minus"></i></button>
-                            <div style="min-width:28px; text-align:center; color:#fff; font-weight:700;">${it.cantidad}</div>
-                            <button class="btn-cant" onclick="event.stopPropagation(); updateItemCantidad(${it.id}, '${encodeURIComponent(it.variante)}', 1)"><i class="ph ph-plus"></i></button>
-                            <button class="btn-secondary" style="margin-left:auto;" onclick="event.stopPropagation(); removeItem(${it.id}, '${encodeURIComponent(it.variante)}')">Eliminar</button>
+                    const row = document.createElement('div');
+                    row.className = 'floating-cart-item';
+                    row.innerHTML = `
+                        <img src="${it.img}" onerror="this.onerror=null;this.src='https://via.placeholder.com/48?text=VP'" alt="${it.nombre}">
+                        <div class="fci-info">
+                            <div class="fci-name">${it.nombre}</div>
+                            <div class="fci-variant">${it.variante}</div>
+                            <div class="fci-controls">
+                                <button class="btn-cant" type="button" onclick="event.stopPropagation(); updateItemCantidad(${it.id}, '${encodeURIComponent(it.variante)}', -1)"><i class="ph ph-minus"></i></button>
+                                <span class="fci-qty">${it.cantidad}</span>
+                                <button class="btn-cant" type="button" onclick="event.stopPropagation(); updateItemCantidad(${it.id}, '${encodeURIComponent(it.variante)}', 1)"><i class="ph ph-plus"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="fci-right"><div class="fci-price">${formatearDinero(it.precio * it.cantidad)}</div></div>
-                `;
+                        <div class="fci-right">
+                            <div class="fci-price">${formatearDinero(it.precio * it.cantidad)}</div>
+                            <button class="btn-eliminar" onclick="event.stopPropagation(); removeItem(${it.id}, '${encodeURIComponent(it.variante)}')" title="Eliminar">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </div>
+                    `;
                     list.appendChild(row);
                 });
                 document.getElementById('floating-total').innerText = formatearDinero(total);
+                
+                // Detectar si hay productos de "sobrepedido" en el carrito
+                const tieneSobrePedido = carrito.some(it => {
+                    const prod = listaProductos.find(p => p.id === it.id);
+                    return prod && prod.categoria === 'sobrepedido';
+                });
+                
+                // Mostrar/ocultar la advertencia según productos
+                const advertencia = document.getElementById('sobre-pedido-advertencia');
+                if (advertencia) {
+                    if (tieneSobrePedido) {
+                        advertencia.style.display = 'flex';
+                    } else {
+                        advertencia.style.display = 'none';
+                    }
+                }
+                
                 // If panel was open, ensure it's visible (in case a render caused it to be hidden)
                 const panelEl = document.getElementById('floating-cart-panel');
                 if (panelEl && panelEl.classList.contains('open')) {
@@ -1232,16 +1347,42 @@
             const idx = carrito.findIndex(it => it.id === id && it.variante === variante);
             if (idx === -1) return;
             let nueva = Number(carrito[idx].cantidad) + Number(cambio);
-            if (nueva < 1) nueva = 1;
-            carrito[idx].cantidad = nueva;
-            localStorage.setItem('vp_carrito', JSON.stringify(carrito));
-            actualizarBadgeCarrito();
-            renderFloatingCart();
+            
+            // Si la cantidad llega a 0 o menos, eliminar el producto del carrito
+            if (nueva <= 0) {
+                carrito.splice(idx, 1);
+                localStorage.setItem('vp_carrito', JSON.stringify(carrito));
+                actualizarBadgeCarrito();
+                renderFloatingCart();
+                
+                // Actualizar el botón del modal si está abierto con este producto
+                if (productoActual && productoActual.id === id) {
+                    actualizarBotonModal();
+                }
+                
+                // Si el carrito quedó vacío, recargar la página para reiniciar todo
+                if (carrito.length === 0) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                    return;
+                }
+                
+                mostrarToast('Producto eliminado');
+            } else {
+                carrito[idx].cantidad = nueva;
+                localStorage.setItem('vp_carrito', JSON.stringify(carrito));
+                actualizarBadgeCarrito();
+                renderFloatingCart();
+            }
+            
             // Actualizar la vista si el grid está visible: si el grid muestra el carrito, reabrirlo; si muestra otro filtro, re-renderizar ese filtro sin scroll
             if (document.getElementById('seccion-grid').style.display === 'block') {
                 const cont = document.getElementById('grid-productos');
                 if (cont && cont.querySelector('.carrito-header')) {
-                    abrirCarrito(true); // mantener sin scroll
+                    if (carrito.length > 0) {
+                        abrirCarrito(true); // mantener sin scroll
+                    }
                 } else if (cont) {
                     const tituloEl = cont.querySelector('h2');
                     if (tituloEl) {
@@ -1258,12 +1399,21 @@
             localStorage.setItem('vp_carrito', JSON.stringify(carrito));
             actualizarBadgeCarrito();
             renderFloatingCart();
+            
+            // Actualizar el botón del modal si está abierto con este producto
+            if (productoActual && productoActual.id === id) {
+                actualizarBotonModal();
+            }
+            
             // Actualizar la vista del carrito en grid si está abierta
             if (document.getElementById('seccion-grid').style.display === 'block') {
-                if (carrito.length === 0) {
-                    irAlInicio();
-                } else {
-                    abrirCarrito();
+                const contenedor = document.getElementById('grid-productos');
+                if (contenedor && contenedor.querySelector('.carrito-header')) {
+                    if (carrito.length === 0) {
+                        irAlInicio();
+                    } else {
+                        abrirCarrito();
+                    }
                 }
             }
         }
@@ -1280,6 +1430,23 @@
                 const nombre = document.getElementById('fc-name');
                 if (nombre) nombre.focus();
             }, 150);
+        }
+
+        function toggleFloatingCart() {
+            if(carrito.length === 0) {
+                mostrarAlertaModal("Tu carrito está vacío. ¡Agrega productos!");
+                return;
+            }
+            const panel = document.getElementById('floating-cart-panel');
+            if (!panel) return;
+            
+            // Si está visible, cerrarlo
+            if (panel.style.display === 'block' || panel.classList.contains('open')) {
+                closeFloatingCart();
+            } else {
+                // Si está oculto, abrirlo
+                openFloatingCart();
+            }
         }
 
         function closeFloatingCart() {
@@ -1300,26 +1467,57 @@
             // Número destino configurado: 52 + 9241277313
             const telefono = '529241277313';
             let folio = Math.floor(1000 + Math.random() * 9000);
-            let lines = [`Pedido #${folio}`, '--------------------------------'];
+            
+            let lines = [];
+            lines.push(`📝 *PEDIDO #${folio}*`);
+            lines.push('');
+            
             let total = 0;
-            carrito.forEach((it, idx) => {
+            let totalSobrePedido = 0;
+            let productosSobrePedido = [];
+            let productosNormales = [];
+            
+            // Separar productos normales y sobre pedido
+            carrito.forEach((it) => {
                 try {
-                    lines.push(`${idx+1}. ${it.nombre} (${it.variante}) x${it.cantidad} - ${formatearDinero(it.precio)} = ${formatearDinero(it.precio * it.cantidad)}`);
-                    total += (parseInt(it.cantidad,10) || 0) * it.precio;
+                    const producto = listaProductos.find(p => p.id === it.id);
+                    const esSobrePedido = producto && producto.categoria === 'sobrepedido';
+                    const subtotal = (parseInt(it.cantidad,10) || 0) * it.precio;
+                    total += subtotal;
+                    
+                    const itemText = `• ${it.nombre} (${it.variante})\n  x${it.cantidad} - ${formatearDinero(subtotal)}`;
+                    
+                    if (esSobrePedido) {
+                        productosSobrePedido.push(itemText);
+                        totalSobrePedido += subtotal;
+                    } else {
+                        productosNormales.push(itemText);
+                    }
                 } catch (e) {
-                    // Si hay problemas con un item, ignóralo y continúa
                     console.warn('Item inválido en carrito:', e, it);
                 }
             });
-            lines.push('--------------------------------');
-            lines.push(`Total: ${formatearDinero(total)}`);
-            // Armar mensaje (sin campos opcionales del panel)
-            let mensaje = lines.join('\n');
-            // Si el mensaje es muy largo, crear resumen para evitar problemas con la URL
-            if (mensaje.length > 1600) {
-                const resumen = carrito.map(it => `${it.nombre} x${it.cantidad}`).slice(0,10).join(', ');
-                mensaje = `Pedido #${folio}\nProductos: ${resumen}\nTotal: ${formatearDinero(total)}\n(Producto(s) completos enviados por chat)`;
+            
+            // Agregar productos normales
+            if (productosNormales.length > 0) {
+                productosNormales.forEach(item => lines.push(item));
             }
+            
+            // Agregar productos sobre pedido
+            if (productosSobrePedido.length > 0) {
+                if (productosNormales.length > 0) lines.push('');
+                lines.push('⚠️ *SOBRE PEDIDO:*');
+                productosSobrePedido.forEach(item => lines.push(item));
+                lines.push(`💵 Anticipo (50%): *${formatearDinero(totalSobrePedido * 0.5)}*`);
+                lines.push('📅 Entrega: ~7 días');
+            }
+            
+            lines.push('');
+            lines.push('───────────────');
+            lines.push(`💰 *TOTAL: ${formatearDinero(total)}*`);
+            
+            let mensaje = lines.join('\n');
+            
             const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
