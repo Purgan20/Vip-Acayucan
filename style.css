@@ -788,8 +788,10 @@ header {
 /* Controles rápidos dentro de tarjeta de producto */
 .qty-card { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:14px; background: var(--glass-bg); border: var(--glass-border); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .qty-card .qty-number { min-width:36px; text-align:center; color:#fff; font-weight:800; font-size:1rem; }
-.btn-agregar-card { background: linear-gradient(135deg, #D4AF37, #B8960F); color:black; border:none; padding:8px 12px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow: 0 8px 22px rgba(212,175,55,0.18); }
-.btn-agregar-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(212,175,55,0.18); }
+.btn-agregar-card { background: linear-gradient(135deg, #D4AF37, #B8960F); color:black; border:none; padding:8px 12px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow: 0 8px 22px rgba(212,175,55,0.18); transition: all 0.3s ease; }
+.btn-agregar-card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(212,175,55,0.25); }
+.btn-agregar-card.agregado { background: linear-gradient(135deg, #27ae60, #1e8449); color: white; }
+.btn-agregar-card.agregado:hover { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 10px 26px rgba(39, 174, 96, 0.25); }
 
 
 .bloque-precios {
@@ -1197,7 +1199,7 @@ footer {
    ========================================= */
 @media (max-width: 768px) {
     .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
-    .img-wrapper { height: 190px; }
+    .img-wrapper { height: 180px; }
     .img-wrapper img { object-position: center top; }
     
     .producto-imagen-grande { height: 280px; }
@@ -1212,8 +1214,18 @@ footer {
     .nav-buttons .texto-insta { display: none; }
     .btn-instagram { display: none; }
     .buscador-container { max-width: none; flex: 1; }
-    .nav-buttons { gap: 10px; }
-    #input-busqueda { padding: 8px 30px 8px 10px; font-size: 0.85rem; }
+    .nav-buttons { gap: 8px; }
+    .nav-content { gap: 12px; padding: 0 10px; }
+    #input-busqueda { padding: 10px 35px 10px 12px; font-size: 0.9rem; }
+    .btn-icon-nav { width: 44px; height: 44px; font-size: 1.5rem; }
+    .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -4px; right: -6px; }
+    
+    /* Tarjetas de producto en móvil */
+    .info-card { padding: 12px; height: auto; min-height: 120px; }
+    .info-card h3 { font-size: 0.95rem; margin-bottom: 4px; }
+    .precio-card { font-size: 1.2rem; }
+    .texto-ver-detalles { font-size: 0.65rem; padding-top: 8px; letter-spacing: 1px; }
+    .btn-agregar-card { padding: 6px 10px; font-size: 0.85rem; }
     
     /* Tarjetas de categoría en tablet/móvil */
     .contenedor-categorias {
@@ -1333,21 +1345,29 @@ footer {
 
 /* Mobile improvements: safe areas, touch targets and single-column grid */
 @media (max-width: 420px) {
-    body { padding-top: 80px; }
-    .grid-productos { grid-template-columns: 1fr; padding: 8px; gap: 10px; }
-    .img-wrapper { height: 160px; }
+    body { padding-top: 75px; }
+    nav { padding: 10px 12px; }
+    .grid-productos { grid-template-columns: 1fr; padding: 8px; gap: 12px; }
+    .img-wrapper { height: 200px; }
     .producto-imagen-grande { height: 220px; }
-    .btn-whatsapp { width: 64px; height: 64px; }
-    .btn-icon-nav { font-size: 1.6rem; width: 42px; height: 42px; }
-    .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -3px; right: -5px; }
+    .btn-whatsapp { width: 60px; height: 60px; }
+    .btn-icon-nav { font-size: 1.4rem; width: 40px; height: 40px; }
+    .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -2px; right: -4px; border-width: 1.5px; }
     .btn-instagram { display: none; }
     .buscador-container { max-width: none; flex: 1; }
-    .nav-buttons { gap: 8px; }
-    .nav-content { gap: 10px; }
-    .boton-pedir { padding: 12px 16px; font-size: 0.9rem; }
-    .floating-cart-panel { right: 10px; left: 10px; bottom: 84px; width: auto; }
+    .nav-buttons { gap: 6px; }
+    .nav-content { gap: 8px; padding: 0 5px; }
+    #input-busqueda { padding: 8px 30px 8px 10px; font-size: 0.85rem; }
+    .boton-pedir { padding: 10px 14px; font-size: 0.85rem; }
+    .floating-cart-panel { right: 8px; left: 8px; bottom: 80px; width: auto; }
     /* Increase tappable targets */
     button, .btn-primary, .btn-secondary { min-height: 44px; }
+    
+    /* Tarjetas de producto en móvil pequeño */
+    .info-card { padding: 14px; height: auto; min-height: 100px; }
+    .info-card h3 { font-size: 1.05rem; }
+    .precio-card { font-size: 1.3rem; }
+    .btn-agregar-card { padding: 8px 12px; }
     
     /* Tarjetas de categoría en móvil */
     .contenedor-categorias {
