@@ -919,18 +919,14 @@
                 tarjeta.onclick = () => abrirModal(prod.id);
                 let etiq = prod.enPromocion ? `<div class="etiqueta-oferta">OFERTA</div>` : '';
                 let prec = prod.enPromocion ? `<div class="bloque-precios"><span class="precio-tachado">${formatearDinero(prod.precioOriginal)}</span><span class="precio-card precio-rojo">${formatearDinero(prod.precio)}</span></div>` : `<div class="bloque-precios"><span class="precio-card">${formatearDinero(prod.precio)}</span></div>`;
-                // Controles rápidos: si el producto no tiene variantes ofrecidas, mostrar controles +/- directamente
+                // Controles rápidos: siempre mostrar solo el botón de carrito
                 let controlesRapidos = '';
                 const varianteDef = (prod.modelo && prod.modelo.length>0) ? prod.modelo : 'Estándar';
                 const enCarritoItem = carrito.find(it => it.id === prod.id && it.variante === varianteDef);
-                    if (!prod.sabores || prod.sabores.length === 0) {
-                    if (enCarritoItem) {
-                        controlesRapidos = `<div class="qty-card" onclick="event.stopPropagation();"><button type=\"button\" class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', -1)\"><i class=\"ph ph-minus\"></i></button><div class=\"qty-number\">${enCarritoItem.cantidad}</div><button type=\"button\" class=\"btn-cant\" onclick=\"event.stopPropagation(); updateItemCantidad(${prod.id}, '${encodeURIComponent(varianteDef)}', 1)\"><i class=\"ph ph-plus\"></i></button></div>`;
-                    } else {
-                        controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); agregarAlCarritoRapido(${prod.id})\" title=\"Agregar\"><i class=\"ph ph-shopping-cart\"></i></button>`;
-                    }
+                // Siempre mostrar icono de carrito (con check si ya está agregado)
+                if (enCarritoItem) {
+                    controlesRapidos = `<button class=\"btn-agregar-card agregado\" onclick=\"event.stopPropagation(); abrirModal(${prod.id})\" title=\"En carrito\"><i class=\"ph ph-check-circle\"></i></button>`;
                 } else {
-                    // si tiene sabores, también mostrar el carrito rápido (agrega la primera variante disponible)
                     controlesRapidos = `<button class=\"btn-agregar-card\" onclick=\"event.stopPropagation(); agregarAlCarritoRapido(${prod.id})\" title=\"Agregar\"><i class=\"ph ph-shopping-cart\"></i></button>`;
                 }
 
