@@ -1,4 +1,3 @@
-
 /* ==========================================================================
    1. CONFIGURACIÓN MAESTRA Y RESET (BASE DE ALTA CALIDAD)
    ========================================================================== */
@@ -90,7 +89,7 @@ body {
     
     /* --- FONDO CON IMAGEN Y OVERLAYS --- */
     /* Fondo limpio sin capas oscuras - imagen visible */
-    background-image: url('image/fondo.png');
+    background-image: url('Imagenes/fondo.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -453,7 +452,6 @@ nav {
     transform: translateX(-50%) translateY(-2px);
     box-shadow: 0 14px 32px rgba(0,0,0,0.45), 0 0 18px rgba(212,175,55,0.2);
 }
-
 
 /* ==========================================================================
    6. HEADER & PASILLO DE CATEGORÍAS (EFECTO LUJO)
@@ -1516,10 +1514,28 @@ footer {
     background: linear-gradient(180deg, rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.7));
 }
 
-.fci-info { min-width: 0; word-break: break-word; }
-.fci-name { white-space: normal; overflow-wrap: break-word; }
-.fci-img img { width:44px; height:36px; object-fit:cover; }
+.fci-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    word-break: break-word;
+}
+
+.fci-name {
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.fci-img img { width: 44px; height: 36px; object-fit: cover; }
+
 .fci-right { min-width: 70px; }
+
 .floating-cart-header {
     flex-shrink: 0;
     display: flex;
@@ -1530,9 +1546,9 @@ footer {
     font-weight: 700;
     color: var(--gold-light);
 }
-.cerrar-flotante { background:none; border:none; color:#ddd; font-size:1rem; cursor:pointer; }
 
-/* Subtitle del floating cart */
+.cerrar-flotante { background: none; border: none; color: #ddd; font-size: 1rem; cursor: pointer; }
+
 .floating-cart-subtitle {
     flex-shrink: 0;
     padding: 8px 12px;
@@ -1541,7 +1557,6 @@ footer {
     color: #ddd;
 }
 
-/* X flotante (siempre visible) para cerrar el panel */
 .cerrar-flotante-fab {
     position: absolute;
     top: 10px;
@@ -1561,16 +1576,8 @@ footer {
 }
 
 .cerrar-flotante-fab i { font-size: 1.05rem; color: #fff; }
-
-.cerrar-flotante-fab:hover {
-    transform: translateY(-1px) scale(1.05);
-    background: rgba(255, 255, 255, 0.10);
-    border-color: rgba(255, 255, 255, 0.20);
-}
-
-.cerrar-flotante-fab:active {
-    transform: scale(0.98);
-}
+.cerrar-flotante-fab:hover { transform: translateY(-1px) scale(1.05); background: rgba(255, 255, 255, 0.10); border-color: rgba(255, 255, 255, 0.20); }
+.cerrar-flotante-fab:active { transform: scale(0.98); }
 
 .floating-cart-item {
     display: flex;
@@ -1581,9 +1588,7 @@ footer {
     transition: background 0.2s ease;
 }
 
-.floating-cart-item:hover {
-    background: rgba(255,255,255,0.03);
-}
+.floating-cart-item:hover { background: rgba(255,255,255,0.03); }
 
 .floating-cart-item img {
     width: 50px;
@@ -1591,21 +1596,6 @@ footer {
     object-fit: cover;
     border-radius: 8px;
     flex-shrink: 0;
-}
-
-.fci-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.fci-name {
-    font-weight: 700;
-    color: #fff;
-    font-size: 0.9rem;
-    line-height: 1.2;
 }
 
 .fci-variant {
@@ -1804,7 +1794,6 @@ footer {
 
 @media (max-width: 600px) {
     .floating-cart-panel { right: 12px; left: 12px; width: auto; bottom: 104px; max-height: 78vh; }
-    .btn-whatsapp { right: 14px; bottom: 14px; width: 72px; height: 72px; }
 }
 
 /* Stack buttons in floating cart on small screens */
@@ -1918,28 +1907,7 @@ footer {
     transform: scale(0.95);
 }
 
-/* Botón Agregar al Carrito - Estilo Premium Dorado */
-.boton-pedir {
-    background: linear-gradient(135deg, #D4AF37, #FFD700);
-    color: #050505;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
-}
-
-.boton-pedir:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
-}
-
-.boton-pedir:active {
-    transform: translateY(0);
-}
+/* Botón Agregar al Carrito - usa estilos definidos en .boton-pedir (línea ~1077) */
 
 /* Botón Hacer Pedido - Estilo Verde/Blanco WhatsApp */
 .boton-whatsapp-modal {
@@ -1964,36 +1932,7 @@ footer {
     transform: translateY(0);
 }
 
-/* Estilo para cantidad en panel flotante */
-.btn-cant {
-    background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 8px;
-    width: 28px;
-    height: 28px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.24), 0 0 0 1px rgba(212,175,55,0.12), inset 0 1px 0 rgba(255,255,255,0.18);
-}
-
-.btn-cant:hover {
-    background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
-    border-color: rgba(255,255,255,0.26);
-    transform: scale(1.08);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.26), 0 0 0 1px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.btn-cant:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
-}
+/* .btn-cant - estilos definidos en línea ~1023 */
 
 /* Pulse animation for feedback when adding items */
 .whatsapp-badge.pulse {
@@ -2012,7 +1951,6 @@ footer {
     #input-busqueda { padding: 10px 40px 10px 12px; font-size: 0.95rem; }
     .btn-whatsapp { width: 72px; height: 72px; right: 14px; bottom: 14px; }
     .whatsapp-badge { top: -8px; right: -8px; min-width: 22px; height: 22px; font-size: 0.75rem; }
-    .floating-cart-panel { bottom: 104px; max-height: 78vh; }
     .floating-cart-list { max-height: 62vh; }
     .btn-cant { width: 36px; height: 36px; }
     .btn-agregar-simple { width: 48px; height: 40px; padding: 10px; }
