@@ -1212,7 +1212,46 @@ footer {
     .controles-scroll { display: none; }
     
     .nav-buttons .texto-insta { display: none; }
+    .btn-instagram { display: none; }
+    .buscador-container { max-width: none; flex: 1; }
+    .nav-buttons { gap: 10px; }
     #input-busqueda { padding: 8px 30px 8px 10px; font-size: 0.85rem; }
+    
+    /* Tarjetas de categoría en tablet/móvil */
+    .contenedor-categorias {
+        padding: 25px 15px;
+        gap: 25px;
+    }
+    .tarjeta-categoria {
+        max-width: 100%;
+        height: 280px;
+        border-radius: 18px;
+    }
+    .contenido-cat h2 {
+        font-size: 1.8rem;
+    }
+    .contenido-cat p {
+        font-size: 0.9rem;
+    }
+    
+    /* CTA de publicidad en tablet */
+    .cta-publicidad {
+        bottom: 14px;
+        padding: 9px 16px;
+        font-size: 0.85rem;
+    }
+    
+    /* Header en tablet */
+    header {
+        padding: 60px 20px;
+        min-height: 400px;
+    }
+    .texto-oro-liquido {
+        font-size: 5rem;
+    }
+    .subtitulo-vip {
+        font-size: 1.5rem;
+    }
 }
 
 /* Floating WhatsApp Button and Panel */
@@ -1301,12 +1340,68 @@ footer {
     .img-wrapper { height: 160px; }
     .producto-imagen-grande { height: 220px; }
     .btn-whatsapp { width: 64px; height: 64px; }
-    .btn-icon-nav { font-size: 1.6rem; }
-    .badge-count { width: 22px; height: 22px; font-size: 0.75rem; }
+    .btn-icon-nav { font-size: 1.6rem; width: 42px; height: 42px; }
+    .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -3px; right: -5px; }
+    .btn-instagram { display: none; }
+    .buscador-container { max-width: none; flex: 1; }
+    .nav-buttons { gap: 8px; }
+    .nav-content { gap: 10px; }
     .boton-pedir { padding: 12px 16px; font-size: 0.9rem; }
     .floating-cart-panel { right: 10px; left: 10px; bottom: 84px; width: auto; }
     /* Increase tappable targets */
     button, .btn-primary, .btn-secondary { min-height: 44px; }
+    
+    /* Tarjetas de categoría en móvil */
+    .contenedor-categorias {
+        padding: 20px 10px;
+        gap: 20px;
+    }
+    .tarjeta-categoria {
+        max-width: 100%;
+        height: 240px;
+        border-radius: 16px;
+    }
+    .contenido-cat h2 {
+        font-size: 1.6rem;
+    }
+    .contenido-cat p {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+    .btn-entrar {
+        padding: 10px 24px;
+        font-size: 0.8rem;
+    }
+    
+    /* Botón CTA de publicidad en móvil */
+    .cta-publicidad {
+        bottom: 12px;
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        border-radius: 10px;
+        min-width: 100px;
+        text-align: center;
+    }
+    
+    /* Header en móvil */
+    header {
+        padding: 50px 15px;
+        min-height: 350px;
+    }
+    .texto-oro-liquido {
+        font-size: 4rem;
+    }
+    .subtitulo-vip {
+        font-size: 1.3rem;
+    }
+    .separador-dorado {
+        width: 70px;
+        margin: 20px auto;
+    }
+    .slogan {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+    }
 }
 .btn-whatsapp {
     position: fixed;
@@ -1870,4 +1965,64 @@ footer {
 }
 
 /* Estilo para cantidad en panel flotante */
-.
+.btn-cant {
+    background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.24), 0 0 0 1px rgba(212,175,55,0.12), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.btn-cant:hover {
+    background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
+    border-color: rgba(255,255,255,0.26);
+    transform: scale(1.08);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.26), 0 0 0 1px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.btn-cant:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+/* Pulse animation for feedback when adding items */
+.whatsapp-badge.pulse {
+    animation: wpPulse 0.9s ease-in-out;
+}
+@keyframes wpPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+    50% { transform: scale(1.35); box-shadow: 0 6px 18px rgba(212,175,55,0.28); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+}
+
+/* Mejoras específicas para móvil: touch targets, espaciados y paneles */
+@media (max-width: 600px) {
+    nav { padding: 12px 14px; }
+    .nav-content { gap: 12px; }
+    #input-busqueda { padding: 10px 40px 10px 12px; font-size: 0.95rem; }
+    .btn-whatsapp { width: 72px; height: 72px; right: 14px; bottom: 14px; }
+    .whatsapp-badge { top: -8px; right: -8px; min-width: 22px; height: 22px; font-size: 0.75rem; }
+    .floating-cart-panel { bottom: 104px; max-height: 78vh; }
+    .floating-cart-list { max-height: 62vh; }
+    .btn-cant { width: 36px; height: 36px; }
+    .btn-agregar-simple { width: 48px; height: 40px; padding: 10px; }
+    .btn-primary, .btn-secondary { min-height: 48px; }
+    .toast { right: 12px; top: 100px; }
+}
+
+/* Safe-area support for modern phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    .btn-whatsapp { bottom: calc(18px + env(safe-area-inset-bottom)); }
+    .floating-cart-panel { bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
