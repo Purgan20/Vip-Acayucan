@@ -2056,29 +2056,75 @@ footer {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #1e3a2f 0%, #25d366 50%, #1e8e3e 100%);
+    background: linear-gradient(145deg, #2d5a3d 0%, #25d366 35%, #1db954 65%, #128c4a 100%);
     color: #fff;
-    border: 2px solid rgba(37, 211, 102, 0.3);
-    padding: 16px 40px;
-    border-radius: 30px;
-    font-weight: 800;
-    font-size: 1.1rem;
-    box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+    border: none;
+    padding: 18px 48px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1.15rem;
+    box-shadow: 
+        0 8px 32px rgba(37, 211, 102, 0.45),
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.15),
+        0 0 0 3px rgba(37, 211, 102, 0.15);
     cursor: pointer;
     z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    letter-spacing: 0.5px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    position: relative;
+    overflow: hidden;
 }
-.btn-order-now:hover {
-    transform: translateX(-50%) translateY(-4px) scale(1.02);
-    box-shadow: 0 14px 40px rgba(37,211,102,0.5), 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
-    filter: brightness(1.15);
-    border-color: rgba(37, 211, 102, 0.5);
+
+.btn-order-now::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s ease;
 }
+
+.btn-order-now::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+}
+
+/* Hover solo en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+    .btn-order-now:hover {
+        transform: translateX(-50%) translateY(-5px) scale(1.03);
+        box-shadow: 
+            0 16px 48px rgba(37, 211, 102, 0.55),
+            0 8px 24px rgba(0, 0, 0, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            0 0 0 4px rgba(37, 211, 102, 0.2),
+            0 0 30px rgba(37, 211, 102, 0.3);
+        filter: brightness(1.1);
+    }
+    
+    .btn-order-now:hover::before {
+        left: 100%;
+    }
+}
+
 .btn-order-now:active {
-    transform: translateX(-50%) translateY(0) scale(0.98);
-    box-shadow: 0 4px 12px rgba(37,211,102,0.3), 0 2px 8px rgba(0,0,0,0.4);
+    transform: translateX(-50%) translateY(0) scale(0.97);
+    box-shadow: 
+        0 4px 16px rgba(37, 211, 102, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.4),
+        inset 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Enable smooth touch scrolling on recommendations */
@@ -2161,4 +2207,36 @@ footer {
     padding: 12px 24px;
     border-radius: 12px;
     font-weight: 800;
- 
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+}
+
+.boton-whatsapp-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+.boton-whatsapp-modal:active {
+    transform: translateY(0);
+}
+
+/* .btn-cant - estilos definidos en línea ~1023 */
+
+/* Pulse animation for feedback when adding items */
+.whatsapp-badge.pulse {
+    animation: wpPulse 0.9s ease-in-out;
+}
+@keyframes wpPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+    50% { transform: scale(1.35); box-shadow: 0 6px 18px rgba(212,175,55,0.28); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+}
+
+/* Safe-area support for modern phones (notch, dynamic island) */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    .btn-whatsapp { bottom: calc(18px + env(safe-area-inset-bottom)); }
+    .floating-cart-panel { bottom: calc(90px + env(safe-area-inset-bottom)); }
+}
