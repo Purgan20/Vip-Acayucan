@@ -1406,19 +1406,19 @@ footer {
 /* Móviles pequeños - iPhone XS, SE, mini (max 420px) */
 @media (max-width: 420px) {
     body { padding-top: 80px; }
-    nav { padding: 10px 8px; }
+    nav { padding: 12px 8px; }
     
     .grid-productos { grid-template-columns: 1fr; padding: 10px; gap: 14px; }
     .img-wrapper { height: 220px; }
     
-    .nav-content { gap: 6px; padding: 0 4px; }
-    .nav-buttons { gap: 5px; }
-    .btn-icon-nav { font-size: 1.15rem; width: 36px !important; height: 36px !important; min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px; }
-    .btn-inicio { width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; max-width: 34px; max-height: 34px; font-size: 1.1rem; }
+    .nav-content { gap: 8px; padding: 0 6px; }
+    .nav-buttons { gap: 8px; }
+    .btn-icon-nav { font-size: 1.3rem; width: 44px !important; height: 44px !important; min-width: 44px; min-height: 44px; max-width: 44px; max-height: 44px; }
+    .btn-inicio { width: 42px !important; height: 42px !important; min-width: 42px; min-height: 42px; max-width: 42px; max-height: 42px; font-size: 1.2rem; }
     .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -4px; right: -4px; border-width: 1.5px; }
-    .buscador-container { max-width: 200px; flex-grow: 1; }
-    #input-busqueda { padding: 9px 28px 9px 10px; font-size: 0.85rem; }
-    .icono-lupa { font-size: 0.95rem; right: 8px; }
+    .buscador-container { max-width: none; flex-grow: 1; }
+    #input-busqueda { padding: 10px 32px 10px 12px; font-size: 0.9rem; }
+    .icono-lupa { font-size: 1.1rem; right: 10px; }
     
     .btn-whatsapp { width: 58px; height: 58px; right: 14px; bottom: 14px; }
     .btn-whatsapp i { font-size: 1.5rem; }
@@ -1486,16 +1486,16 @@ footer {
 /* Móviles muy pequeños - iPhone SE 1ra gen, Galaxy S5 (max 375px) */
 @media (max-width: 375px) {
     body { padding-top: 75px; }
-    nav { padding: 8px 6px; }
+    nav { padding: 11px 6px; }
     
-    .nav-content { gap: 5px; padding: 0 3px; }
-    .nav-buttons { gap: 4px; }
-    .btn-icon-nav { font-size: 1.1rem; width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; max-width: 34px; max-height: 34px; }
-    .btn-inicio { width: 32px !important; height: 32px !important; min-width: 32px; min-height: 32px; max-width: 32px; max-height: 32px; font-size: 1rem; }
+    .nav-content { gap: 7px; padding: 0 4px; }
+    .nav-buttons { gap: 6px; }
+    .btn-icon-nav { font-size: 1.2rem; width: 40px !important; height: 40px !important; min-width: 40px; min-height: 40px; max-width: 40px; max-height: 40px; }
+    .btn-inicio { width: 38px !important; height: 38px !important; min-width: 38px; min-height: 38px; max-width: 38px; max-height: 38px; font-size: 1.1rem; }
     .badge-count { width: 14px; height: 14px; font-size: 0.5rem; top: -3px; right: -3px; }
-    .buscador-container { max-width: 180px; flex-grow: 1; }
-    #input-busqueda { padding: 8px 26px 8px 9px; font-size: 0.8rem; }
-    .icono-lupa { font-size: 0.9rem; right: 6px; }
+    .buscador-container { max-width: none; flex-grow: 1; }
+    #input-busqueda { padding: 9px 30px 9px 11px; font-size: 0.85rem; }
+    .icono-lupa { font-size: 1rem; right: 7px; }
     
     .grid-productos { padding: 8px; gap: 12px; }
     .img-wrapper { height: 200px; }
@@ -1569,15 +1569,15 @@ footer {
 /* Móviles ultra pequeños - iPhone SE 1gen, Galaxy Mini (max 320px) */
 @media (max-width: 320px) {
     body { padding-top: 70px; }
-    nav { padding: 6px 4px; }
+    nav { padding: 10px 4px; }
     
-    .nav-content { gap: 3px; padding: 0 2px; }
-    .nav-buttons { gap: 3px; }
-    .btn-icon-nav { font-size: 1rem; width: 32px !important; height: 32px !important; min-width: 32px; min-height: 32px; max-width: 32px; max-height: 32px; }
-    .btn-inicio { width: 30px !important; height: 30px !important; min-width: 30px; min-height: 30px; max-width: 30px; max-height: 30px; font-size: 0.95rem; }
-    .buscador-container { max-width: 150px; flex-grow: 1; }
-    #input-busqueda { padding: 7px 24px 7px 7px; font-size: 0.75rem; }
-    .icono-lupa { font-size: 0.85rem; right: 5px; }
+    .nav-content { gap: 5px; padding: 0 3px; }
+    .nav-buttons { gap: 5px; }
+    .btn-icon-nav { font-size: 1.1rem; width: 36px !important; height: 36px !important; min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px; }
+    .btn-inicio { width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; max-width: 34px; max-height: 34px; font-size: 1rem; }
+    .buscador-container { max-width: none; flex-grow: 1; }
+    #input-busqueda { padding: 8px 26px 8px 8px; font-size: 0.8rem; }
+    .icono-lupa { font-size: 0.9rem; right: 6px; }
     
     .grid-productos { padding: 6px; gap: 10px; }
     .img-wrapper { height: 180px; }
