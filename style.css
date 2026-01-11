@@ -391,13 +391,25 @@ nav {
 .btn-inicio { 
     background: none; border: 1px solid var(--gold-dark);
     color: var(--gold-primary); padding: 8px; border-radius: 50%;
-    cursor: pointer; transition: 0.3s; font-size: 1.4rem;
+    cursor: pointer; transition: 0.15s; font-size: 1.4rem;
     display: flex; align-items: center; justify-content: center;
     width: 40px; height: 40px;
+    -webkit-tap-highlight-color: transparent;
 }
-.btn-inicio:hover { 
+
+/* Solo aplicar hover en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+    .btn-inicio:hover { 
+        background: var(--gold-primary); color: black; 
+        box-shadow: 0 0 20px var(--gold-primary);
+    }
+}
+
+/* Estado activo para touch y click */
+.btn-inicio:active { 
     background: var(--gold-primary); color: black; 
     box-shadow: 0 0 20px var(--gold-primary);
+    transform: scale(0.95);
 }
 
 /* Botón flotante para volver arriba */
