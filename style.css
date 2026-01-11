@@ -91,11 +91,33 @@ body {
     /* Fondo limpio sin capas oscuras - imagen visible */
     background-image: url('Imagenes/fondo.png');
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     overflow-x: hidden;
     min-height: 100vh;
+}
+
+/* Fondo optimizado para móviles */
+@media (max-width: 768px) {
+    body {
+        /* En móviles, fixed causa problemas de rendimiento y calidad */
+        background-attachment: scroll;
+        /* Ajustar el tamaño para evitar zoom excesivo */
+        background-size: auto 100vh;
+        background-position: center top;
+    }
+}
+
+/* Fondo vertical para móviles y pantallas en orientación portrait */
+@media (max-width: 480px), (orientation: portrait) and (max-width: 768px) {
+    body {
+        /* Usar imagen vertical optimizada para móviles */
+        background-image: url('Imagenes/fondo2.png');
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center top;
+    }
 }
 
 /* Fondo unificado para secciones principales (evita cambios de tono al hacer scroll) */
