@@ -65,7 +65,7 @@
     <div class="top-ticker">
         <div class="ticker-wrapper">
             <button class="ticker-control" onclick="cambiarMensaje(-1)"><i class="ph ph-caret-left"></i></button>
-            <div class="ticker-text" id="ticker-display"></div>
+            <div class="ticker-text" id="ticker-display" onclick="toggleTickerPause()"></div>
             <button class="ticker-control" onclick="cambiarMensaje(1)"><i class="ph ph-caret-right"></i></button>
         </div>
     </div>
@@ -529,18 +529,45 @@
             mostrarMensajeTicker(mensajeIndex);
             tickerInterval = setInterval(() => { cambiarMensaje(1); }, TIEMPO_ROTACION);
         }
+        
+        let tickerPausado = false;
+        
+        function toggleTickerPause() {
+            tickerPausado = !tickerPausado;
+            const display = document.getElementById('ticker-display');
+            
+            if (tickerPausado) {
+                clearInterval(tickerInterval);
+                display.style.textDecoration = 'underline';
+                display.style.cursor = 'pointer';
+            } else {
+                tickerInterval = setInterval(() => { cambiarMensaje(1); }, TIEMPO_ROTACION);
+                display.style.textDecoration = 'none';
+            }
+        }
+        
         function mostrarMensajeTicker(index) {
             const display = document.getElementById('ticker-display');
             display.style.opacity = 0;
             display.style.transform = "translateY(5px)";
             setTimeout(() => {
-                const msg = (Array.isArray(MENSAJES_TICKER) && MENSAJES_TICKER.length) ? MENSAJES_TICKER[index] || MENSAJES_TICKER[0] : '';
-                display.innerText = msg;
+                let msg = (Array.isArray(MENSAJES_TICKER) && MENSAJES_TICKER.length) ? MENSAJES_TICKER[index] || MENSAJES_TICKER[0] : '';
+                
+                // Detectar números de teléfono y hacerlos clickeables
+                const telefonoRegex = /(\d{3}[\s.-]?\d{3}[\s.-]?\d{4})/g;
+                if (telefonoRegex.test(msg)) {
+                    msg = msg.replace(telefonoRegex, '<a href="tel:+52$1" class="ticker-phone" onclick="event.stopPropagation()">$1</a>');
+                    display.innerHTML = msg;
+                } else {
+                    display.innerText = msg;
+                }
+                
                 display.style.opacity = 1;
                 display.style.transform = "translateY(0)";
             }, 300);
         }
         function cambiarMensaje(dir) {
+            if (tickerPausado) return; // No cambiar si está pausado
             clearInterval(tickerInterval);
             tickerInterval = setInterval(() => { cambiarMensaje(1); }, TIEMPO_ROTACION);
             mensajeIndex += dir;
