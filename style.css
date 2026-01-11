@@ -1371,9 +1371,13 @@ footer {
     .nav-content { gap: 8px; padding: 0 5px; }
     #input-busqueda { padding: 8px 30px 8px 10px; font-size: 0.85rem; }
     .boton-pedir { padding: 10px 14px; font-size: 0.85rem; }
-    .floating-cart-panel { right: 8px; left: 8px; bottom: 80px; width: auto; }
+    .floating-cart-panel { right: 8px; left: 8px; bottom: 85px; width: auto; max-height: 65vh; }
+    .floating-cart-list { max-height: 150px; }
+    .floating-cart-footer { padding: 12px 10px; }
+    .floating-total { font-size: 1rem; margin-bottom: 8px; }
+    .btn-primary { padding: 10px 14px; font-size: 0.9rem; min-height: 42px; }
     /* Increase tappable targets */
-    button, .btn-primary, .btn-secondary { min-height: 44px; }
+    button, .btn-primary, .btn-secondary { min-height: 42px; }
     
     /* Tarjetas de producto en móvil pequeño */
     .info-card { padding: 14px; height: auto; min-height: 100px; }
@@ -1508,11 +1512,10 @@ footer {
 .floating-cart-panel {
     position: fixed;
     right: 18px;
-    bottom: 96px;
+    bottom: 100px;
     width: min(360px, calc(100vw - 36px));
-    /* limitar altura total para que el footer quede siempre visible
-       y permitir que la lista interior haga scroll */
-    max-height: calc(100vh - 140px);
+    /* altura automática basada en contenido, con máximo */
+    max-height: calc(100vh - 160px);
     background: rgba(10, 10, 10, 0.95);
     border: 1px solid rgba(212, 175, 55, 0.15);
     backdrop-filter: blur(24px) saturate(120%);
@@ -1522,7 +1525,7 @@ footer {
     /* use flex column so footer stays pinned */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
     z-index: 4050;
     transform: translateY(16px) scale(0.96);
     opacity: 0;
@@ -1536,11 +1539,11 @@ footer {
 
 .floating-cart-list {
     padding: 6px 8px;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 60px;
-    max-height: 250px;
+    min-height: 50px;
+    max-height: 200px;
 }
 
 /* Scrollbar styling for floating cart - MÁS VISIBLE */
@@ -1744,25 +1747,28 @@ footer {
 }
 
 .floating-cart-footer {
-    padding: 14px 12px;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-    background: rgba(0, 0, 0, 0.4);
+    padding: 16px 14px;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    background: rgba(15, 15, 15, 0.98);
     flex-shrink: 0;
     position: relative;
     pointer-events: auto;
+    border-radius: 0 0 18px 18px;
 }
 
 .floating-total {
     color: var(--gold-primary);
     font-weight: 800;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
     text-align: center;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .floating-actions {
     display: flex;
     gap: 8px;
+    margin-bottom: 4px;
 }
 
 .btn-primary {
@@ -1854,17 +1860,20 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .floating-cart-panel { right: 12px; left: 12px; width: auto; bottom: 104px; max-height: 78vh; }
+    .floating-cart-panel { right: 12px; left: 12px; width: auto; bottom: 90px; max-height: 70vh; }
+    .floating-cart-list { max-height: 180px; }
 }
 
 /* Stack buttons in floating cart on small screens */
 @media (max-width: 420px) {
-    .floating-cart-panel { width: calc(100% - 24px); right: 12px; left: 12px; bottom: 104px; max-height: 75vh; }
+    .floating-cart-panel { width: calc(100% - 24px); right: 12px; left: 12px; bottom: 85px; max-height: 65vh; }
     .floating-actions { flex-direction: column; }
     .floating-actions .btn-primary, .floating-actions .btn-secondary { width: 100%; }
-    .floating-cart-item { gap:10px; padding:8px 10px; }
-    .floating-cart-item img { width:44px; height:36px; }
-    .floating-cart-list { max-height: 56vh; }
+    .floating-cart-item { gap: 8px; padding: 8px; }
+    .floating-cart-item img { width: 40px; height: 40px; }
+    .floating-cart-list { max-height: 140px; }
+    .floating-cart-footer { padding: 12px 10px; }
+    .floating-total { font-size: 1rem; }
 }
 
 /* Order now button in cart view */
