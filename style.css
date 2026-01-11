@@ -1104,6 +1104,7 @@ header {
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .boton-pedir::before {
@@ -1119,16 +1120,20 @@ header {
     transition: width 0.6s, height 0.6s;
 }
 
-.boton-pedir:hover::before {
-    width: 300px;
-    height: 300px;
+/* Hover solo en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+    .boton-pedir:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .boton-pedir:hover { 
+        transform: translateY(-3px) scale(1.02); 
+        filter: brightness(1.15); 
+        box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45); 
+    }
 }
 
-.boton-pedir:hover { 
-    transform: translateY(-3px) scale(1.02); 
-    filter: brightness(1.15); 
-    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45); 
-}
 .boton-pedir:active { 
     transform: translateY(0) scale(0.98); 
     box-shadow: 0 3px 15px rgba(212, 175, 55, 0.3);
@@ -2083,4 +2088,77 @@ footer {
     background: linear-gradient(135deg, #FFD700, #D4AF37);
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(212, 175, 55, 0.3);
+}
+
+.btn-agregar-simple:active {
+    transform: translateY(0);
+}
+
+/* Estilo para botones de cantidad */
+.btn-cant-mini {
+    background: linear-gradient(135deg, #D4AF37, #B8960F);
+    color: #050505;
+    border: none;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cant-mini:hover {
+    background: linear-gradient(135deg, #FFD700, #D4AF37);
+    transform: scale(1.08);
+}
+
+.btn-cant-mini:active {
+    transform: scale(0.95);
+}
+
+/* Botón Agregar al Carrito - usa estilos definidos en .boton-pedir (línea ~1077) */
+
+/* Botón Hacer Pedido - Estilo Verde/Blanco WhatsApp */
+.boton-whatsapp-modal {
+    background: linear-gradient(135deg, #25D366, #20BA5A);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+}
+
+.boton-whatsapp-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+.boton-whatsapp-modal:active {
+    transform: translateY(0);
+}
+
+/* .btn-cant - estilos definidos en línea ~1023 */
+
+/* Pulse animation for feedback when adding items */
+.whatsapp-badge.pulse {
+    animation: wpPulse 0.9s ease-in-out;
+}
+@keyframes wpPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+    50% { transform: scale(1.35); box-shadow: 0 6px 18px rgba(212,175,55,0.28); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
+}
+
+/* Safe-area support for modern phones (notch, dynamic island) */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    .btn-whatsapp { bottom: calc(18px + env(safe-area-inset-bottom)); }
+    .floating-cart-panel { bottom: calc(90px + env(safe-area-inset-bottom)); }
 }
