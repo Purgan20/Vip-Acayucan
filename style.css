@@ -396,7 +396,7 @@ nav {
     flex-shrink: 0;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
     -webkit-tap-highlight-color: transparent;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .btn-icon-nav:hover { 
@@ -415,8 +415,8 @@ nav {
 
 .badge-count { 
     position: absolute;
-    top: -5px;
-    right: -8px;
+    top: -6px;
+    right: -6px;
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
     font-size: 0.7rem;
@@ -428,6 +428,7 @@ nav {
     border: 2px solid #1a1a1a;
     box-shadow: 0 3px 8px rgba(231, 76, 60, 0.5), 0 0 12px rgba(231, 76, 60, 0.3);
     animation: badgePulse 2s ease-in-out infinite;
+    z-index: 10;
 }
 
 @keyframes badgePulse {
@@ -1318,7 +1319,7 @@ footer {
     .nav-content { gap: 15px; padding: 0 12px; }
     #input-busqueda { padding: 10px 35px 10px 14px; font-size: 0.9rem; }
     .btn-icon-nav { width: 44px; height: 44px; font-size: 1.5rem; }
-    .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -4px; right: -6px; }
+    .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -5px; right: -5px; }
     
     .info-card { padding: 14px; height: auto; min-height: 120px; }
     .info-card h3 { font-size: 1rem; margin-bottom: 5px; }
@@ -1414,9 +1415,9 @@ footer {
     .nav-buttons { gap: 5px; }
     .btn-icon-nav { font-size: 1.15rem; width: 36px !important; height: 36px !important; min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px; }
     .btn-inicio { width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; max-width: 34px; max-height: 34px; font-size: 1.1rem; }
-    .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -2px; right: -4px; border-width: 1.5px; }
-    .buscador-container { max-width: 135px; flex-grow: 0; }
-    #input-busqueda { padding: 7px 24px 7px 8px; font-size: 0.78rem; }
+    .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -4px; right: -4px; border-width: 1.5px; }
+    .buscador-container { max-width: 200px; flex-grow: 1; }
+    #input-busqueda { padding: 9px 28px 9px 10px; font-size: 0.85rem; }
     .icono-lupa { font-size: 0.95rem; right: 8px; }
     
     .btn-whatsapp { width: 58px; height: 58px; right: 14px; bottom: 14px; }
@@ -1491,9 +1492,9 @@ footer {
     .nav-buttons { gap: 4px; }
     .btn-icon-nav { font-size: 1.1rem; width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; max-width: 34px; max-height: 34px; }
     .btn-inicio { width: 32px !important; height: 32px !important; min-width: 32px; min-height: 32px; max-width: 32px; max-height: 32px; font-size: 1rem; }
-    .badge-count { width: 14px; height: 14px; font-size: 0.5rem; top: -2px; right: -3px; }
-    .buscador-container { max-width: 115px; flex-grow: 0; }
-    #input-busqueda { padding: 6px 22px 6px 8px; font-size: 0.75rem; }
+    .badge-count { width: 14px; height: 14px; font-size: 0.5rem; top: -3px; right: -3px; }
+    .buscador-container { max-width: 180px; flex-grow: 1; }
+    #input-busqueda { padding: 8px 26px 8px 9px; font-size: 0.8rem; }
     .icono-lupa { font-size: 0.9rem; right: 6px; }
     
     .grid-productos { padding: 8px; gap: 12px; }
@@ -1574,8 +1575,8 @@ footer {
     .nav-buttons { gap: 3px; }
     .btn-icon-nav { font-size: 1rem; width: 32px !important; height: 32px !important; min-width: 32px; min-height: 32px; max-width: 32px; max-height: 32px; }
     .btn-inicio { width: 30px !important; height: 30px !important; min-width: 30px; min-height: 30px; max-width: 30px; max-height: 30px; font-size: 0.95rem; }
-    .buscador-container { max-width: 100px; flex-grow: 0; }
-    #input-busqueda { padding: 6px 20px 6px 6px; font-size: 0.72rem; }
+    .buscador-container { max-width: 150px; flex-grow: 1; }
+    #input-busqueda { padding: 7px 24px 7px 7px; font-size: 0.75rem; }
     .icono-lupa { font-size: 0.85rem; right: 5px; }
     
     .grid-productos { padding: 6px; gap: 10px; }
@@ -1713,10 +1714,6 @@ footer {
     z-index: 4100;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: whatsappPulse 2.5s ease-in-out infinite;
-    /* Asegurar forma circular perfecta */
-    overflow: hidden;
-    -webkit-mask-image: radial-gradient(circle, white 100%, black 100%);
-    mask-image: radial-gradient(circle, white 100%, black 100%);
     -webkit-tap-highlight-color: transparent;
     outline: none;
 }
@@ -1739,8 +1736,8 @@ footer {
 .btn-whatsapp i { font-size: 1.8rem; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 .whatsapp-badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -4px;
+    right: -4px;
     background: var(--rojo-oferta);
     color: white;
     min-width: 20px;
@@ -1755,6 +1752,9 @@ footer {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: 2px solid #075e54;
+    box-shadow: 0 3px 8px rgba(192, 57, 43, 0.6), 0 0 12px rgba(192, 57, 43, 0.4);
+    z-index: 10;
 }
 
 /* Floating cart panel inputs */
