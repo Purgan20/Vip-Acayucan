@@ -98,25 +98,13 @@ body {
     min-height: 100vh;
 }
 
-/* Fondo optimizado para móviles */
-@media (max-width: 768px) {
+/* Fondo vertical para celulares - IMPORTANTE: usar !important para sobreescribir */
+@media screen and (max-width: 768px) {
     body {
-        /* En móviles, fixed causa problemas de rendimiento y calidad */
-        background-attachment: scroll;
-        /* Ajustar el tamaño para evitar zoom excesivo */
-        background-size: auto 100vh;
-        background-position: center top;
-    }
-}
-
-/* Fondo vertical para móviles y pantallas en orientación portrait */
-@media (max-width: 480px), (orientation: portrait) and (max-width: 768px) {
-    body {
-        /* Usar imagen vertical optimizada para móviles */
-        background-image: url('Imagenes/fondo2.png');
-        background-attachment: scroll;
-        background-size: cover;
-        background-position: center top;
+        background-image: url('Imagenes/fondo2.png') !important;
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center top !important;
     }
 }
 
