@@ -1207,73 +1207,170 @@ footer {
 .footer-small { font-size: 0.75rem; color: #444; margin-top: 10px; }
 
 /* =========================================
-   MEDIA QUERIES (MÓVIL)
+   MEDIA QUERIES (MÓVIL Y RESPONSIVO)
    ========================================= */
+
+/* Tablets y móviles grandes (max 768px) */
 @media (max-width: 768px) {
-    .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+    .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 12px; }
     .img-wrapper { height: 180px; }
     .img-wrapper img { object-position: center top; }
     
     .producto-imagen-grande { height: 280px; }
     .footer-compra-sticky { padding: 15px; }
     .boton-pedir { padding: 12px 20px; font-size: 0.9rem; }
-    /* Ajuste para que el corazón no tape mucho en móvil */
     .btn-favorito-modal { width: 40px; height: 40px; font-size: 1.4rem; top: 10px; right: 10px; }
     
-    /* En móvil ocultamos las flechas de scroll de recomendados */
     .controles-scroll { display: none; }
     
     .nav-buttons .texto-insta { display: none; }
     .btn-instagram { display: none; }
     .buscador-container { max-width: none; flex: 1; }
-    .nav-buttons { gap: 8px; }
-    .nav-content { gap: 12px; padding: 0 10px; }
-    #input-busqueda { padding: 10px 35px 10px 12px; font-size: 0.9rem; }
+    .nav-buttons { gap: 10px; }
+    .nav-content { gap: 15px; padding: 0 12px; }
+    #input-busqueda { padding: 10px 35px 10px 14px; font-size: 0.9rem; }
     .btn-icon-nav { width: 44px; height: 44px; font-size: 1.5rem; }
     .badge-count { width: 18px; height: 18px; font-size: 0.65rem; top: -4px; right: -6px; }
     
-    /* Tarjetas de producto en móvil */
-    .info-card { padding: 12px; height: auto; min-height: 120px; }
-    .info-card h3 { font-size: 0.95rem; margin-bottom: 4px; }
+    .info-card { padding: 14px; height: auto; min-height: 120px; }
+    .info-card h3 { font-size: 1rem; margin-bottom: 5px; }
+    .precio-card { font-size: 1.25rem; }
+    .texto-ver-detalles { font-size: 0.7rem; padding-top: 10px; letter-spacing: 1px; }
+    .btn-agregar-card { padding: 8px 12px; font-size: 0.9rem; }
+    
+    .contenedor-categorias { padding: 25px 15px; gap: 25px; }
+    .tarjeta-categoria { max-width: 100%; height: 280px; border-radius: 18px; }
+    .contenido-cat h2 { font-size: 1.8rem; }
+    .contenido-cat p { font-size: 0.9rem; }
+    
+    .cta-publicidad { bottom: 14px; padding: 9px 16px; font-size: 0.85rem; }
+    
+    header { padding: 60px 20px; min-height: 400px; }
+    .texto-oro-liquido { font-size: 5rem; }
+    .subtitulo-vip { font-size: 1.5rem; }
+}
+
+/* Móviles medianos - iPhone Plus, Pixel (max 600px) */
+@media (max-width: 600px) {
+    body { padding-top: 85px; }
+    nav { padding: 12px 10px; }
+    
+    .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 8px; gap: 10px; }
+    .img-wrapper { height: 160px; }
+    
+    .nav-content { gap: 10px; padding: 0 8px; }
+    .nav-buttons { gap: 8px; }
+    .btn-icon-nav { width: 42px; height: 42px; font-size: 1.4rem; }
+    #input-busqueda { padding: 9px 32px 9px 12px; font-size: 0.88rem; }
+    
+    .info-card { padding: 12px; min-height: 110px; }
+    .info-card h3 { font-size: 0.92rem; }
+    .precio-card { font-size: 1.15rem; }
+    .btn-agregar-card { padding: 7px 10px; }
+    
+    .tarjeta-categoria { height: 260px; }
+    .contenido-cat h2 { font-size: 1.6rem; }
+    
+    header { padding: 50px 18px; min-height: 380px; }
+    .texto-oro-liquido { font-size: 4.5rem; }
+    .subtitulo-vip { font-size: 1.4rem; letter-spacing: 5px; }
+    .slogan { font-size: 0.8rem; letter-spacing: 4px; }
+    
+    .floating-cart-panel { right: 10px; left: 10px; bottom: 88px; max-height: 68vh; }
+    .floating-cart-list { max-height: 180px; }
+    .btn-whatsapp { width: 62px; height: 62px; }
+    .btn-whatsapp i { font-size: 1.7rem; }
+}
+
+/* Móviles pequeños - iPhone XS, SE, mini (max 420px) */
+@media (max-width: 420px) {
+    body { padding-top: 80px; }
+    nav { padding: 10px 8px; }
+    
+    .grid-productos { grid-template-columns: 1fr; padding: 10px; gap: 14px; }
+    .img-wrapper { height: 220px; }
+    .producto-imagen-grande { height: 240px; }
+    
+    .nav-content { gap: 8px; padding: 0 5px; }
+    .nav-buttons { gap: 6px; }
+    .btn-icon-nav { font-size: 1.35rem; width: 40px; height: 40px; }
+    .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -2px; right: -4px; border-width: 1.5px; }
+    #input-busqueda { padding: 9px 28px 9px 10px; font-size: 0.85rem; }
+    
+    .btn-whatsapp { width: 58px; height: 58px; right: 14px; bottom: 14px; }
+    .btn-whatsapp i { font-size: 1.5rem; }
+    
+    .boton-pedir { padding: 10px 14px; font-size: 0.85rem; }
+    
+    .floating-cart-panel { right: 8px; left: 8px; bottom: 82px; max-height: 62vh; }
+    .floating-cart-list { max-height: 140px; }
+    .floating-cart-footer { padding: 12px 10px; }
+    .floating-total { font-size: 1rem; margin-bottom: 8px; }
+    .floating-actions { flex-direction: column; }
+    .floating-actions .btn-primary { width: 100%; }
+    .btn-primary { padding: 11px 14px; font-size: 0.92rem; min-height: 44px; }
+    
+    button, .btn-primary, .btn-secondary { min-height: 44px; }
+    
+    .info-card { padding: 14px; min-height: 100px; }
+    .info-card h3 { font-size: 1.05rem; line-height: 1.25; }
+    .precio-card { font-size: 1.3rem; }
+    .btn-agregar-card { padding: 8px 14px; font-size: 0.9rem; }
+    .texto-ver-detalles { font-size: 0.68rem; }
+    
+    .contenedor-categorias { padding: 18px 10px; gap: 18px; }
+    .tarjeta-categoria { height: 240px; border-radius: 16px; }
+    .contenido-cat h2 { font-size: 1.5rem; }
+    .contenido-cat p { font-size: 0.85rem; margin-bottom: 15px; }
+    .btn-entrar { padding: 10px 22px; font-size: 0.8rem; }
+    
+    .cta-publicidad { bottom: 12px; padding: 8px 14px; font-size: 0.78rem; border-radius: 10px; min-width: 90px; }
+    
+    header { padding: 45px 15px; min-height: 340px; }
+    .texto-oro-liquido { font-size: 3.8rem; }
+    .subtitulo-vip { font-size: 1.25rem; letter-spacing: 4px; }
+    .separador-dorado { width: 65px; margin: 18px auto; }
+    .slogan { font-size: 0.72rem; letter-spacing: 3px; }
+}
+
+/* Móviles muy pequeños - iPhone SE 1ra gen, Galaxy S5 (max 375px) */
+@media (max-width: 375px) {
+    body { padding-top: 75px; }
+    nav { padding: 8px 6px; }
+    
+    .nav-content { gap: 6px; padding: 0 4px; }
+    .nav-buttons { gap: 5px; }
+    .btn-icon-nav { font-size: 1.25rem; width: 38px; height: 38px; }
+    .badge-count { width: 15px; height: 15px; font-size: 0.55rem; top: -2px; right: -3px; }
+    #input-busqueda { padding: 8px 26px 8px 10px; font-size: 0.82rem; }
+    
+    .grid-productos { padding: 8px; gap: 12px; }
+    .img-wrapper { height: 200px; }
+    
+    .info-card h3 { font-size: 0.98rem; }
     .precio-card { font-size: 1.2rem; }
-    .texto-ver-detalles { font-size: 0.65rem; padding-top: 8px; letter-spacing: 1px; }
-    .btn-agregar-card { padding: 6px 10px; font-size: 0.85rem; }
+    .btn-agregar-card { padding: 7px 12px; font-size: 0.85rem; }
     
-    /* Tarjetas de categoría en tablet/móvil */
-    .contenedor-categorias {
-        padding: 25px 15px;
-        gap: 25px;
-    }
-    .tarjeta-categoria {
-        max-width: 100%;
-        height: 280px;
-        border-radius: 18px;
-    }
-    .contenido-cat h2 {
-        font-size: 1.8rem;
-    }
-    .contenido-cat p {
-        font-size: 0.9rem;
-    }
+    .btn-whatsapp { width: 54px; height: 54px; right: 12px; bottom: 12px; }
+    .btn-whatsapp i { font-size: 1.4rem; }
     
-    /* CTA de publicidad en tablet */
-    .cta-publicidad {
-        bottom: 14px;
-        padding: 9px 16px;
-        font-size: 0.85rem;
-    }
+    .floating-cart-panel { right: 6px; left: 6px; bottom: 78px; max-height: 58vh; }
+    .floating-cart-list { max-height: 120px; }
+    .floating-cart-item { padding: 8px; gap: 8px; }
+    .floating-cart-item img { width: 40px; height: 40px; }
+    .fci-name { font-size: 0.85rem; }
+    .fci-price { font-size: 0.9rem; }
+    .btn-cant { width: 26px; height: 26px; }
     
-    /* Header en tablet */
-    header {
-        padding: 60px 20px;
-        min-height: 400px;
-    }
-    .texto-oro-liquido {
-        font-size: 5rem;
-    }
-    .subtitulo-vip {
-        font-size: 1.5rem;
-    }
+    .tarjeta-categoria { height: 220px; }
+    .contenido-cat h2 { font-size: 1.4rem; }
+    .contenido-cat p { font-size: 0.8rem; }
+    .btn-entrar { padding: 9px 20px; font-size: 0.75rem; }
+    
+    header { padding: 40px 12px; min-height: 320px; }
+    .texto-oro-liquido { font-size: 3.2rem; }
+    .subtitulo-vip { font-size: 1.1rem; letter-spacing: 3px; }
+    .slogan { font-size: 0.68rem; letter-spacing: 2px; }
 }
 
 /* Floating WhatsApp Button and Panel */
@@ -1355,88 +1452,6 @@ footer {
 .custom-alert-box p { margin: 6px 0 12px 0; color:#ddd; text-align:center; }
 .btn-alert { background: linear-gradient(135deg,#D4AF37,#FFD700); color:#050505; padding:10px 16px; border-radius:10px; border:none; font-weight:700; cursor:pointer; }
 
-/* Mobile improvements: safe areas, touch targets and single-column grid */
-@media (max-width: 420px) {
-    body { padding-top: 75px; }
-    nav { padding: 10px 12px; }
-    .grid-productos { grid-template-columns: 1fr; padding: 8px; gap: 12px; }
-    .img-wrapper { height: 200px; }
-    .producto-imagen-grande { height: 220px; }
-    .btn-whatsapp { width: 60px; height: 60px; }
-    .btn-icon-nav { font-size: 1.4rem; width: 40px; height: 40px; }
-    .badge-count { width: 16px; height: 16px; font-size: 0.6rem; top: -2px; right: -4px; border-width: 1.5px; }
-    .btn-instagram { display: none; }
-    .buscador-container { max-width: none; flex: 1; }
-    .nav-buttons { gap: 6px; }
-    .nav-content { gap: 8px; padding: 0 5px; }
-    #input-busqueda { padding: 8px 30px 8px 10px; font-size: 0.85rem; }
-    .boton-pedir { padding: 10px 14px; font-size: 0.85rem; }
-    .floating-cart-panel { right: 8px; left: 8px; bottom: 85px; width: auto; max-height: 65vh; }
-    .floating-cart-list { max-height: 150px; }
-    .floating-cart-footer { padding: 12px 10px; }
-    .floating-total { font-size: 1rem; margin-bottom: 8px; }
-    .btn-primary { padding: 10px 14px; font-size: 0.9rem; min-height: 42px; }
-    /* Increase tappable targets */
-    button, .btn-primary, .btn-secondary { min-height: 42px; }
-    
-    /* Tarjetas de producto en móvil pequeño */
-    .info-card { padding: 14px; height: auto; min-height: 100px; }
-    .info-card h3 { font-size: 1.05rem; }
-    .precio-card { font-size: 1.3rem; }
-    .btn-agregar-card { padding: 8px 12px; }
-    
-    /* Tarjetas de categoría en móvil */
-    .contenedor-categorias {
-        padding: 20px 10px;
-        gap: 20px;
-    }
-    .tarjeta-categoria {
-        max-width: 100%;
-        height: 240px;
-        border-radius: 16px;
-    }
-    .contenido-cat h2 {
-        font-size: 1.6rem;
-    }
-    .contenido-cat p {
-        font-size: 0.85rem;
-        margin-bottom: 15px;
-    }
-    .btn-entrar {
-        padding: 10px 24px;
-        font-size: 0.8rem;
-    }
-    
-    /* Botón CTA de publicidad en móvil */
-    .cta-publicidad {
-        bottom: 12px;
-        padding: 8px 14px;
-        font-size: 0.8rem;
-        border-radius: 10px;
-        min-width: 100px;
-        text-align: center;
-    }
-    
-    /* Header en móvil */
-    header {
-        padding: 50px 15px;
-        min-height: 350px;
-    }
-    .texto-oro-liquido {
-        font-size: 4rem;
-    }
-    .subtitulo-vip {
-        font-size: 1.3rem;
-    }
-    .separador-dorado {
-        width: 70px;
-        margin: 20px auto;
-    }
-    .slogan {
-        font-size: 0.75rem;
-        letter-spacing: 3px;
-    }
-}
 .btn-whatsapp {
     position: fixed;
     right: 18px;
@@ -1859,23 +1874,6 @@ footer {
     color: #ffd54f;
 }
 
-@media (max-width: 600px) {
-    .floating-cart-panel { right: 12px; left: 12px; width: auto; bottom: 90px; max-height: 70vh; }
-    .floating-cart-list { max-height: 180px; }
-}
-
-/* Stack buttons in floating cart on small screens */
-@media (max-width: 420px) {
-    .floating-cart-panel { width: calc(100% - 24px); right: 12px; left: 12px; bottom: 85px; max-height: 65vh; }
-    .floating-actions { flex-direction: column; }
-    .floating-actions .btn-primary, .floating-actions .btn-secondary { width: 100%; }
-    .floating-cart-item { gap: 8px; padding: 8px; }
-    .floating-cart-item img { width: 40px; height: 40px; }
-    .floating-cart-list { max-height: 140px; }
-    .floating-cart-footer { padding: 12px 10px; }
-    .floating-total { font-size: 1rem; }
-}
-
 /* Order now button in cart view */
 .btn-order-now {
     position: fixed;
@@ -2014,23 +2012,9 @@ footer {
     100% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0); }
 }
 
-/* Mejoras específicas para móvil: touch targets, espaciados y paneles */
-@media (max-width: 600px) {
-    nav { padding: 12px 14px; }
-    .nav-content { gap: 12px; }
-    #input-busqueda { padding: 10px 40px 10px 12px; font-size: 0.95rem; }
-    .btn-whatsapp { width: 72px; height: 72px; right: 14px; bottom: 14px; }
-    .whatsapp-badge { top: -8px; right: -8px; min-width: 22px; height: 22px; font-size: 0.75rem; }
-    .floating-cart-list { max-height: 62vh; }
-    .btn-cant { width: 36px; height: 36px; }
-    .btn-agregar-simple { width: 48px; height: 40px; padding: 10px; }
-    .btn-primary, .btn-secondary { min-height: 48px; }
-    .toast { right: 12px; top: 100px; }
-}
-
-/* Safe-area support for modern phones */
+/* Safe-area support for modern phones (notch, dynamic island) */
 @supports (padding: env(safe-area-inset-bottom)) {
     body { padding-bottom: env(safe-area-inset-bottom); }
     .btn-whatsapp { bottom: calc(18px + env(safe-area-inset-bottom)); }
-    .floating-cart-panel { bottom: calc(96px + env(safe-area-inset-bottom)); }
+    .floating-cart-panel { bottom: calc(90px + env(safe-area-inset-bottom)); }
 }
