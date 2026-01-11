@@ -1280,6 +1280,21 @@ footer {
     .floating-cart-list { max-height: 180px; }
     .btn-whatsapp { width: 62px; height: 62px; }
     .btn-whatsapp i { font-size: 1.7rem; }
+    
+    /* Modal responsive 600px */
+    .modal-content { max-width: 100%; width: 98%; border-radius: 20px; max-height: 90vh; }
+    .producto-imagen-grande { height: 280px; }
+    #modal-titulo-producto { font-size: 1.6rem; }
+    .precio-modal { font-size: 1.8rem; }
+    .producto-info-base { padding: 0 18px; }
+    .seccion-variantes { padding: 15px 18px; }
+    .titulo-seccion { font-size: 0.85rem; }
+    .chips-container { gap: 8px; }
+    .chip-variante { padding: 8px 14px; font-size: 0.85rem; }
+    .seccion-compra { padding: 15px 18px; gap: 15px; }
+    .footer-compra-sticky { padding: 15px 18px; }
+    .total-final #total-precio { font-size: 1.5rem; }
+    .boton-pedir { padding: 12px 25px; font-size: 0.95rem; }
 }
 
 /* Móviles pequeños - iPhone XS, SE, mini (max 420px) */
@@ -1289,7 +1304,6 @@ footer {
     
     .grid-productos { grid-template-columns: 1fr; padding: 10px; gap: 14px; }
     .img-wrapper { height: 220px; }
-    .producto-imagen-grande { height: 240px; }
     
     .nav-content { gap: 8px; padding: 0 5px; }
     .nav-buttons { gap: 6px; }
@@ -1331,6 +1345,26 @@ footer {
     .subtitulo-vip { font-size: 1.25rem; letter-spacing: 4px; }
     .separador-dorado { width: 65px; margin: 18px auto; }
     .slogan { font-size: 0.72rem; letter-spacing: 3px; }
+    
+    /* Modal responsive 420px */
+    .modal-content { max-width: 100%; width: 98%; border-radius: 18px; max-height: 88vh; }
+    .producto-imagen-grande { height: 220px; }
+    #modal-titulo-producto { font-size: 1.4rem; line-height: 1.3; }
+    .precio-modal { font-size: 1.6rem; }
+    .producto-info-base { padding: 0 14px; }
+    .seccion-variantes { padding: 12px 14px; }
+    .titulo-seccion { font-size: 0.8rem; }
+    .chips-container { gap: 6px; }
+    .chip-variante { padding: 7px 12px; font-size: 0.8rem; border-radius: 10px; }
+    .seccion-compra { padding: 12px 14px; gap: 12px; }
+    .control-cantidad-wrapper, .metodo-pago-wrapper { min-width: 120px; }
+    .btn-cant { width: 36px; height: 36px; font-size: 1rem; }
+    #cantidad-seleccionada { font-size: 1.1rem; }
+    .toggle-pago label { padding: 10px 0; font-size: 0.8rem; }
+    .footer-compra-sticky { padding: 12px 14px; }
+    .total-final #total-precio { font-size: 1.4rem; }
+    .boton-pedir { padding: 10px 18px; font-size: 0.85rem; gap: 6px; }
+    .boton-pedir i { font-size: 1rem; }
 }
 
 /* Móviles muy pequeños - iPhone SE 1ra gen, Galaxy S5 (max 375px) */
@@ -1371,6 +1405,38 @@ footer {
     .texto-oro-liquido { font-size: 3.2rem; }
     .subtitulo-vip { font-size: 1.1rem; letter-spacing: 3px; }
     .slogan { font-size: 0.68rem; letter-spacing: 2px; }
+    
+    /* Modal responsive 375px - iPhone XS */
+    .modal-content { 
+        max-width: 100%; 
+        width: 100%; 
+        border-radius: 16px; 
+        max-height: 92vh; 
+        margin: 4vh 0;
+    }
+    .producto-header { position: relative; }
+    .producto-imagen-grande { height: 180px; }
+    #modal-titulo-producto { font-size: 1.25rem; line-height: 1.25; margin-bottom: 6px; }
+    .precio-modal { font-size: 1.4rem; }
+    .producto-info-base { padding: 0 12px; }
+    .descripcion-modal { font-size: 0.85rem; line-height: 1.5; }
+    .seccion-variantes { padding: 10px 12px; }
+    .titulo-seccion { font-size: 0.75rem; margin-bottom: 8px; }
+    .chips-container { gap: 5px; }
+    .chip-variante { padding: 6px 10px; font-size: 0.75rem; border-radius: 8px; }
+    .input-modal-texto { padding: 12px; font-size: 0.9rem; }
+    .seccion-compra { padding: 10px 12px; gap: 10px; flex-direction: column; }
+    .control-cantidad-wrapper, .metodo-pago-wrapper { min-width: 100%; flex: none; }
+    .control-cantidad-wrapper label, .metodo-pago-wrapper label { font-size: 0.7rem; margin-bottom: 5px; }
+    .btn-cant { width: 34px; height: 34px; font-size: 0.95rem; border-radius: 10px; }
+    #cantidad-seleccionada { font-size: 1rem; width: 40px; }
+    .toggle-pago label { padding: 10px 0; font-size: 0.75rem; border-radius: 10px; }
+    .footer-compra-sticky { padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+    .total-final { flex: 1; min-width: 100px; }
+    .total-final span:first-child { font-size: 0.75rem; }
+    .total-final #total-precio { font-size: 1.3rem; }
+    .boton-pedir { padding: 10px 16px; font-size: 0.8rem; gap: 5px; border-radius: 30px; flex: 1; min-width: 140px; }
+    .boton-pedir i { font-size: 0.95rem; }
 }
 
 /* Floating WhatsApp Button and Panel */
