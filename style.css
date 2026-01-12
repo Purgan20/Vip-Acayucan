@@ -1428,8 +1428,11 @@ footer {
     .icono-lupa { font-size: 1.1rem; right: 10px; }
     
     /* Modal más compacto en móvil para no recortarse con barras del navegador */
-    .modal-content { max-height: 75vh; }
+    .modal-content { max-height: 75vh; margin: 12vh 0 0 0; }
     .producto-imagen-grande { height: clamp(200px, 35vh, 280px); }
+    .btn-quitar-carrito { padding: 10px 16px; font-size: 0.82rem; gap: 5px; border-radius: 30px; }
+    .btn-quitar-carrito i { font-size: 0.95rem; }
+    .boton-whatsapp-modal { padding: 10px 16px; font-size: 0.82rem; gap: 5px; border-radius: 30px; }
     
     .btn-whatsapp { width: 58px; height: 58px; right: 14px; bottom: 14px; }
     .btn-whatsapp i { font-size: 1.5rem; }
@@ -1473,6 +1476,8 @@ footer {
     .total-final #total-precio { font-size: 1.3rem; }
     .boton-pedir { padding: 10px 16px; font-size: 0.82rem; gap: 5px; border-radius: 30px; }
     .boton-pedir i { font-size: 0.95rem; }
+    .btn-quitar-carrito { padding: 10px 16px; font-size: 0.82rem; gap: 5px; border-radius: 30px; }
+    .btn-quitar-carrito i { font-size: 0.95rem; }
 }
 
 /* Móviles muy pequeños - iPhone SE 1ra gen, Galaxy S5 (max 375px) */
@@ -1523,7 +1528,7 @@ footer {
         width: 100%; 
         border-radius: 14px; 
         max-height: 72vh; 
-        margin: 4vh 0;
+        margin: 14vh 0 0 0;
     }
     .producto-header { position: relative; }
     .producto-imagen-grande { 
@@ -1556,6 +1561,9 @@ footer {
     .total-final #total-precio { font-size: 1.2rem; }
     .boton-pedir { padding: 9px 14px; font-size: 0.78rem; gap: 4px; border-radius: 25px; flex: 1; min-width: 130px; }
     .boton-pedir i { font-size: 0.9rem; }
+    .btn-quitar-carrito { padding: 9px 14px; font-size: 0.78rem; gap: 4px; border-radius: 25px; flex: 1; min-width: 130px; }
+    .btn-quitar-carrito i { font-size: 0.9rem; }
+    .boton-whatsapp-modal { padding: 9px 14px; font-size: 0.78rem; gap: 4px; border-radius: 25px; flex: 1; min-width: 130px; }
 }
 
 /* Móviles ultra pequeños - iPhone SE 1gen, Galaxy Mini (max 320px) */
@@ -1579,7 +1587,7 @@ footer {
         width: 100%; 
         border-radius: 12px; 
         max-height: 70vh; 
-        margin: 3vh 0;
+        margin: 16vh 0 0 0;
     }
     .producto-imagen-grande { 
         height: 150px; 
@@ -1597,6 +1605,8 @@ footer {
     .footer-compra-sticky { padding: 8px 10px; }
     .total-final #total-precio { font-size: 1.1rem; }
     .boton-pedir { padding: 8px 12px; font-size: 0.75rem; min-width: 110px; }
+    .btn-quitar-carrito { padding: 8px 12px; font-size: 0.75rem; min-width: 110px; }
+    .boton-whatsapp-modal { padding: 8px 12px; font-size: 0.75rem; min-width: 110px; }
     
     .btn-whatsapp { width: 50px; height: 50px; right: 10px; bottom: 10px; }
     .btn-whatsapp i { font-size: 1.3rem; }
@@ -2287,25 +2297,138 @@ footer {
 
 /* Botón Hacer Pedido - Estilo Verde/Blanco WhatsApp */
 .boton-whatsapp-modal {
-    background: linear-gradient(135deg, #25D366, #20BA5A);
+    background: linear-gradient(135deg, #30E768, #1FD657);
     color: #fff;
     border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 800;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 900;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 12px 32px rgba(31, 214, 87, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        inset 0 -2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 0.5px;
 }
 
-.boton-whatsapp-modal:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+.boton-whatsapp-modal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+/* Hover solo en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+    .boton-whatsapp-modal:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .boton-whatsapp-modal:hover {
+        transform: translateY(-4px) scale(1.03);
+        filter: brightness(1.12);
+        box-shadow: 
+            0 12px 28px rgba(0, 0, 0, 0.5),
+            0 6px 16px rgba(0, 0, 0, 0.4),
+            0 16px 42px rgba(31, 214, 87, 0.6),
+            inset 0 1px 0 rgba(255,255,255,0.3);
+    }
 }
 
 .boton-whatsapp-modal:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(0.99);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 6px 18px rgba(31, 214, 87, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.15),
+        inset 0 -1px 4px rgba(0,0,0,0.2);
+}
+
+/* Botón Quitar del Carrito - Estilo Rojo Sombreado */
+.btn-quitar-carrito {
+    background: linear-gradient(135deg, #FF4850, #E63946);
+    color: #fff;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 12px 32px rgba(230, 57, 70, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        inset 0 -2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.btn-quitar-carrito::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+/* Hover solo en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+    .btn-quitar-carrito:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .btn-quitar-carrito:hover {
+        transform: translateY(-4px) scale(1.03);
+        filter: brightness(1.12);
+        box-shadow: 
+            0 12px 28px rgba(0, 0, 0, 0.5),
+            0 6px 16px rgba(0, 0, 0, 0.4),
+            0 16px 42px rgba(230, 57, 70, 0.6),
+            inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+}
+
+.btn-quitar-carrito:active {
+    transform: translateY(-1px) scale(0.99);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 6px 18px rgba(230, 57, 70, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.15),
+        inset 0 -1px 4px rgba(0,0,0,0.2);
 }
 
 /* .btn-cant - estilos definidos en línea ~1023 */
