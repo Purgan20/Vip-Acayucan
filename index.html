@@ -1149,15 +1149,17 @@
             const modalEl = document.getElementById('modal-pedido');
             modalEl.style.display = 'flex';
             document.body.classList.add('modal-open');
-            // ensure modal content is scrolled to top and focused so user sees full product
+            // Asegurar que el modal está completamente visible
             setTimeout(() => {
                 const modalBody = modalEl.querySelector('.modal-body');
                 if (modalBody) { modalBody.scrollTop = 0; }
                 const closeBtn = modalEl.querySelector('.cerrar-modal');
                 if (closeBtn) { closeBtn.focus(); }
-                // scroll modal into view (useful on mobile)
-                modalEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 60);
+                // Asegurar que el modal está visible sin scroll
+                modalEl.style.position = 'fixed';
+                modalEl.style.top = '0';
+                modalEl.style.left = '0';
+            }, 50);
             // attach keyboard handlers for accessibility (ESC to close, focus trap)
             attachModalKeyHandlers();
         }
