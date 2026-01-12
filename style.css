@@ -955,7 +955,7 @@ header {
     border: 1px solid var(--gold-dark);
     box-shadow: 0 0 100px rgba(212, 175, 55, 0.15);
     position: relative;
-    max-height: 85vh;
+    max-height: clamp(75vh, 85vh, 90vh); /* más compacto en móvil para dejar espacio */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1427,6 +1427,10 @@ footer {
     #input-busqueda { padding: 10px 32px 10px 12px; font-size: 0.9rem; }
     .icono-lupa { font-size: 1.1rem; right: 10px; }
     
+    /* Modal más compacto en móvil para no recortarse con barras del navegador */
+    .modal-content { max-height: 75vh; }
+    .producto-imagen-grande { height: clamp(200px, 35vh, 280px); }
+    
     .btn-whatsapp { width: 58px; height: 58px; right: 14px; bottom: 14px; }
     .btn-whatsapp i { font-size: 1.5rem; }
     
@@ -1518,7 +1522,7 @@ footer {
         max-width: 100%; 
         width: 100%; 
         border-radius: 14px; 
-        max-height: 92vh; 
+        max-height: 72vh; 
         margin: 4vh 0;
     }
     .producto-header { position: relative; }
@@ -1574,7 +1578,7 @@ footer {
     .modal-content { 
         width: 100%; 
         border-radius: 12px; 
-        max-height: 94vh; 
+        max-height: 70vh; 
         margin: 3vh 0;
     }
     .producto-imagen-grande { 
