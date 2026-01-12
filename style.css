@@ -937,17 +937,17 @@ header {
 
 .modal-content {
     background: #151515;
-    width: clamp(280px, 95vw, 550px); /* Ancho flexible adaptable */
+    width: clamp(280px, 90vw, 520px); /* Ancho más reducido para ver bordes */
     border-radius: clamp(16px, 4vw, 25px); /* Radio adaptable */
     border: 1px solid var(--gold-dark);
     box-shadow: 0 0 100px rgba(212, 175, 55, 0.15); /* Resplandor dorado externo */
     position: relative;
-    max-height: clamp(500px, 92vh, 95vh); /* Altura flexible */
+    max-height: clamp(480px, 85vh, 90vh); /* Altura más baja para ver bordes */
     display: flex; flex-direction: column;
     overflow: hidden;
     transform: translateY(50px);
     animation: slideUpModal 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-    margin: clamp(10px, 3vh, 20px) auto; /* Margen adaptable */
+    margin: clamp(15px, 5vh, 30px) auto; /* Margen más grande para asegurar bordes visibles */
 }
 
 @keyframes slideUpModal { to { transform: translateY(0); opacity: 1; } }
@@ -982,12 +982,12 @@ header {
 .producto-header {
     position: relative;
     background: #080808;
-    padding-bottom: 20px;
+    padding-bottom: 14px; /* Menos padding */
 }
 
 .producto-imagen-grande {
     position: relative;
-    height: clamp(200px, 40vh, 380px); /* Altura adaptable según viewport */
+    height: clamp(180px, 30vh, 300px); /* Altura reducida para más compacto */
     width: 100%;
     display: flex; justify-content: center; align-items: center;
     background: radial-gradient(circle at center, #303030 0%, #181818 50%, #080808 100%);
@@ -995,8 +995,8 @@ header {
 }
 
 .producto-imagen-grande img {
-    max-width: clamp(60%, 75vw, 85%); /* Tamaño adaptable */
-    max-height: clamp(70%, 80vh, 90%); /* Altura adaptable */
+    max-width: clamp(55%, 70vw, 75%); /* Imagen más pequeña */
+    max-height: clamp(65%, 75vh, 85%); /* Altura más reducida */
     object-fit: contain;
     filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); /* Sombra realista 3D */
 }
@@ -1027,12 +1027,12 @@ header {
     filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.6));
 }
 
-.producto-info-base { padding: 0 clamp(15px, 4vw, 25px); text-align: left; margin-top: clamp(-25px, -3vh, -20px); position: relative; z-index: 5; }
+.producto-info-base { padding: 0 clamp(12px, 3.5vw, 20px); text-align: left; margin-top: clamp(-20px, -2.5vh, -15px); position: relative; z-index: 5; }
 #modal-titulo-producto {
     color: var(--gold-light);
-    font-size: clamp(1.3rem, 4vw, 2rem); /* Tamaño adaptable */
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem); /* Tamaño más pequeño */
     line-height: 1.1;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     text-shadow: 0 2px 10px rgba(0,0,0,1);
 }
 .modelo-texto { color: #888; font-size: clamp(0.85rem, 2.5vw, 1rem); margin-bottom: 15px; font-weight: 300; }
@@ -1104,9 +1104,9 @@ header {
 }
 
 /* --- CONTROLES DE COMPRA --- */
-.seccion-compra { padding: 20px 25px; display: flex; gap: 20px; flex-wrap: wrap; }
-.control-cantidad-wrapper, .metodo-pago-wrapper { flex: 1; min-width: 140px; }
-.control-cantidad-wrapper label, .metodo-pago-wrapper label { display: block; color: #888; font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.seccion-compra { padding: 14px 20px; display: flex; gap: 15px; flex-wrap: wrap; }
+.control-cantidad-wrapper, .metodo-pago-wrapper { flex: 1; min-width: 130px; }
+.control-cantidad-wrapper label, .metodo-pago-wrapper label { display: block; color: #888; font-size: 0.75rem; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
 
 .control-cantidad { 
     display: flex; align-items: center; justify-content: space-between; 
