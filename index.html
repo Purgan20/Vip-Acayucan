@@ -682,7 +682,8 @@
 
                 // Actualizar botón a "Quitar"
                 botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
-                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                botonAgregar.classList.remove('boton-pedir');
+                botonAgregar.classList.add('btn-quitar-carrito');
 
                 if (mostrarConfirmacion) {
                     mostrarToast('¡Agregado al carrito!');
@@ -696,7 +697,8 @@
                     carrito = carrito.filter(item => item.id !== productoActual.id);
                     // Actualizar botón a "Agregar"
                     botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
-                    botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
+                    botonAgregar.classList.remove('btn-quitar-carrito');
+                    botonAgregar.classList.add('boton-pedir');
                     mostrarToast('Eliminado del carrito');
                 } else {
                     carrito[existeIndex].cantidad = cantidad || carrito[existeIndex].cantidad;
@@ -754,10 +756,12 @@
             
             if (enCarrito) {
                 botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
-                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                botonAgregar.classList.remove('boton-pedir');
+                botonAgregar.classList.add('btn-quitar-carrito');
             } else {
                 botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
-                botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
+                botonAgregar.classList.remove('btn-quitar-carrito');
+                botonAgregar.classList.add('boton-pedir');
             }
         }
 
@@ -1100,10 +1104,12 @@
             
             if (enCarrito) {
                 botonAgregar.innerHTML = '<i class="ph ph-trash"></i> Quitar del Carrito';
-                botonAgregar.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                botonAgregar.classList.remove('boton-pedir');
+                botonAgregar.classList.add('btn-quitar-carrito');
             } else {
                 botonAgregar.innerHTML = '<i class="ph ph-shopping-cart"></i> Agregar al carrito';
-                botonAgregar.style.background = 'linear-gradient(135deg, var(--gold-primary), var(--gold-dark))';
+                botonAgregar.classList.remove('btn-quitar-carrito');
+                botonAgregar.classList.add('boton-pedir');
             }
 
             // Detectar si el producto es de "sobrepedido" y actualizar botón de WhatsApp
