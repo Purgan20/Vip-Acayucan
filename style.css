@@ -934,7 +934,7 @@ header {
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     animation: fadeInModal 0.2s ease forwards;
-    overflow: auto; /* Permitir scroll si es muy grande */
+    overflow: hidden; /* SIN scroll en el overlay - solo en modal-body */
     padding: clamp(12px, 5vh, 28px) 0; /* Padding vertical consistente */
 }
 
@@ -972,7 +972,7 @@ header {
     color: white; border: 1px solid #444;
     font-size: clamp(1rem, 3vw, 1.2rem); border-radius: 50%;
     width: clamp(35px, 8vw, 40px); height: clamp(35px, 8vw, 40px);
-    cursor: pointer; z-index: 20; transition: 0.3s;
+    cursor: pointer; z-index: 50; transition: 0.3s; /* z-index más alto para estar sobre footer */
     display: flex; justify-content: center; align-items: center;
 }
 .cerrar-modal:hover {
