@@ -1428,7 +1428,7 @@ footer {
     .icono-lupa { font-size: 1.1rem; right: 10px; }
     
     /* Modal más compacto en móvil para no recortarse con barras del navegador */
-    .modal-content { max-height: 80vh; margin: 3vh 0 2vh 0; }
+    .modal-content { max-height: 88vh; margin: 2vh 0 2vh 0; }
     .producto-imagen-grande { height: clamp(200px, 35vh, 280px); }
     .btn-quitar-carrito { padding: 10px 16px; font-size: 0.82rem; gap: 5px; border-radius: 30px; }
     .btn-quitar-carrito i { font-size: 0.95rem; }
@@ -1527,8 +1527,8 @@ footer {
         max-width: 100%; 
         width: 100%; 
         border-radius: 14px; 
-        max-height: 77vh; 
-        margin: 5vh 0 2vh 0;
+        max-height: 86vh; 
+        margin: 2vh 0 2vh 0;
     }
     .producto-header { position: relative; }
     .producto-imagen-grande { 
@@ -1586,8 +1586,8 @@ footer {
     .modal-content { 
         width: 100%; 
         border-radius: 12px; 
-        max-height: 75vh; 
-        margin: 7vh 0 2vh 0;
+        max-height: 84vh; 
+        margin: 2vh 0 2vh 0;
     }
     .producto-imagen-grande { 
         height: 150px; 
