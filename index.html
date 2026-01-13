@@ -321,32 +321,13 @@
         // =================================================================
         const CONFIG_SECCIONES = [
             {
-                id: 'ofertas',
-                titulo: '',
-                subtitulo: '',
-                img: 'Imagenes/oferta.png',
+                id: 'waxx',
+                titulo: 'Waxx',
+                subtitulo: 'Humo de calidad ',
+                img: 'Imagenes/portada_wax.jpg',
                 disponible: true,
                 visible: true,
-                esOferta: true,
                 orden: 1
-            },
-            {
-                id: 'perfumes',
-                titulo: 'Perfumes',
-                subtitulo: 'Fragancias',
-                img: 'Imagenes/portada_perfumes.png',
-                disponible: true,
-                visible: true,
-                orden: 5
-            },
-            {
-                id: 'ropa',
-                titulo: 'Ropa',
-                subtitulo: 'Moda y Flow',
-                img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800&auto=format&fit=crop',
-                disponible: false,
-                visible: true,
-                orden: 6
             },
             {
                 id: 'sobrepedido',
@@ -355,7 +336,53 @@
                 img: 'Imagenes/sobre_pedido.png',
                 disponible: true,
                 visible: true,
+                orden: 2
+            },
+            {
+                id: 'otros',
+                titulo: 'Otros Productos',
+                subtitulo: 'Echa un vistazo',
+                img: 'Imagenes/detodo.png',
+                disponible: true,
+                visible: true,
+                orden: 3
+            },
+            {
+                id: 'ofertas',
+                titulo: '',
+                subtitulo: '',
+                img: 'Imagenes/oferta.png',
+                disponible: true,
+                visible: true,
+                esOferta: true,
                 orden: 4
+            },
+            {
+                id: 'vapes',
+                titulo: 'Vapes',
+                subtitulo: 'De las mejores marcas',
+                img: 'Imagenes/vapes.jpeg',
+                disponible: false,
+                visible: true,
+                orden: 5
+            },
+            {
+                id: 'perfumes',
+                titulo: 'Perfumes',
+                subtitulo: 'Fragancias',
+                img: 'Imagenes/portada_perfumes.png',
+                disponible: false,
+                visible: false,
+                orden: 6
+            },
+            {
+                id: 'ropa',
+                titulo: 'Ropa',
+                subtitulo: 'Moda y Flow',
+                img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800&auto=format&fit=crop',
+                disponible: false,
+                visible: false,
+                orden: 7
             },
             {
                 id: 'relojes',
@@ -363,34 +390,7 @@
                 subtitulo: 'Premium & Clásicos',
                 img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=800&auto=format&fit=crop',
                 disponible: false,
-                visible: true,
-                orden: 7
-            },
-            {
-                id: 'vapes',
-                titulo: 'Vapes',
-                subtitulo: 'De las mejores marcas',
-                img: 'https://images.unsplash.com/photo-1563821010-859a53855a84?q=80&w=800&auto=format&fit=crop',
-                disponible: true,
-                visible: true,
-                orden: 3
-            },
-            {
-                id: 'waxx',
-                titulo: 'Waxx',
-                subtitulo: 'Humo de calidad ',
-                img: 'Imagenes/portada_wax.jpg',
-                disponible: true,
-                visible: true,
-                orden: 2
-            },
-            {
-                id: 'otros',
-                titulo: 'Otros Productos',
-                subtitulo: 'Echa un vistazo',
-                img: 'https://images.unsplash.com/photo-1611921356619-fa89552f9549?q=80&w=800&auto=format&fit=crop',
-                disponible: true,
-                visible: true,
+                visible: false,
                 orden: 8
             },
             {
@@ -485,24 +485,24 @@
             { id: 612, categoria: 'relojes', activo: true, orden: 12, nombre: "Huawei Band", modelo: "Smart Band 7", precio: 900, precioOriginal: 1200, enPromocion: true, img: "https://images.unsplash.com/photo-1557935728-e6d1eaed1560?q=80&w=800" },
             
             // --- WAXX (12 Items) ---
-            { id: 301, categoria: 'waxx', activo: true, orden: 1, nombre: "Cartucho HHC", modelo: "1g - Sativa", precio: 700, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
-            { id: 302, categoria: 'waxx', activo: true, orden: 2, nombre: "Gomitas HHC", modelo: "Frutos Rojos", precio: 500, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
-            { id: 303, categoria: 'waxx', activo: true, orden: 3, nombre: "Pluma Wax", modelo: "Batería Variable", precio: 350, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
-            { id: 304, categoria: 'waxx', activo: true, orden: 4, nombre: "Live Resin", modelo: "Disposable 2g", precio: 1200, precioOriginal: 1400, enPromocion: true, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
-            { id: 305, categoria: 'waxx', activo: true, orden: 5, nombre: "Cartucho Delta 8", modelo: "Indica 1g", precio: 650, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
-            { id: 306, categoria: 'waxx', activo: true, orden: 6, nombre: "Batería 510", modelo: "Rosca Universal", precio: 200, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
-            { id: 307, categoria: 'waxx', activo: true, orden: 7, nombre: "Dab Rig Mini", modelo: "Cristal Grueso", precio: 900, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
-            { id: 308, categoria: 'waxx', activo: true, orden: 8, nombre: "Contenedor Silicona", modelo: "Antiadhrente", precio: 100, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
-            { id: 309, categoria: 'waxx', activo: true, orden: 9, nombre: "Dab Tool Kit", modelo: "Acero Inoxidable", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
-            { id: 310, categoria: 'waxx', activo: true, orden: 10, nombre: "Cartucho THC-P", modelo: "Potencia Alta", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
-            { id: 311, categoria: 'waxx', activo: true, orden: 11, nombre: "Pre-roll Infundido", modelo: "Pack de 3", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
-            { id: 312, categoria: 'waxx', activo: true, orden: 12, nombre: "Bong Vidrio", modelo: "Borosilicato 10in", precio: 1500, precioOriginal: 1800, enPromocion: true, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
+            { id: 301, categoria: 'waxx', activo: true, orden: 1, nombre: "Packman rosado", modelo: "2g 🍯", precio: 700, precioOriginal: 1400, enPromocion: true, img: "Imagenes/packman_rosado_navidad.jpeg" },
+            { id: 302, categoria: 'waxx', activo: true, orden: 2, nombre: "Packman morado", modelo: "2g 🍯", precio: 700, precioOriginal: 1400, enPromocion: true, img: "Imagenes/packman_morado_navidad.jpeg" },
+            { id: 303, categoria: 'waxx', activo: true, orden: 3, nombre: "Packman verde", modelo:  "2g 🍯", precio: 700, precioOriginal: 1400, enPromocion: true, img: "Imagenes/packman_verde_navidad.jpeg" },
+            { id: 304, categoria: 'waxx', activo: true, orden: 4, nombre: "Kick", modelo: "Recargable 2g", precio: 700, precioOriginal: 1400, enPromocion: true, img: "Imagenes/kick.jpeg" },
+            { id: 305, categoria: 'waxx', activo: false, orden: 5, nombre: "Cartucho Delta 8", modelo: "Indica 1g", precio: 650, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
+            { id: 306, categoria: 'waxx', activo: false, orden: 6, nombre: "Batería 510", modelo: "Rosca Universal", precio: 200, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
+            { id: 307, categoria: 'waxx', activo: false, orden: 7, nombre: "Dab Rig Mini", modelo: "Cristal Grueso", precio: 900, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
+            { id: 308, categoria: 'waxx', activo: false, orden: 8, nombre: "Contenedor Silicona", modelo: "Antiadhrente", precio: 100, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
+            { id: 309, categoria: 'waxx', activo: false, orden: 9, nombre: "Dab Tool Kit", modelo: "Acero Inoxidable", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
+            { id: 310, categoria: 'waxx', activo: false, orden: 10, nombre: "Cartucho THC-P", modelo: "Potencia Alta", precio: 800, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1615211913175-1035515c1386?q=80&w=800" },
+            { id: 311, categoria: 'waxx', activo: false, orden: 11, nombre: "Pre-roll Infundido", modelo: "Pack de 3", precio: 450, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1581795795323-65907b5de431?q=80&w=800" },
+            { id: 312, categoria: 'waxx', activo: false, orden: 12, nombre: "Bong Vidrio", modelo: "Borosilicato 10in", precio: 1500, precioOriginal: 1800, enPromocion: true, img: "https://images.unsplash.com/photo-1558234440-62283a049444?q=80&w=800" },
 
-            // --- OTROS (12 Items) ---
-            { id: 401, categoria: 'otros', activo: true, orden: 1, nombre: "Cangurera VP", modelo: "Negra Logo", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1611921356619-fa89552f9549?q=80&w=800" },
-            { id: 402, categoria: 'otros', activo: true, orden: 2, nombre: "Cartera Piel", modelo: "Minimalista", precio: 300, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1627123424574-18bd03606e42?q=80&w=800" },
-            { id: 403, categoria: 'otros', activo: true, orden: 3, nombre: "Lentes Sol", modelo: "Aviador Negro", precio: 200, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=800" },
-            { id: 404, categoria: 'otros', activo: true, orden: 4, nombre: "Mochila Táctica", modelo: "Negra Militar", precio: 800, precioOriginal: 950, enPromocion: true, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800" },
+// --- OTROS (12 Items) ---
+            { id: 401, categoria: 'otros', activo: true, orden: 1, nombre: "1 Mes gemini pro", modelo: "Gemini AI PRO", precio: 50, precioOriginal: 0, enPromocion: false, img: "Imagenes/gemini.png" },
+            { id: 402, categoria: 'otros', activo: true, orden: 2, nombre: "2 Meses gemini pro", modelo: "Gemini AI PRO", precio: 100, precioOriginal: 0, enPromocion: false, img: "Imagenes/gemini.png" },
+            { id: 403, categoria: 'otros', activo: true, orden: 3, nombre: "3 Meses gemini pro", modelo: "Gemini AI PRO", precio: 100, precioOriginal: 150, enPromocion: true, img: "Imagenes/gemini.png" },
+            { id: 404, categoria: 'otros', activo: true, orden: 4, nombre: "1 año gemini pro", modelo: "Gemini AI PRO", precio: 200, precioOriginal: 500, enPromocion: true, img: "Imagenes/gemini.png" },
             { id: 405, categoria: 'otros', activo: true, orden: 5, nombre: "Cadena Cubana", modelo: "Chapa Oro 18k", precio: 600, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=800" },
             { id: 406, categoria: 'otros', activo: true, orden: 6, nombre: "Anillo Signet", modelo: "Acero Inoxidable", precio: 250, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=800" },
             { id: 407, categoria: 'otros', activo: true, orden: 7, nombre: "Calcetines VP", modelo: "Pack de 3", precio: 150, precioOriginal: 0, enPromocion: false, img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?q=80&w=800" },
