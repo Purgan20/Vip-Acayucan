@@ -184,7 +184,10 @@ body.modal-open {
 /* Enlace de teléfono en ticker */
 .ticker-phone {
     color: #fff;
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--gold-primary);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
     background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -194,6 +197,7 @@ body.modal-open {
     border-radius: 4px;
     position: relative;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .ticker-phone::after {
@@ -202,8 +206,10 @@ body.modal-open {
 }
 
 .ticker-phone:hover, .ticker-phone:active {
-    filter: brightness(1.2);
-    text-decoration: underline;
+    filter: brightness(1.3);
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--gold-light);
+    transform: scale(1.05);
 }
 
 .ticker-control {
@@ -1169,18 +1175,68 @@ header {
 
 /* Toggle Pago */
 .toggle-pago { 
-    display: flex; background: #1a1a1a; border-radius: 15px; padding: 4px; 
-    border: 1px solid #333; 
+    display: flex; 
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); 
+    border-radius: 15px; 
+    padding: 5px; 
+    border: 1px solid rgba(212, 175, 55, 0.3); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
 }
+
+.toggle-pago::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.toggle-pago:hover::before {
+    left: 100%;
+}
+
 .toggle-pago input { display: none; }
+
 .toggle-pago label { 
-    flex: 1; text-align: center; padding: 12px 0; font-size: 0.85rem; 
-    cursor: pointer; border-radius: 12px; margin: 0 !important; 
-    color: #888; transition: 0.2s; font-weight: 600; text-transform: none;
+    flex: 1; 
+    text-align: center; 
+    padding: 12px 0; 
+    font-size: 0.85rem; 
+    cursor: pointer; 
+    border-radius: 11px; 
+    margin: 0 !important; 
+    color: #999; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    font-weight: 600; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    border: 1px solid transparent;
 }
+
+.toggle-pago label:hover {
+    color: var(--gold-light);
+    transform: translateY(-1px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
 .toggle-pago input:checked + label { 
-    background: var(--gold-dark); color: black; font-weight: bold; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+    background: linear-gradient(135deg, #8a6e1f 0%, #c49a3c 50%, #d4af50 100%);
+    color: #000; 
+    font-weight: bold; 
+    box-shadow: 
+        0 3px 12px rgba(212, 175, 55, 0.35),
+        0 2px 6px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: scale(1.01);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* --- FOOTER MODAL (STICKY) --- */
@@ -1317,8 +1373,11 @@ header {
 /* ESPACIO FINAL Y FOOTER GENERAL */
 .espacio-final { height: 100px; }
 footer { 
-    margin-top: 0; padding: 60px 20px; background: #000; 
-    border-top: 1px solid #222; text-align: center; 
+    margin-top: 0; 
+    padding: 60px 20px; 
+    background: #000; 
+    border-top: 1px solid #222; 
+    text-align: center; 
 }
 .footer-logo { color: var(--gold-dark); font-weight: 900; font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 10px; font-family: 'Cinzel', serif; }
 .footer-small { font-size: 0.75rem; color: #444; margin-top: 10px; }
@@ -1373,7 +1432,7 @@ footer {
 
 /* Móviles medianos - iPhone Plus, Pixel (max 600px) */
 @media (max-width: 600px) {
-    body { padding-top: 85px; }
+    body { padding-top: 105px; }
     nav { padding: 12px 10px; }
     
     .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 8px; gap: 10px; }
@@ -1412,7 +1471,7 @@ footer {
 
 /* Móviles pequeños - iPhone XS, SE, mini (max 420px) */
 @media (max-width: 420px) {
-    body { padding-top: 80px; }
+    body { padding-top: 100px; }
     nav { padding: 12px 8px; }
     
     .grid-productos { grid-template-columns: 1fr; padding: 10px; gap: 14px; }
@@ -1482,7 +1541,7 @@ footer {
 
 /* Móviles muy pequeños - iPhone SE 1ra gen, Galaxy S5 (max 375px) */
 @media (max-width: 375px) {
-    body { padding-top: 75px; }
+    body { padding-top: 95px; }
     nav { padding: 11px 6px; }
     
     .nav-content { gap: 7px; padding: 0 4px; }
@@ -1568,7 +1627,7 @@ footer {
 
 /* Móviles ultra pequeños - iPhone SE 1gen, Galaxy Mini (max 320px) */
 @media (max-width: 320px) {
-    body { padding-top: 70px; }
+    body { padding-top: 90px; }
     nav { padding: 10px 4px; }
     
     .nav-content { gap: 5px; padding: 0 3px; }
@@ -1742,6 +1801,7 @@ footer {
     right: -4px;
     background: var(--rojo-oferta);
     color: white;
+
     min-width: 20px;
     height: 20px;
     display: flex;
@@ -1787,7 +1847,7 @@ footer {
     /* use flex column so footer stays pinned */
     display: flex;
     flex-direction: column;
-    overflow: visible;
+    overflow: hidden; /* Cambiar a hidden para contener el footer */
     z-index: 4050;
     transform: translateY(16px) scale(0.96);
     opacity: 0;
@@ -1805,7 +1865,7 @@ footer {
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 50px;
-    max-height: 200px;
+    max-height: 250px; /* Altura máxima más baja para que el footer siempre sea visible */
 }
 
 /* Scrollbar styling for floating cart - MÁS VISIBLE */
@@ -2013,7 +2073,9 @@ footer {
     border-top: 1px solid rgba(212, 175, 55, 0.25);
     background: rgba(15, 15, 15, 0.98);
     flex-shrink: 0;
-    position: relative;
+    position: sticky; /* Mantenerlo sticky para que siempre esté visible */
+    bottom: 0;
+    z-index: 10;
     pointer-events: auto;
     border-radius: 0 0 18px 18px;
 }
@@ -2034,26 +2096,26 @@ footer {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    background: linear-gradient(135deg, #c49a3c, #8a6e1f);
     color: black;
     padding: 14px 20px;
     border-radius: 40px;
     border: none;
     cursor: pointer;
     flex: 1;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 1rem;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s ease;
     box-shadow: 
-        0 6px 24px rgba(212, 175, 55, 0.35),
-        0 3px 12px rgba(0, 0, 0, 0.3),
-        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        0 4px 16px rgba(212, 175, 55, 0.28),
+        0 2px 8px rgba(0, 0, 0, 0.25),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     min-height: 48px;
-    text-shadow: 0 1px 1px rgba(255,255,255,0.2);
+    text-shadow: 0 1px 1px rgba(255,255,255,0.15);
     letter-spacing: 0.5px;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
@@ -2082,12 +2144,12 @@ footer {
     }
     
     .btn-primary:hover {
-        transform: translateY(-3px) scale(1.02);
-        filter: brightness(1.15);
+        transform: translateY(-3px);
+        filter: brightness(1.1);
         box-shadow: 
-            0 12px 36px rgba(212, 175, 55, 0.5),
-            0 5px 16px rgba(0, 0, 0, 0.4),
-            inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            0 8px 24px rgba(212, 175, 55, 0.35),
+            0 4px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 2px rgba(255, 255, 255, 0.25);
     }
 }
 
@@ -2146,7 +2208,7 @@ footer {
     color: #ffd54f;
 }
 
-/* Order now button in cart view */
+/* Order now button in cart view - FLOTANTE CENTRADO */
 .btn-order-now {
     position: fixed;
     bottom: 20px;
@@ -2166,15 +2228,16 @@ footer {
         inset 0 -2px 6px rgba(0, 0, 0, 0.15),
         0 0 0 3px rgba(37, 211, 102, 0.15);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 3500;
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     letter-spacing: 1px;
     text-transform: uppercase;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-    position: relative;
     overflow: hidden;
+    width: auto;
+    max-width: calc(100% - 40px);
 }
 
 .btn-order-now::before {
@@ -2221,6 +2284,26 @@ footer {
         0 4px 16px rgba(37, 211, 102, 0.35),
         0 2px 8px rgba(0, 0, 0, 0.4),
         inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .btn-order-now {
+        bottom: 15px;
+        padding: 16px 40px;
+        font-size: 1rem;
+        max-width: calc(100% - 30px);
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-order-now {
+        bottom: 10px;
+        padding: 14px 32px;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        max-width: calc(100% - 20px);
+    }
 }
 
 /* Enable smooth touch scrolling on recommendations */
@@ -2297,21 +2380,20 @@ footer {
 
 /* Botón Hacer Pedido - Estilo Verde/Blanco WhatsApp */
 .boton-whatsapp-modal {
-    background: linear-gradient(135deg, #30E768, #1FD657);
+    background: linear-gradient(135deg, #2bcc5e, #22a84e);
     color: #fff;
     border: none;
     padding: 15px 35px;
     border-radius: 50px;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s ease;
     box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        0 4px 12px rgba(0, 0, 0, 0.3),
-        0 12px 32px rgba(31, 214, 87, 0.45),
-        inset 0 1px 0 rgba(255,255,255,0.25),
-        inset 0 -2px 8px rgba(0,0,0,0.15);
+        0 5px 16px rgba(0, 0, 0, 0.3),
+        0 3px 8px rgba(0, 0, 0, 0.2),
+        0 8px 24px rgba(34, 168, 78, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -2343,13 +2425,13 @@ footer {
     }
     
     .boton-whatsapp-modal:hover {
-        transform: translateY(-4px) scale(1.03);
-        filter: brightness(1.12);
+        transform: translateY(-3px);
+        filter: brightness(1.1);
         box-shadow: 
-            0 12px 28px rgba(0, 0, 0, 0.5),
-            0 6px 16px rgba(0, 0, 0, 0.4),
-            0 16px 42px rgba(31, 214, 87, 0.6),
-            inset 0 1px 0 rgba(255,255,255,0.3);
+            0 8px 22px rgba(0, 0, 0, 0.35),
+            0 4px 10px rgba(0, 0, 0, 0.3),
+            0 12px 32px rgba(34, 168, 78, 0.4),
+            inset 0 1px 0 rgba(255,255,255,0.25);
     }
 }
 
@@ -2365,21 +2447,20 @@ footer {
 
 /* Botón Quitar del Carrito - Estilo Rojo Sombreado */
 .btn-quitar-carrito {
-    background: linear-gradient(135deg, #FF4850, #E63946);
+    background: linear-gradient(135deg, #e85a60, #d04651);
     color: #fff;
     border: none;
     padding: 15px 35px;
     border-radius: 50px;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s ease;
     box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        0 4px 12px rgba(0, 0, 0, 0.3),
-        0 12px 32px rgba(230, 57, 70, 0.45),
-        inset 0 1px 0 rgba(255,255,255,0.25),
-        inset 0 -2px 8px rgba(0,0,0,0.15);
+        0 5px 16px rgba(0, 0, 0, 0.3),
+        0 3px 8px rgba(0, 0, 0, 0.2),
+        0 8px 24px rgba(208, 70, 81, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     position: relative;
     overflow: hidden;
     display: flex;
